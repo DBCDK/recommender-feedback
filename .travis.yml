@@ -1,0 +1,16 @@
+language: node_js
+dist: trusty
+sudo: false
+node_js:
+  - "6"
+branches:
+  only:
+  - master
+before_install:
+  - cd src
+before_install:
+  - cd src
+  - cp environments/travis.env current.env
+  - . ./current.env
+script:
+  - npm test --silent
