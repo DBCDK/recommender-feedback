@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-const tcp = require('__/tcp')
-const hostname = require('os').hostname
+const tcp = require('__/tcp');
+const hostname = require('os').hostname;
 
 // This is the only place to read process.env settings.  The point is that the
 // servive should use the configuration like
@@ -19,17 +19,19 @@ const hostname = require('os').hostname
 //     mymodule(port)
 
 function Defaults () {
-  const environment = process.env.NODE_ENV || 'development'
-  const port = tcp.normalizePort(process.env.PORT) || 3000
-  const niceHostName = hostname().replace('.domain_not_set.invalid', '')
+  const environment = process.env.NODE_ENV || 'development';
+  const logLevel = process.env.LOG_LEVEL || 'INFO';
+  const port = tcp.normalizePort(process.env.PORT) || 3000;
+  const niceHostName = hostname().replace('.domain_not_set.invalid', '');
   return {
     environment,
+    logLevel,
     hostname: niceHostName,
     port
-  }
+  };
 }
 
-const defaults = new Defaults()
+const defaults = new Defaults();
 
 /*
  * Configuration groups for various modules.
@@ -40,4 +42,11 @@ exports.server = {
   port: defaults.port,
   hostname: 'service.example.com',
   testTimeoutMs: 20 * 1000
-}
+};
+
+exports.logger = {
+  environment: defaults.environment,
+  level: defaults.logLevel,
+  pretty: defaults.prettyLog,
+  hostname: defaults.hostname
+};

@@ -1,10 +1,13 @@
 { "build_systems":
   [ { "name": "recommender-feedback"
-    , "cmd": ["npm","run","test","--silent"]
+    , "cmd": ["npm","run","test"]
     , "file_regex": "^([^\n:]+):([0-9]+):([0-9]+): (.*)$"
     , "working_dir": "${project_path}/src"
     , "variants":
-      [ { "name": "unittest"
+      [ { "name": "ost"
+        , "cmd": ["ls"]
+        }
+      , { "name": "unittest"
         , "cmd": ["npm","run","unittest","--silent"]
         }
       , { "name": "coverage"
@@ -19,11 +22,11 @@
   ]
 , "SublimeLinter":
   { "linters":
-    { "standard": { "@disable": false }
+    { "eslint": { "@disable": false }
     }
   }
 , "folders":
-  [ { "path": "."
+  [ { "path": ".."
     , "folder_exclude_patterns":
       [ "src/node_modules"
       , "src/coverage"

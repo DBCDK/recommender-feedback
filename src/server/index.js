@@ -1,32 +1,38 @@
-'use strict'
+'use strict';
 
 /*
  * Configuration
  */
-const config = require('server/config')
+const config = require('server/config');
+
+
+/*
+ * Logging.
+ */
+const logger = require('__/logging')(config.logger);
 
 /*
  * Web server.
  */
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
 /*
  * Securing headers.
  */
-const helmet = require('helmet')
-app.use(helmet())
+const helmet = require('helmet');
+app.use(helmet());
 
 /*
  * All request bodies must be JSON.
  */
-const parser = require('body-parser')
+const parser = require('body-parser');
 app.use(parser.json({
   // Always assume JSON.
   type: '*/*',
   // Allow lone values.
   strict: false
-}))
+}));
 
 /*
  * Administrative API
@@ -39,20 +45,20 @@ app.get('/status', (req, res) => {
     hostname: req.hostname,
     address: req.ip,
     protocol: req.protocol
-  })
-})
+  });
+});
 
 app.get('/pid', (req, res) => {
-  res.type('text/plain')
-  res.send(process.pid.toString())
-})
+  res.type('text/plain');
+  res.send(process.pid.toString());
+});
 
 app.get('/crash', (req, res, next) => { // eslint-disable-line no-unused-vars
   if (config.server.environment !== 'production') {
-    throw new Error('Deliberate water landing')
+    throw new Error('Deliberate water landing');
   }
-  next()
-})
+  next();
+});
 
 /*
  * [Insert API routes here.]
@@ -67,8 +73,8 @@ app.use((req, res, next) => {
     status: 404,
     title: 'Unknown endpoint',
     meta: {resource: req.path}
-  })
-})
+  });
+});
 
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
@@ -77,11 +83,12 @@ app.use((err, req, res, next) => {
       title: 'Malformed body',
       detail: 'JSON syntax error',
       meta: {body: err.body}
-    })
-  } else {
-    next(err)
+    });
   }
-})
+  else {
+    next(err);
+  }
+});
 
 /*
  * General error handler.
@@ -96,30 +103,30 @@ app.use((err, req, res, next) => {
  * from err are included.
  */
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-  err.status = err.status || 500
+  err.status = err.status || 500;
   let returnedError = {
     status: err.status,
     code: err.code || err.status.toString(),
     title: err.title || (err.message || 'Unknown error')
-  }
+  };
   if (err.detail) {
-    returnedError.detail = err.detail
+    returnedError.detail = err.detail;
   }
   if (err.meta) {
-    returnedError.meta = err.meta
+    returnedError.meta = err.meta;
   }
-  res.status(returnedError.status)
+  res.status(returnedError.status);
   if (config.server.environment !== 'production') {
     // More information for non-produciton.
-    Object.assign(returnedError, err)
+    Object.assign(returnedError, err);
     if (err.stack) {
-      returnedError.stack = err.stack
+      returnedError.stack = err.stack;
     }
   }
   if (returnedError.status >= 500) {
-    console.log(returnedError)
+    logger.log.error(returnedError);
   }
-  res.json({errors: [returnedError]})
-})
+  res.json({errors: [returnedError]});
+});
 
-module.exports = app
+module.exports = app;

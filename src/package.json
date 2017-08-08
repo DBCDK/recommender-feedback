@@ -14,9 +14,10 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
+    "eslint": "^4.4.1",
     "mocha": "^3.4.2",
     "nsrun": "^1.1.2",
-    "standard": "^10.0.2",
+    "sinon": "^3.1.0",
     "supertest": "^3.0.0"
   },
   "dependencies": {
@@ -26,7 +27,7 @@
   },
   "main": "app.js",
   "scripts": {
-    "lint": "standard",
+    "lint": "eslint *.js server/**/*.js lib/**/*.js",
     "unittest": "mocha server/**/*_test.js lib/**/*_test.js",
     "postinstall": "./setup-node-env.sh",
     "test": "nsrun lint && nsrun unittest",

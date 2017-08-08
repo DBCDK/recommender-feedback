@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
 
 function normalizePort (str) {
-  const port = parseInt(str, 10)
+  const port = parseInt(str, 10);
   if (isNaN(port) || port <= 0) {
-    return null
+    return null;
   }
-  return port
+  return port;
 }
-exports.normalizePort = normalizePort
+exports.normalizePort = normalizePort;
