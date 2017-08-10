@@ -7,7 +7,7 @@ FROM docker.dbc.dk/dbc-stretch AS base
 #RUN groupadd --gid 1001 node \
 #  && useradd --uid 1001 --gid node --shell /bin/bash --create-home node
 
-
+# Packages needed to install NodeJS.
 ENV TMP_APT_PACKAGES \
     ca-certificates \
     curl \
@@ -16,6 +16,8 @@ ENV TMP_APT_PACKAGES \
     xz-utils
 
 RUN apt-install $TMP_APT_PACKAGES
+
+# The rest of this base image is taken from https://store.docker.com/images/node.
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
@@ -35,7 +37,7 @@ RUN set -ex \
   done
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 6.10.3
+ENV NODE_VERSION 8.0.0
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
@@ -67,4 +69,55 @@ RUN set -ex \
 RUN apt-get purge -y $TMP_APT_PACKAGES \
   && apt-get autoremove --purge -y
 
-CMD [ "node" ]
+ENV HOME=/home/app
+WORKDIR $HOME
+RUN chown isworker:isworker $HOME
+USER isworker
+
+CMD ["node", "-v"]
+##
+## Base image ends here.  All this should eventually be pushed into docker.dbc.dk.
+##
+
+
+##
+## Production dependencies
+##
+FROM base AS production-dependencies
+COPY src/package.json src/setup-node-env.sh ./
+RUN touch config.js && \
+    mkdir server lib && \
+    npm set progress=false && \
+    npm config set depth 0 && \
+    npm install --only=production
+
+##
+## Test packages
+##
+FROM production-dependencies AS test-base
+USER root
+RUN apt-install python make g++
+USER isworker
+
+##
+## Test dependencies
+##
+FROM test-base AS test-dependencies
+RUN npm set progress=false && \
+    npm config set depth 0 && \
+    npm install
+
+##
+## Test
+##
+FROM test-dependencies AS test
+COPY src/ ./
+RUN npm test
+
+##
+## Production
+##
+FROM production-dependencies AS production
+COPY src/ ./
+EXPOSE 3000
+CMD ["npm", "start"]

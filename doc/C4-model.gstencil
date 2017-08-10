@@ -22,7 +22,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-08-07 18:24:15 +0000</string>
+	<string>2017-08-10 09:02:30 +0000</string>
 	<key>Modifier</key>
 	<string>Jens Peter Secher</string>
 	<key>NotesVisible</key>
@@ -7161,41 +7161,41 @@ or title \
 						BAtzdHJlYW10eXBlZIHoA4QBQISE
 						hBJOU0F0dHJpYnV0ZWRTdHJpbmcA
 						hIQITlNPYmplY3QAhZKEhIQITlNT
-						dHJpbmcBlIQBKzZEYXRhYmFzZQpb
-						UG9zdGdyZVNRTF0KClN0b3JlcyBj
-						b21tdW5pdHktdXNlciBmZWVkYmFj
-						ay6GhAJpSQEJkoSEhAxOU0RpY3Rp
-						b25hcnkAlIQBaQKShJaWEE5TUGFy
-						YWdyYXBoU3R5bGWGkoSEhBdOU011
-						dGFibGVQYXJhZ3JhcGhTdHlsZQCE
-						hBBOU1BhcmFncmFwaFN0eWxlAJSE
-						BENDQFMCAISEhAdOU0FycmF5AJSZ
-						DJKEhIQJTlNUZXh0VGFiAJSEAkNm
-						AByGkoSgnwA4hpKEoJ8AVIaShKCf
-						AHCGkoSgnwCBjACGkoSgnwCBqACG
-						koSgnwCBxACGkoSgnwCB4ACGkoSg
-						nwCB/ACGkoSgnwCBGAGGkoSgnwCB
-						NAGGkoSgnwCBUAGGhgCGkoSWlgZO
-						U0ZvbnSGkoSEhAZOU0ZvbnQelJks
-						hAVbNDRjXQYAAAAiAAAA//5UAHIA
-						ZQBiAHUAYwBoAGUAdABNAFMALQBC
-						AG8AbABkAAAAhAFmDIQBYwCjAaMA
-						owCGhpcCDJKEmJkDkoSWlgdOU0Nv
-						bG9yhpKEhIQHTlNDb2xvcgCUowGE
-						BGZmZmaDzczMPoPNzMw+g83MzD4B
-						hpKZkoSbnAIAhJ6ZDJKfkqGSopKj
-						kqSSpZKmkqeSqJKpkqqSq4YAhpKs
-						koSumSyhBgAAACIAAAD//lQAcgBl
-						AGIAdQBjAGgAZQB0AE0AUwAtAEIA
-						bwBsAGQAAACiCqMAowGjAKMAhoaX
-						AwKShJiZApKZkoSbnAIAhJ6ZDJKf
-						kqGSopKjkqSSpZKmkqeSqJKpkqqS
-						q4YAhpKskrWGlwQfkoSYmQKSmZKE
-						m5wCAISemQySn5KhkqKSo5KkkqWS
-						ppKnkqiSqZKqkquGAIaSrJKErpkg
-						hAVbMzJjXQYAAAAYAAAA//5UAHIA
-						ZQBiAHUAYwBoAGUAdABNAFMAogyj
-						AKMBowCjAIaGhg==
+						dHJpbmcBlIQBKz1EYXRhYmFzZQpb
+						UG9zdGdyZVNRTC9Eb2NrZXJdCgpT
+						dG9yZXMgY29tbXVuaXR5LXVzZXIg
+						ZmVlZGJhY2suhoQCaUkBCZKEhIQM
+						TlNEaWN0aW9uYXJ5AJSEAWkCkoSW
+						lhBOU1BhcmFncmFwaFN0eWxlhpKE
+						hIQXTlNNdXRhYmxlUGFyYWdyYXBo
+						U3R5bGUAhIQQTlNQYXJhZ3JhcGhT
+						dHlsZQCUhARDQ0BTAgCEhIQHTlNB
+						cnJheQCUmQyShISECU5TVGV4dFRh
+						YgCUhAJDZgAchpKEoJ8AOIaShKCf
+						AFSGkoSgnwBwhpKEoJ8AgYwAhpKE
+						oJ8AgagAhpKEoJ8AgcQAhpKEoJ8A
+						geAAhpKEoJ8AgfwAhpKEoJ8AgRgB
+						hpKEoJ8AgTQBhpKEoJ8AgVABhoYA
+						hpKElpYGTlNGb250hpKEhIQGTlNG
+						b250HpSZLIQFWzQ0Y10GAAAAIgAA
+						AP/+VAByAGUAYgB1AGMAaABlAHQA
+						TQBTAC0AQgBvAGwAZAAAAIQBZgyE
+						AWMAowGjAKMAhoaXAhOShJiZA5KE
+						lpYHTlNDb2xvcoaShISEB05TQ29s
+						b3IAlKMBhARmZmZmg83MzD6DzczM
+						PoPNzMw+AYaSmZKEm5wCAISemQyS
+						n5KhkqKSo5KkkqWSppKnkqiSqZKq
+						kquGAIaSrJKErpksoQYAAAAiAAAA
+						//5UAHIAZQBiAHUAYwBoAGUAdABN
+						AFMALQBCAG8AbABkAAAAogqjAKMB
+						owCjAIaGlwMCkoSYmQKSmZKEm5wC
+						AISemQySn5KhkqKSo5KkkqWSppKn
+						kqiSqZKqkquGAIaSrJK1hpcEH5KE
+						mJkCkpmShJucAgCEnpkMkp+SoZKi
+						kqOSpJKlkqaSp5KokqmSqpKrhgCG
+						kqyShK6ZIIQFWzMyY10GAAAAGAAA
+						AP/+VAByAGUAYgB1AGMAaABlAHQA
+						TQBTAKIMowCjAaMAowCGhoY=
 						</data>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
@@ -7207,7 +7207,7 @@ or title \
 \f0\b\fs24 \cf0 Database\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\fs20 \cf2 [PostgreSQL]\cf0 \
+\fs20 \cf2 [PostgreSQL/Docker]\cf0 \
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
@@ -9399,6 +9399,50 @@ internal website\
 					</dict>
 					<key>Text</key>
 					<dict>
+						<key>RTFD</key>
+						<data>
+						BAtzdHJlYW10eXBlZIHoA4QBQISE
+						hBJOU0F0dHJpYnV0ZWRTdHJpbmcA
+						hIQITlNPYmplY3QAhZKEhIQITlNT
+						dHJpbmcBlIQBK3NSZWNvbW1lbmRl
+						ciBGZWVkYmFjawpXZWJzZXJ2ZXIK
+						W05vZGVKUy9Eb2NrZXJdCgpQcmVz
+						ZW50IHJlY29tbWVuZGF0aW9ucyBm
+						b3IgdXNlci1zZWxlY3RlZCBib29r
+						cyAmIGNvbGxlY3QgZmVlZGJhY2su
+						hoQCaUkBH5KEhIQMTlNEaWN0aW9u
+						YXJ5AJSEAWkCkoSWlhBOU1BhcmFn
+						cmFwaFN0eWxlhpKEhIQXTlNNdXRh
+						YmxlUGFyYWdyYXBoU3R5bGUAhIQQ
+						TlNQYXJhZ3JhcGhTdHlsZQCUhARD
+						Q0BTAgCEhIQHTlNBcnJheQCUmQyS
+						hISECU5TVGV4dFRhYgCUhAJDZgAc
+						hpKEoJ8AOIaShKCfAFSGkoSgnwBw
+						hpKEoJ8AgYwAhpKEoJ8AgagAhpKE
+						oJ8AgcQAhpKEoJ8AgeAAhpKEoJ8A
+						gfwAhpKEoJ8AgRgBhpKEoJ8AgTQB
+						hpKEoJ8AgVABhoYAhpKElpYGTlNG
+						b250hpKEhIQGTlNGb250HpSZLIQF
+						WzQ0Y10GAAAAIgAAAP/+VAByAGUA
+						YgB1AGMAaABlAHQATQBTAC0AQgBv
+						AGwAZAAAAIQBZgyEAWMAowGjAKMA
+						hoaXAg+ShJiZA5KElpYHTlNDb2xv
+						coaShISEB05TQ29sb3IAlKMBhARm
+						ZmZmg83MzD6DzczMPoPNzMw+AYaS
+						mZKEm5wCAISemQySn5KhkqKSo5Kk
+						kqWSppKnkqiSqZKqkquGAIaSrJKE
+						rpksoQYAAAAiAAAA//5UAHIAZQBi
+						AHUAYwBoAGUAdABNAFMALQBCAG8A
+						bABkAAAAogqjAKMBowCjAIaGlwMC
+						koSYmQKSmZKEm5wCAISemQySn5Kh
+						kqKSo5KkkqWSppKnkqiSqZKqkquG
+						AIaSrJK1hpcEQ5KEmJkCkpmShJuc
+						AgCEnpkMkp+SoZKikqOSpJKlkqaS
+						p5KokqmSqpKrhgCGkqyShK6ZIIQF
+						WzMyY10GAAAAGAAAAP/+VAByAGUA
+						YgB1AGMAaABlAHQATQBTAKIMowCj
+						AaMAowCGhoY=
+						</data>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
 {\fonttbl\f0\fnil\fcharset0 TrebuchetMS;}
@@ -9410,7 +9454,7 @@ internal website\
 Webserver\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\fs20 \cf2 [NodeJS]\cf0 \
+\fs20 \cf2 [NodeJS/Docker]\cf0 \
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
@@ -9585,6 +9629,50 @@ system boundary}</string>
 			<string>1 in = 1 in</string>
 			<key>GraphicsList</key>
 			<array>
+				<dict>
+					<key>Bounds</key>
+					<string>{{-5.5, 643.5}, {587, 30}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FitText</key>
+					<string>YES</string>
+					<key>Flow</key>
+					<string>Resize</string>
+					<key>ID</key>
+					<integer>3353</integer>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>Text</key>
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\deftab720
+\pard\pardeftab720\qc\partightenfactor0
+
+\f0\fs32 \cf0 See {\field{\*\fldinst{HYPERLINK "https://github.com/DBCDK/dbc-ufo/blob/boyscouting/docs/architecture.pdf"}}{\fldrslt https://github.com/DBCDK/dbc-ufo/blob/boyscouting/docs/architecture.pdf}}}</string>
+					</dict>
+					<key>Wrap</key>
+					<string>NO</string>
+				</dict>
 				<dict>
 					<key>Bounds</key>
 					<string>{{14.75, 561.375}, {385, 37}}</string>
@@ -9851,11 +9939,11 @@ system boundary}</string>
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>0.6</string>
+								<real>0.59999999999999998</real>
 								<key>g</key>
-								<string>0.6</string>
+								<real>0.59999999999999998</real>
 								<key>r</key>
-								<string>0.6</string>
+								<real>0.59999999999999998</real>
 							</dict>
 							<key>CornerRadius</key>
 							<real>9</real>
@@ -9864,30 +9952,31 @@ system boundary}</string>
 					<key>Text</key>
 					<dict>
 						<key>Text</key>
-						<string>{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf570
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
 {\fonttbl\f0\fnil\fcharset0 TrebuchetMS;}
 {\colortbl;\red255\green255\blue255;\red102\green102\blue102;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
+{\*\expandedcolortbl;;\csgenericrgb\c40000\c40000\c40000;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
 \f0\b\fs24 \cf0 Component Name\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
 \fs20 \cf2 [Component: Technical Details of Component]\cf0 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
 \b0\fs18 \cf0 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
 \fs20 \cf0 Description of functionality component provides.}</string>
 						<key>VerticalPad</key>
-						<integer>10</integer>
+						<real>10</real>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{107.125, 312.75}, {200.25, 139.5}}</string>
+					<string>{{107.125, 23.625}, {200.25, 428.625}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -9920,11 +10009,11 @@ system boundary}</string>
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>0.6</string>
+								<real>0.59999999999999998</real>
 								<key>g</key>
-								<string>0.6</string>
+								<real>0.59999999999999998</real>
 								<key>r</key>
-								<string>0.6</string>
+								<real>0.59999999999999998</real>
 							</dict>
 							<key>CornerRadius</key>
 							<real>9</real>
@@ -9934,19 +10023,19 @@ system boundary}</string>
 					</dict>
 					<key>Text</key>
 					<dict>
-						<key>Align</key>
-						<integer>0</integer>
 						<key>Pad</key>
-						<integer>12</integer>
+						<real>12</real>
 						<key>Text</key>
-						<string>{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf570
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
 {\fonttbl\f0\fnil\fcharset0 TrebuchetMS;}
-{\colortbl;\red255\green255\blue255;\red153\green153\blue153;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\f0\b\fs24 \cf2 Container or Component Name}</string>
+\f0\b\fs24 \cf0 Recommender Feedback\
+Webserver}</string>
 						<key>VerticalPad</key>
-						<integer>12</integer>
+						<real>12</real>
 					</dict>
 				</dict>
 			</array>
@@ -10030,7 +10119,7 @@ Created by: Dennis Laumen</string>
 	<key>WindowInfo</key>
 	<dict>
 		<key>CurrentSheet</key>
-		<integer>0</integer>
+		<integer>1</integer>
 		<key>Expanded_Canvases</key>
 		<array>
 			<string>Context</string>
