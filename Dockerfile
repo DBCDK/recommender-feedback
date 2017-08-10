@@ -3,10 +3,6 @@
 ##
 FROM docker.dbc.dk/dbc-stretch AS base
 
-## Instead of the below, use the existing isworker user/group.
-#RUN groupadd --gid 1001 node \
-#  && useradd --uid 1001 --gid node --shell /bin/bash --create-home node
-
 # Packages needed to install NodeJS.
 ENV TMP_APT_PACKAGES \
     ca-certificates \
@@ -78,7 +74,7 @@ CMD ["node", "-v"]
 ##
 ## Base image ends here.  All this should eventually be pushed into docker.dbc.dk.
 ##
-
+## ----------------------------------------------------------------------------
 
 ##
 ## Production dependencies
