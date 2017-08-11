@@ -1,0 +1,19 @@
+version: "2"
+services:
+  integration:
+    build: .
+    command:
+  server:
+    build: ../..
+    command: npm start
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgres://isworker@database/feedback
+  database:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: feedback
+      POSTGRES_DB: feedback

@@ -2,6 +2,7 @@
 
 const tcp = require('__/tcp');
 const hostname = require('os').hostname;
+const knexfile = require('./knexfile');
 
 // This is the only place to read process.env settings.  The point is that the
 // servive should use the configuration like
@@ -49,3 +50,5 @@ exports.logger = {
   pretty: defaults.prettyLog,
   hostname: defaults.hostname
 };
+
+exports.db = knexfile[defaults.environment];

@@ -3,7 +3,7 @@
   "description": "Recommender Feedback web server",
   "version": "0.1.0",
   "homepage": "https://github.com/jpsecher/node-service#readme",
-  "license": "GPL3",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DBCDK/recommender-feedback.git"
@@ -23,7 +23,9 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "helmet": "^3.6.1"
+    "helmet": "^3.6.1",
+    "knex": "^0.13.0",
+    "pg": "^7.1.0"
   },
   "main": "app.js",
   "scripts": {
@@ -31,6 +33,7 @@
     "unittest": "mocha server/**/*_test.js lib/**/*_test.js",
     "postinstall": "./setup-node-env.sh",
     "test": "nsrun lint && nsrun unittest",
+    "dbtest": ". ./current.env && mocha server/**/*_test-db.js",
     "start": "node app.js"
   }
 }

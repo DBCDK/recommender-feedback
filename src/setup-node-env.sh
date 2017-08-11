@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-log_() { echo "[node-service] $@"; }
+log_() { echo "[setup-node-env] $@"; }
 
 log_ "--> Setting up symlinks"
 cd node_modules
