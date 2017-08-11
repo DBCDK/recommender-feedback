@@ -19,15 +19,13 @@ const hostname = require('os').hostname;
 //     mymodule(port)
 
 function Defaults () {
-  const environment = process.env.NODE_ENV || 'development';
-  const logLevel = process.env.LOG_LEVEL || 'INFO';
-  const port = tcp.normalizePort(process.env.PORT) || 3000;
-  const niceHostName = hostname().replace('.domain_not_set.invalid', '');
   return {
-    environment,
-    logLevel,
-    hostname: niceHostName,
-    port
+    environment: process.env.NODE_ENV || 'development',
+    port: tcp.normalizePort(process.env.PORT) || 3000,
+    prettyLog: process.env.PRETTY_LOG || 1,
+    logLevel: process.env.LOG_LEVEL || 'INFO',
+    logServiceErrors: process.env.LOG_SERVICE_ERRORS || 1,
+    hostname: hostname().replace('.domain_not_set.invalid', '')
   };
 }
 
@@ -39,8 +37,9 @@ const defaults = new Defaults();
 
 exports.server = {
   environment: defaults.environment,
+  logServiceErrors: defaults.logServiceErrors,
   port: defaults.port,
-  hostname: 'service.example.com',
+  hostname: 'recommender-feedback.dbc.dk',
   testTimeoutMs: 20 * 1000
 };
 

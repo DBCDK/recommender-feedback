@@ -62,15 +62,12 @@ RUN set -ex \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 
-RUN apt-get purge -y $TMP_APT_PACKAGES \
-  && apt-get autoremove --purge -y
-
 ENV HOME=/home/app
 WORKDIR $HOME
 RUN chown isworker:isworker $HOME
 USER isworker
 
-CMD ["node", "-v"]
+CMD ["node", "--version"]
 ##
 ## Base image ends here.  All this should eventually be pushed into docker.dbc.dk.
 ##
@@ -85,7 +82,7 @@ RUN touch config.js && \
     mkdir server lib && \
     npm set progress=false && \
     npm config set depth 0 && \
-    npm install --only=production
+    npm install --quiet --only=production
 
 ##
 ## Test packages
@@ -101,7 +98,7 @@ USER isworker
 FROM test-base AS test-dependencies
 RUN npm set progress=false && \
     npm config set depth 0 && \
-    npm install
+    npm install --quiet
 
 ##
 ## Test
