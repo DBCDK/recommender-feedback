@@ -5,7 +5,6 @@
  */
 const config = require('server/config');
 
-
 /*
  * Logging.
  */
@@ -35,9 +34,8 @@ app.use(parser.json({
 }));
 
 /*
- * Administrative API
+ * Administrative API.
  */
-
 app.get('/status', (req, res) => {
   res.json({
     siteversion: require('../package').version,
@@ -61,11 +59,13 @@ app.get('/crash', (req, res, next) => { // eslint-disable-line no-unused-vars
 });
 
 /*
- * [Insert API routes here.]
+ * API routes.
  */
+const apiRoutes = require('server/api');
+app.use('/api', apiRoutes);
 
 /*
- * Error handlers
+ * Error handlers.
  */
 
 app.use((req, res, next) => {
