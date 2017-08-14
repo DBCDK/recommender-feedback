@@ -4,8 +4,8 @@ sudo: false
 node_js:
   - "8"
 before_install:
-  - cp env/travis.env srv/current.env
   - cd src
+  - cp ../env/travis.env current.env
   - . ./current.env
 script:
   - npm test --silent
