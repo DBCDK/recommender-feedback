@@ -1,14 +1,14 @@
 ##
 ## Base
 ##
-FROM debian:jessie as base
-COPY apt-install /usr/bin/apt-install
+FROM docker.dbc.dk/dbc-stretch AS base
 
 # Packages needed to install NodeJS.
 ENV TMP_APT_PACKAGES \
     ca-certificates \
     curl \
     dirmngr \
+    gpg \
     xz-utils
 
 RUN apt-install $TMP_APT_PACKAGES
@@ -64,8 +64,7 @@ RUN set -ex \
 
 ENV HOME=/home/app
 WORKDIR $HOME
-RUN useradd -ms /bin/bash isworker; \
-  chown isworker:isworker $HOME
+RUN chown isworker:isworker $HOME
 USER isworker
 
 CMD ["node"]
@@ -74,44 +73,15 @@ CMD ["node"]
 ##
 ## ----------------------------------------------------------------------------
 
-##
-## Production dependencies
-##
-FROM base AS production-dependencies
+USER root
+RUN apt-install python make g++
+USER isworker
 COPY package.json setup-node-env.sh ./
 RUN touch config.js && \
     mkdir server lib && \
     npm set progress=false && \
     npm config set depth 0 && \
-    npm install --quiet --only=production
-
-##
-## Test packages
-##
-FROM production-dependencies AS test-base
-USER root
-RUN apt-install python make g++
-USER isworker
-
-##
-## Test dependencies
-##
-FROM test-base AS test-dependencies
-RUN npm set progress=false && \
-    npm config set depth 0 && \
     npm install --quiet
-
-##
-## Test
-##
-FROM test-dependencies AS test
 COPY / ./
-RUN npm test
-
-##
-## Production
-##
-FROM production-dependencies AS production
-COPY / ./
-EXPOSE 3000
-CMD ["npm", "start"]
+COPY env/integration.env ./current.env
+RUN npm run integrationtest

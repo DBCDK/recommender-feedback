@@ -9,6 +9,7 @@ ENV TMP_APT_PACKAGES \
     ca-certificates \
     curl \
     dirmngr \
+    gpg \
     xz-utils
 
 RUN apt-install $TMP_APT_PACKAGES
@@ -64,8 +65,7 @@ RUN set -ex \
 
 ENV HOME=/home/app
 WORKDIR $HOME
-RUN useradd -ms /bin/bash isworker; \
-  chown isworker:isworker $HOME
+RUN chown isworker:isworker $HOME
 USER isworker
 
 CMD ["node"]
