@@ -5,7 +5,7 @@ node_js:
   - "8"
 before_install:
   - cd src
-  - cp ../env/travis.env current.env
+  - cp env/travis.env current.env
   - . ./current.env
 script:
   - npm test --silent

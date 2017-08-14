@@ -33,7 +33,7 @@
     "unittest": "mocha server/**/*_test.js lib/**/*_test.js",
     "postinstall": "./setup-node-env.sh",
     "test": "nsrun lint && nsrun unittest",
-    "dbtest": ". ./current.env && mocha server/**/*_test-db.js",
+    "integrationtest": ". ./current.env && mocha integration/**/*_test-db.js",
     "start": "node app.js"
   }
 }

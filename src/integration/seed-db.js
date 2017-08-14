@@ -13,6 +13,5 @@ exports.seed = knex => {
     })
     .catch(error => {
       throw error;
-    })
-    ;
+    });
 };

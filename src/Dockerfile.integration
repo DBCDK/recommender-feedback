@@ -33,7 +33,7 @@ RUN set -ex \
   done
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 8.0.0
+ENV NODE_VERSION 8.2.0
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
@@ -43,7 +43,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-ENV YARN_VERSION 0.24.4
+ENV YARN_VERSION 0.27.5
 
 RUN set -ex \
   && for key in \
@@ -67,50 +67,21 @@ WORKDIR $HOME
 RUN chown isworker:isworker $HOME
 USER isworker
 
-CMD ["node", "--version"]
+CMD ["node"]
 ##
 ## Base image ends here.  All this should eventually be pushed into docker.dbc.dk.
 ##
 ## ----------------------------------------------------------------------------
 
-##
-## Production dependencies
-##
-FROM base AS production-dependencies
-COPY src/package.json src/setup-node-env.sh ./
+USER root
+RUN apt-install python make g++
+USER isworker
+COPY package.json setup-node-env.sh ./
 RUN touch config.js && \
     mkdir server lib && \
     npm set progress=false && \
     npm config set depth 0 && \
-    npm install --quiet --only=production
-
-##
-## Test packages
-##
-FROM production-dependencies AS test-base
-USER root
-RUN apt-install python make g++
-USER isworker
-
-##
-## Test dependencies
-##
-FROM test-base AS test-dependencies
-RUN npm set progress=false && \
-    npm config set depth 0 && \
     npm install --quiet
-
-##
-## Test
-##
-FROM test-dependencies AS test
-COPY src/ ./
-RUN npm test
-
-##
-## Production
-##
-FROM production-dependencies AS production
-COPY src/ ./
-EXPOSE 3000
-CMD ["npm", "start"]
+COPY / ./
+COPY env/integration.env ./current.env
+RUN npm run integrationtest
