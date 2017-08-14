@@ -3,8 +3,8 @@
 /**
  * Database manipulation for use when testing.
  *
- * Use like this in *_test-db.js files:
- * const db = require('server/test-db')(knex);
+ * Use like this in *_test.js files:
+ * const db = require('test-db')(knex);
  */
 
 const constants = require('server/constants')();

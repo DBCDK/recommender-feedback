@@ -4,8 +4,7 @@
     "**/node_modules/**"
   ],
   "test": [
-    "**/*_test.js",
-    "**/*_test-db.js"
+    "**/*_test.js"
   ],
   "critics": {
     "lint": {"engine": "eslint"}

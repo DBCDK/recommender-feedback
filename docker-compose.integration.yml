@@ -5,8 +5,12 @@ services:
       context: src
       dockerfile: Dockerfile.integration
     depends_on:
-      - server
-  server:
+      - webapp
+    environment:
+      DB_HOST: database
+      DB_NAME: feedback
+      DB_USER: feedback
+  webapp:
     build: src
     ports:
       - "3000:3000"
@@ -16,8 +20,6 @@ services:
       DB_HOST: database
       DB_NAME: feedback
       DB_USER: feedback
-      DB_USER_PASSWORD: ""
-      DATABASE_URL: postgres://isworker@database/feedback
   database:
     image: postgres:9.6
     environment:
