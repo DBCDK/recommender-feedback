@@ -64,7 +64,8 @@ RUN set -ex \
 
 ENV HOME=/home/app
 WORKDIR $HOME
-RUN useradd -ms /bin/bash isworker; chown isworker:isworker $HOME
+RUN useradd -ms /bin/bash isworker; \
+  chown isworker:isworker $HOME
 USER isworker
 
 CMD ["node"]
@@ -84,4 +85,4 @@ RUN touch config.js && \
     npm install --quiet
 COPY / ./
 COPY env/integration.env ./current.env
-RUN npm run integrationtest
+CMD ["npm", "run", "integrationtest"]
