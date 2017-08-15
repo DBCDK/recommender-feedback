@@ -4,7 +4,7 @@
  * Database manipulation for use when testing.
  *
  * Use like this in *_test.js files:
- * const db = require('test-db')(knex);
+ * const dbUtil = require('cleanup-db')(knex);
  */
 
 const constants = require('server/constants')();

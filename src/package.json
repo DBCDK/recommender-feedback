@@ -30,7 +30,7 @@
   "main": "app.js",
   "scripts": {
     "lint": "eslint *.js server/**/*.js lib/**/*.js",
-    "unittest": "mocha server/**/*_test.js lib/**/*_test.js",
+    "unittest": "mocha lib/**/*_test.js",
     "postinstall": "./setup-node-env.sh",
     "test": "nsrun lint && nsrun unittest",
     "integrationtest": "mocha integration/**/*_test.js",
