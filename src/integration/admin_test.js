@@ -29,17 +29,7 @@ describe('Admin API', () => {
           expect(res.body).to.have.property('siteversion');
           expect(res.body.siteversion).to.equal('0.1.0');
         })
-        .end((err, res) => {
-          if (err) {
-            logger.log.error(err);
-            done(err);
-          }
-          else {
-            logger.log.info(res);
-            done();
-          }
-        }
-        );
+        .end(done);
     });
   });
   describe('/pid', () => {

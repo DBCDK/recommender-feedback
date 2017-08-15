@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   integration:
     build:
       context: src
@@ -12,6 +13,7 @@ services:
       DB_NAME: feedback
       DB_USER: feedback
       DB_USER_PASSWORD: ""
+
   webapp:
     build:
       context: src
@@ -21,14 +23,15 @@ services:
     depends_on:
       - database
     environment:
-      NODE_ENV: development
-      LOG_SERVICE_ERRORS: 1
+      NODE_ENV: ci
+      LOG_SERVICE_ERRORS: 0
       FIX_TIME_FOR_TESTING: 1
       LOG_LEVEL: "DEBUG"
       DB_HOST: database
       DB_NAME: feedback
       DB_USER: feedback
       DB_USER_PASSWORD: ""
+
   database:
     image: postgres:9.6
     environment:

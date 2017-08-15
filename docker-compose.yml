@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   webapp:
     build: src
     ports:
@@ -9,12 +10,12 @@ services:
     environment:
       NODE_ENV: development
       LOG_SERVICE_ERRORS: 1
-      FIX_TIME_FOR_TESTING: 1
       LOG_LEVEL: "DEBUG"
       DB_HOST: database
       DB_NAME: feedback
       DB_USER: feedback
       DB_USER_PASSWORD: ""
+
   database:
     image: postgres:9.6
     environment:
