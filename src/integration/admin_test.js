@@ -1,15 +1,24 @@
 /* eslint-env mocha */
 'use strict';
 
+const constants = require('./constants')();
+
 const expect = require('chai').expect;
 const request = require('supertest');
-const app = require('server');
+const config = require('server/config');
+const logger = require('__/logging')(config.logger);
 
-describe('service meta API', () => {
-  describe('status', () => {
+describe('Admin API', () => {
+  const webapp = request(`http://${constants.webAppServiceName}:${constants.port}`);
+  before(done => {
+    done();
+  });
+  beforeEach(done => {
+    done();
+  });
+  describe('/status', () => {
     it('should return a JSON structure with version and address', done => {
-      request(app)
-        .get('/status')
+      webapp.get('/status')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -20,13 +29,22 @@ describe('service meta API', () => {
           expect(res.body).to.have.property('siteversion');
           expect(res.body.siteversion).to.equal('0.1.0');
         })
-        .end(done);
+        .end((err, res) => {
+          if (err) {
+            logger.log.error(err);
+            done(err);
+          }
+          else {
+            logger.log.info(res);
+            done();
+          }
+        }
+        );
     });
   });
-  describe('pid', () => {
+  describe('/pid', () => {
     it('should return the process id', done => {
-      request(app)
-        .get('/pid')
+      webapp.get('/pid')
         .set('Accept', 'text/plain')
         .expect(200)
         .expect('Content-Type', /text/)
@@ -37,8 +55,7 @@ describe('service meta API', () => {
   describe('default handler should return error', () => {
     it('as JSON', done => {
       const endpoint = '/doesNotExist';
-      request(app)
-        .get(endpoint)
+      webapp.get(endpoint)
         .set('Accept', 'application/json')
         .expect(404)
         .expect(res => {
@@ -58,8 +75,7 @@ describe('service meta API', () => {
   });
   describe('server crashes', () => {
     it('should be catched', done => {
-      request(app)
-        .get('/crash')
+      webapp.get('/crash')
         .expect(500)
         .end(done);
     });

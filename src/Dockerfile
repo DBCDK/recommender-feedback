@@ -105,13 +105,20 @@ RUN npm set progress=false && \
 ## Test
 ##
 FROM test-dependencies AS test
-COPY / ./
+COPY .eslintrc.js app.js config.js knexfile.js ./
+COPY lib/ ./lib/
+COPY migrations/ ./migrations/
+COPY integration/ ./integration/
+COPY server/ ./server/
 RUN npm test
 
 ##
 ## Production
 ##
 FROM production-dependencies AS production
-COPY / ./
+COPY app.js config.js knexfile.js ./
+COPY lib/ ./lib/
+COPY migrations/ ./migrations/
+COPY server/ ./server/
 EXPOSE 3000
 CMD ["npm", "start"]

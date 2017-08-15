@@ -13,7 +13,7 @@ NC='\033[0m'
 # Kill and remove any running containers.
 cleanup () {
     docker-compose -p ${PROJECT_NAME} kill
-    docker-compose -p ${PROJECT_NAME} rm -f --all
+    docker-compose -p ${PROJECT_NAME} rm -f
 }
 
 # Catch unexpected failures, do cleanup and output an error message.

@@ -11,6 +11,19 @@ const config = require('server/config');
 const logger = require('__/logging')(config.logger);
 
 /*
+ * Make sure database is at most recent schema.
+ */
+const knex = require('knex')(config.db);
+knex.migrate.latest()
+  .then(() => {
+    logger.log.info('Database is now at latest version.');
+  })
+  .catch(error => {
+    logger.log.error(`Could not update database to latest version, terminating: ${error}`);
+    process.exit(1);
+  });
+
+/*
  * Web server.
  */
 const express = require('express');
@@ -42,7 +55,8 @@ app.get('/status', (req, res) => {
     apiversion: '1',
     hostname: req.hostname,
     address: req.ip,
-    protocol: req.protocol
+    protocol: req.protocol,
+    config
   });
 });
 

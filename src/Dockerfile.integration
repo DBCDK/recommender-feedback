@@ -83,6 +83,8 @@ RUN touch config.js && \
     npm set progress=false && \
     npm config set depth 0 && \
     npm install --quiet
-COPY / ./
-COPY env/integration.env ./current.env
+COPY config.js knexfile.js ./
+COPY lib/ ./lib/
+COPY integration/ ./integration/
+COPY server/constants.js ./server/constants.js
 CMD ["npm", "run", "integrationtest"]
