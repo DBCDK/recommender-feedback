@@ -9,7 +9,7 @@ const constants = require('server/constants')();
 
 router.route('/')
 
-  .get((req, res, next) => { // eslint-disable-line no-unused-vars
+  .get((req, res, next) => {
     knex(constants.table).select()
       .then(names => {
         res.status(200).json({

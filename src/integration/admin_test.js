@@ -5,7 +5,6 @@ const constants = require('./constants')();
 
 const expect = require('chai').expect;
 const request = require('supertest');
-const config = require('server/config');
 
 describe('Admin API', () => {
   const webapp = request(`http://${constants.webAppServiceName}:${constants.port}`);
