@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/DBCDK/recommender-feedback.git"
   },
-  "author": "Jens Peter Secher",
+  "author": "DBCDK",
   "bugs": {
     "url": "https://github.com/DBCDK/recommender-feedback/issues"
   },
@@ -16,7 +16,10 @@
     "chai": "^4.0.2",
     "eslint": "^4.4.1",
     "mocha": "^3.4.2",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.2",
     "nsrun": "^1.1.2",
+    "react-scripts": "1.0.7",
     "sinon": "^3.1.0",
     "supertest": "^3.0.0"
   },
@@ -25,15 +28,20 @@
     "express": "^4.15.3",
     "helmet": "^3.6.1",
     "knex": "^0.13.0",
-    "pg": "^7.1.0"
+    "pg": "^7.1.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "main": "app.js",
   "scripts": {
-    "lint": "eslint *.js server/**/*.js lib/**/*.js",
-    "unittest": "mocha lib/**/*_test.js",
-    "postinstall": "./setup-node-env.sh",
-    "test": "nsrun lint && nsrun unittest",
+    "build": "react-scripts build",
     "integrationtest": "mocha integration/**/*_test.js",
-    "start": "node app.js"
+    "lint": "eslint src/**/*.js",
+    "postinstall": "./setup-node-env.sh",
+    "serve": ". ./current.env && nodemon --exec node --no-stdin src/server/main.js --watch src/server",
+    "start": "run-p serve start-frontend",
+    "start-frontend": "react-scripts start",
+    "test": "nsrun lint && nsrun unittest",
+    "unittest": "mocha src/lib/**/*_test.js"
   }
 }

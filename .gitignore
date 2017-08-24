@@ -1,5 +1,6 @@
+build/
+current.env
 node_modules/
-src/node_modules/
-src/server/config.js
-src/package-lock.json
+package-lock.json
 src/current.env
+src/server/config.js

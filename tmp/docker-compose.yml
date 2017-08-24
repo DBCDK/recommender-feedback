@@ -1,0 +1,26 @@
+version: "3"
+services:
+
+  webapp:
+    build: src
+    ports:
+      - "3001:3001"
+    depends_on:
+      - database
+    environment:
+      NODE_ENV: development
+      LOG_SERVICE_ERRORS: 1
+      LOG_LEVEL: "DEBUG"
+      DB_HOST: database
+      DB_NAME: feedback
+      DB_USER: feedback
+      DB_USER_PASSWORD: ""
+
+  database:
+    image: postgres:9.6
+    ports:
+      # Needed for running the integration test directly.
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: feedback
+      POSTGRES_DB: feedback

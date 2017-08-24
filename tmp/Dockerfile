@@ -113,5 +113,5 @@ RUN npm test
 ##
 FROM production-dependencies AS production
 COPY / ./
-EXPOSE 3000
+EXPOSE 3001
 CMD ["npm", "start"]

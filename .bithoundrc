@@ -1,5 +1,5 @@
 {
-  "packageJsonLocation": "src/package.json",
+  "packageJsonLocation": "package.json",
   "ignore": [
     "**/node_modules/**"
   ],

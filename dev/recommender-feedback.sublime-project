@@ -28,12 +28,12 @@
 , "folders":
   [ { "path": ".."
     , "folder_exclude_patterns":
-      [ "src/node_modules"
-      , "src/coverage"
+      [ "build"
+      , "coverage"
+      , "node_modules"
       ]
     , "file_exclude_patterns":
-      [ "src/npm-debug.log"
-      , "src/server/config.js"
+      [ "npm-debug.log"
       ]
     }
   ]
