@@ -34,6 +34,8 @@
       ]
     , "file_exclude_patterns":
       [ "npm-debug.log"
+      , "nvm.sh"
+      , "package-lock.json"
       ]
     }
   ]

@@ -33,7 +33,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
-  "main": "app.js",
+  "proxy": "http://localhost:3001",
   "scripts": {
     "build": "react-scripts build",
     "integrationtest": "mocha integration/**/*_test.js",
