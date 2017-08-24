@@ -51,7 +51,7 @@ app.use(parser.json({
  */
 app.get('/status', (req, res) => {
   res.json({
-    siteversion: require('../package').version,
+    siteversion: require('../../package').version,
     apiversion: '1',
     hostname: req.hostname,
     address: req.ip,

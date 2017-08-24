@@ -120,5 +120,5 @@ COPY app.js config.js knexfile.js ./
 COPY lib/ ./lib/
 COPY migrations/ ./migrations/
 COPY server/ ./server/
-EXPOSE 3000
+EXPOSE 3001
 CMD ["npm", "start"]
