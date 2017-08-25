@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import LoginForm from './LoginForm.component';
 
 class CreateProfile extends React.Component {
 
   render() {
-    console.log('render')
+    console.log('render');
     return (
       <div className="login--container container col-md-6 col-centered">
         <h2 className="title--thin text-center">Test af anbefalinger</h2>
@@ -32,7 +32,7 @@ class CreateProfile extends React.Component {
             this.props.dispatch({type: 'CHANGE_PAGE', page: 'CREATE_USER'});
           }}
           onLogin={(username, password) => {
-            console.log('blah')
+            console.log('blah');
             this.props.dispatch({type: 'LOGIN', username, password});
           }}/>
 

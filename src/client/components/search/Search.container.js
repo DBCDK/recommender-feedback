@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 const WorkList = (props) => {
   return (
@@ -11,7 +11,11 @@ const WorkList = (props) => {
 
 const WorkRow = (props) => {
   return (
-    <div className='row work-row text-left' onClick={() => {props.onWorkSelect(props.work)}}>
+    <div className='row work-row text-left' onClick={
+      () => {
+        props.onWorkSelect(props.work);
+      }
+    }>
       <div className='col-xs-3 col-sm-2'>
         <img src={props.work.cover}/>
       </div>
@@ -32,7 +36,11 @@ const SearchForm = (props) => {
           className="form-control"
           id="search-input"
           placeholder="Søg"
-          onChange={(e) => {props.onQueryChange(e.target.value)}}
+          onChange={
+            (e) => {
+              props.onQueryChange(e.target.value);
+            }
+          }
           value={props.value}
         />
       </div>
@@ -44,7 +52,7 @@ const SearchForm = (props) => {
       </div>
     </div>
   );
-}
+};
 
 class Search extends React.Component {
 

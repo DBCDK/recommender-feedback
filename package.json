@@ -40,7 +40,7 @@
   "scripts": {
     "build": "react-scripts build",
     "integrationtest": "mocha integration/**/*_test.js",
-    "lint": "eslint src/**/*.js",
+    "lint": "eslint src",
     "postinstall": "./setup-node-env.sh",
     "serve": ". ./current.env && nodemon --exec node --no-stdin src/server/main.js --watch src/server",
     "start": "run-p serve start-frontend",

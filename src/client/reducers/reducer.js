@@ -4,8 +4,8 @@ const reducer = (state = [], action) => {
     case 'hey':
       return {hey: 'heystatechanged'};
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default reducer;

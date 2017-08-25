@@ -23,7 +23,11 @@ export default class LoginForm extends React.Component {
                   className="form-control"
                   id="email-input"
                   placeholder="Email"
-                  onChange={(e) => {this.setState({email: e.target.value})}}
+                  onChange={
+                    (e) => {
+                      this.setState({email: e.target.value});
+                    }
+                  }
                 />
               </div>
             </div>
@@ -36,7 +40,7 @@ export default class LoginForm extends React.Component {
                   placeholder="Password"
                   onChange={(e) => {
                     // Probably don't wanna see password in plain text in log
-                    this.setState({password: e.target.value})
+                    this.setState({password: e.target.value});
                   }}
                 />
               </div>
