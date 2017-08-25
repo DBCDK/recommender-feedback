@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 import Login from './components/profile/Login.container';
 import Search from './components/search/Search.container';
 import Feedback from './components/feedback/Feedback.container';
