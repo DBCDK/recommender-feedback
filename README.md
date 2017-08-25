@@ -2,27 +2,41 @@
 
 For a bird eye's view of the system, see the [software architecture context & containers](doc/architecturet.pdf).
 
-## Starting the system
+## Development
 
-There are these ways to run the system:
+To run the system locally:
 
-### Manual testing during development
+    $ touch current.env     // Use default configuration.
+    $ docker-compose up -d  // Start local PostgreSQL database.
+    $ npm start             // Run both backend and frontend services in parallel.
 
-    $ touch current.env    // Use default configuration.
-    $ docker-compose up -d // Start local PostgreSQL database.
-    $ npm start            // Run both backend and frontend services in parallel.
+If you want to manually start up a PostgreSQL server, it needs to run on port 5432 and have a database called `feedback` owned by `feedback`.
 
-### Unit testing on local machine
+To run tests on local machine:
 
-    $ npm run test
+    $ npm test
 
-### Integration test on local machine.
+See [developer instructions](src/readme.md) in the `src` directory for more information.
 
-...  with *ci* settings ...
+## Deployment
 
-### Production
+The service's test database requires at least PostgreSQL 9.6, but the schemas only require support for JSONB.
 
-...
+To run the database tests against the server (requires postgresql):
+
+    $ . /nvm.sh
+    $ nvm install
+    $ npm install
+    $ cp integration.env current.env
+    $ npm run integrationtest --silent
+
+To start the server in staging or production mode:
+
+    $ . /nvm.sh
+    $ nvm install
+    $ npm install --production
+    $ cp envproduction.env current.env
+    $ npm run serve
 
 ## Environments
 
@@ -54,7 +68,8 @@ The backend service has the following admistrative endpoints:
 
 ## Caveats
 
-- After adding new packages with `npm install --save newpackage`, you have to run `npm run postinstall` to re-establish the symbolic links in `node_modules`.
+- After adding new packages with `npm install --save newpackage`, you have to `npm run postinstall` to re-establish the symbolic links in `node_modules`.
+- In development mode, the `PORT` of the backend service needs to agree with the `proxy` setting in [`package.json`](package.json).
 
 ----
 
