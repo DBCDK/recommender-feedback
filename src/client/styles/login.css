@@ -1,0 +1,17 @@
+.login--container input {
+  margin: 5px; }
+
+.login--container button {
+  margin: 5px; }
+
+.login--form {
+  margin-top: 20px;
+  background-color: #f2f2f2;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); }
+  .login--form h4 {
+    padding-top: 0px;
+    margin-top: 0px;
+    padding-left: 0px;
+    margin-left: 0px; }

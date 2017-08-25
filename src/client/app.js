@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
-import './styles/app.css';
+import {BrowserRouter, Route} from 'react-router-dom';
+import Login from './components/profile/Login.container';
+import Search from './components/search/Search.container';
+import Feedback from './components/feedback/Feedback.container';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <BrowserRouter>
+        <div className="app">
+          <div className="container">
+            <Route exact path="*" render={() => null} />
+            <Route exact path={'/tilmeld'} component={Login} />
+            <Route exact path={'/søg'} component={Search} />
+            <Route exact path={'/feedback'} component={Feedback} />
+          </div>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/app.js</code> and save to reload.
-        </p>
-      </div>
+      </BrowserRouter>
     );
   }
 }
