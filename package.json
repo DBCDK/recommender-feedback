@@ -33,19 +33,22 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
-    "react-router-dom": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "redux": "^3.7.2"
   },
   "proxy": "http://localhost:3001",
   "scripts": {
     "build": "react-scripts build",
-    "integrationtest": "mocha integration/**/*_test.js",
-    "lint": "eslint src",
+    "delayed-integration-test": "sleep 3 && nsrun integration-test && ./kill-running-server.sh",
+    "full-test": "run-p serve-once delayed-integration-test",
+    "integration-test": ". ./current.env && mocha src/integration/**/*_test.js",
+    "lint": "eslint --format unix src",
     "postinstall": "./setup-node-env.sh",
     "serve": ". ./current.env && nodemon --exec node --no-stdin src/server/main.js --watch src/server",
+    "serve-once": ". ./current.env && node src/server/main.js || true",
     "start": "run-p serve start-frontend",
     "start-frontend": "react-scripts start",
-    "test": "nsrun lint && nsrun unittest",
-    "unittest": "mocha src/lib/**/*_test.js"
+    "test": "run-s lint unit-test",
+    "unit-test": "mocha src/lib/**/*_test.js"
   }
 }

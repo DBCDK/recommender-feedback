@@ -1,7 +1,5 @@
 'use strict';
 
-const constants = require('./constants')();
-
 const expect = require('chai').expect;
 const request = require('supertest');
 const config = require('server/config');
@@ -10,7 +8,7 @@ const knex = require('knex')(config.db);
 const dbUtil = require('./cleanup-db')(knex);
 
 describe('endpoints', () => {
-  const webapp = request(`http://${constants.webAppServiceName}:${constants.port}`);
+  const webapp = request(`http://localhost:${config.server.port}`);
   before(done => {
     done();
   });

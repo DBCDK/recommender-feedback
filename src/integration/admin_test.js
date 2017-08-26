@@ -1,13 +1,13 @@
 /* eslint-env mocha */
 'use strict';
 
-const constants = require('./constants')();
+const config = require('server/config');
 
 const expect = require('chai').expect;
 const request = require('supertest');
 
 describe('Admin API', () => {
-  const webapp = request(`http://${constants.webAppServiceName}:${constants.port}`);
+  const webapp = request(`http://localhost:${config.server.port}`);
   before(done => {
     done();
   });
