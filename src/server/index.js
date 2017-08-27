@@ -16,7 +16,7 @@ const logger = require('__/logging')(config.logger);
 const knex = require('knex')(config.db);
 knex.migrate.latest()
   .then(() => {
-    logger.log.info('Database is now at latest version.');
+    logger.log.debug('Database is now at latest version.');
   })
   .catch(error => {
     logger.log.error(`Could not update database to latest version, terminating: ${error}`);

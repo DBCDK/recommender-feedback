@@ -2,7 +2,6 @@
 'use strict';
 
 const config = require('server/config');
-
 const expect = require('chai').expect;
 const request = require('supertest');
 

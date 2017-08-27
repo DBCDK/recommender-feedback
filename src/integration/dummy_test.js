@@ -1,3 +1,4 @@
+// This is a placeholder to give an idea of how to test the API.
 'use strict';
 
 const expect = require('chai').expect;
@@ -18,7 +19,7 @@ describe('endpoints', () => {
         return knex.seed.run();
       })
       .then(() => {
-        logger.log.info('Database is now seeded.');
+        logger.log.debug('Database is now seeded.');
       })
       .then(() => {
         done();
