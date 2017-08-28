@@ -3,6 +3,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import Login from './components/profile/Login.container';
 import Search from './components/search/Search.container';
 import Feedback from './components/feedback/Feedback.container';
+import ThankYou from './components/thankyou/ThankYou.component';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
             <Route exact path={'/tilmeld'} component={Login} />
             <Route exact path={'/søg'} component={Search} />
             <Route exact path={'/feedback'} component={Feedback} />
+            <Route exact path={'/tak'} component={ThankYou} />
           </div>
         </div>
       </BrowserRouter>
