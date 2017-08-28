@@ -8,6 +8,7 @@
   .work-row div {
     padding: 0px; }
   .work-row img {
+    box-shadow: 2px 2px 8px #555555;
     max-width: 100px;
     max-height: 100px;
     padding: 0;
