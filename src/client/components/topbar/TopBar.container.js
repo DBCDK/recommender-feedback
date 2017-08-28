@@ -11,10 +11,9 @@ class TopBar extends React.Component {
   render() {
     const user = this.props.user || 'some@email.dk';
     return (
-      <div className="top-bar row text-left">
-        <span className="description">Du er logget ind som </span>
+      <div className="top-bar row text-right">
         <span className="username">{user}</span>
-        <button className="btn" onClick={this.onLogout}>log ud</button>
+        <span className="logout-btn" onClick={this.onLogout}>log ud</span>
       </div>
     );
   }

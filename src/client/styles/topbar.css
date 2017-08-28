@@ -1,13 +1,14 @@
 .top-bar {
+  margin: 0px;
   padding: 10px;
   background: #5a5a5a;
   color: white;
   font-size: 14px;
   padding-left: 40px;
 }
-.top-bar .btn {
+.top-bar .logout-btn {
   margin-left: 10px;
-  color: black;
+  cursor: pointer;
 }
 .top-bar .description {
   font-size: 14px;
