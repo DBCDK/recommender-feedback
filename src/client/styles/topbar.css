@@ -9,6 +9,7 @@
 .top-bar .logout-btn {
   margin-left: 10px;
   cursor: pointer;
+  text-decoration: underline;
 }
 .top-bar .description {
   font-size: 14px;
