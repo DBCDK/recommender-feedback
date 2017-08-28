@@ -1,0 +1,17 @@
+.top-bar {
+  margin: 0px;
+  padding: 10px;
+  background: #5a5a5a;
+  color: white;
+  font-size: 14px;
+  padding-left: 40px;
+}
+.top-bar .logout-btn {
+  margin-left: 10px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.top-bar .description {
+  font-size: 14px;
+  color: #dadada;
+}

@@ -9,6 +9,8 @@ import registerServiceWorker from './client/registerServiceWorker';
 import './client/styles/index.css';
 import './client/styles/login.css';
 import './client/styles/search.css';
+import './client/styles/topbar.css';
+import './client/styles/feedback.css';
 
 let store = createStore(reducer)
 
