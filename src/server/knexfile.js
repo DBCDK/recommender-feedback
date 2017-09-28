@@ -6,7 +6,8 @@ module.exports = {
     connection: {
       host: process.env.DB_HOST || '127.0.0.1',
       database: process.env.DB_NAME || 'feedback',
-      user: process.env.DB_USER || 'feedback'
+      user: process.env.DB_USER || 'feedback',
+      password: process.env.DB_USER_PASSWORD
     },
     migrations: {
       directory: 'src/migrations'
@@ -20,7 +21,8 @@ module.exports = {
     connection: {
       host: process.env.DB_HOST || '127.0.0.1',
       database: process.env.DB_NAME || 'feedback',
-      user: process.env.DB_USER || 'feedback'
+      user: process.env.DB_USER || 'feedback',
+      password: process.env.DB_USER_PASSWORD
     },
     migrations: {
       directory: 'src/migrations'
