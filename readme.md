@@ -54,6 +54,8 @@ The backend service has the following admistrative endpoints:
 | `/howru`  | Returns the service status as JSON. |
 | `/pid`    | Returns the process id of the service.   |
 
+See also [service endpoints](doc/endpoints.md).
+
 ## Caveats
 
 - After adding new packages with `npm install --save newpackage`, you have to `npm run postinstall` to re-establish the symbolic links in `node_modules`.
