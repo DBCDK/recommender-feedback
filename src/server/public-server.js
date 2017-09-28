@@ -82,8 +82,8 @@ app.get('/pid', (req, res) => {
 /*
  * API routes.
  */
-const apiRoutes = require('server/api');
-app.use('/api', apiRoutes);
+const apiRoutes = require('server/api-v1');
+app.use('/v1', apiRoutes);
 
 /*
  * Let frontend React handle all other routes.

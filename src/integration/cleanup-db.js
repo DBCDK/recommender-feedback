@@ -9,6 +9,7 @@
 
 const constants = require('server/constants')();
 const table = constants.table;
+const userTable = constants.users.table;
 
 module.exports = knex => {
 
@@ -16,7 +17,7 @@ module.exports = knex => {
    * Truncate all tables in the current database.
    */
   function clear() {
-    return knex.raw(`truncate table ${table} cascade`);
+    return knex.raw(`truncate table ${table}, ${userTable} cascade`);
   }
 
   /**
@@ -24,6 +25,9 @@ module.exports = knex => {
    */
   function dropAll() {
     return knex.schema.dropTableIfExists(table)
+      .then(() => {
+        return knex.schema.dropTableIfExists(userTable);
+      })
       .then(() => {
         return knex.schema.dropTableIfExists('knex_migrations');
       })

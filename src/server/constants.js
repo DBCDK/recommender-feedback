@@ -2,7 +2,9 @@
 
 const constants = {
   apiversion: '1',
-  table: 'test'
+  users: {
+    table: 'users'
+  }
 };
 
 module.exports = () => {
