@@ -6,7 +6,6 @@ class TopBar extends React.Component {
 
   onLogout = () => {
     this.props.dispatch({type: ON_LOGOUT_REQUEST});
-    // this.props.history.push('/tilmeld');
   }
 
   render() {

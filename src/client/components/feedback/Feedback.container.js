@@ -17,7 +17,7 @@ const SelectedWork = (props) => {
 const RecommenderList = (props) => {
   return (
     <div className='row recommender-list'>
-      {props.works.map((work, idx) => <RecommenderRow key={idx} work={work}/>)}
+      {props.works.map(work => <RecommenderRow key={work.pid} work={work}/>)}
     </div>
   );
 };
@@ -48,32 +48,14 @@ class Feedback extends React.Component {
   }
 
   render() {
-    const selected = {
-      pid: 'somepid1',
-      title: 'hest',
-      creator: 'Ole Z.',
-      cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'
-    };
-
-    const recommendations = [
-      {
-        pid: 'somepid1',
-        title: 'hest',
-        creator: 'Ole Z.',
-        cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg',
-        description: 'Det er en bog om kærlighed og heste og blabel bla b la bla b lba lbal b al bal oh bla bla',
-        subjects: 'Kærlighed, krig, fred, heste',
-        details: '138 sider. Udgivet af Blah.'
-      },
-      {pid: 'somepid2', title: 'hest2', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'},
-      {pid: 'somepid3', title: 'hest3', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'}
-    ];
+    const selected = this.props.feedbackState.work;
+    const recommendations = this.props.feedbackState.recommendations;
 
     return (
       <div className='row feedback--container'>
         <div className='col-md-8 col-centered'>
           <h2 className='title--thin text-center'>Her er anbefalinger for</h2>
-          <SelectedWork work={selected}/>
+          {selected && <SelectedWork work={selected}/>}
           <div className="row">
             <div className='col-xs-12 text-right'>
               <button className='btn btn-success' onClick={this.onFeedbackSave}>Gem feedback</button>
@@ -81,7 +63,8 @@ class Feedback extends React.Component {
           </div>
           <br/>
           <hr/>
-          <RecommenderList works={recommendations}/>
+          {this.props.feedbackState.isFetching && <h3>Indlæser anbefalinger</h3>}
+          {recommendations && <RecommenderList works={recommendations}/>}
         </div>
       </div>
     );
@@ -91,6 +74,6 @@ class Feedback extends React.Component {
 export default connect(
   // Map redux state to group prop
   (state) => {
-    return {state};
+    return {feedbackState: state.feedbackReducer};
   }
 )(Feedback);

@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {ON_SEARCH_REQUEST, HISTORY_PUSH, ON_RECOMMEND_REQUEST} from '../../redux';
 
 const WorkList = (props) => {
   return (
     <div className='row work-list'>
-      {props.works.map((work, idx) => <WorkRow key={idx} work={work} onWorkSelect={props.onWorkSelect}/>)}
+      {props.works.map(work => <WorkRow key={work.pid} work={work} onWorkSelect={props.onWorkSelect}/>)}
     </div>
   );
 };
@@ -64,11 +65,12 @@ class Search extends React.Component {
   }
 
   onWorkSelect = (work) => {
-    this.props.dispatch({type: 'ON_WORK_SELECT', work});
+    this.props.dispatch({type: ON_RECOMMEND_REQUEST, work});
+    this.props.dispatch({type: HISTORY_PUSH, path: '/feedback'});
   };
 
   onSearch = () => {
-    this.props.dispatch({type: 'ON_SEARCH', query: this.state.query});
+    this.props.dispatch({type: ON_SEARCH_REQUEST, query: this.state.query});
   };
 
   onQueryChange = (query) => {
@@ -76,12 +78,6 @@ class Search extends React.Component {
   };
 
   render() {
-    const dummyWorkList = [
-      {pid: 'somepid1', title: 'hest', creator: 'Ole Z.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'},
-      {pid: 'somepid2', title: 'hest2', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'},
-      {pid: 'somepid3', title: 'hest3', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'}
-    ];
-
     return (
       <div className='row search--container'>
         <div className='col-md-8 col-centered'>
@@ -90,7 +86,8 @@ class Search extends React.Component {
             onSearch={this.onSearch}
             onQueryChange={this.onQueryChange}
             value={this.state.query}/>
-          <WorkList works={dummyWorkList} onWorkSelect={this.onWorkSelect}/>
+          {this.props.searchState.isFetching && <h3>Søger</h3>}
+          {this.props.searchState.works && <WorkList works={this.props.searchState.works} onWorkSelect={this.onWorkSelect}/>}
         </div>
       </div>
     );
@@ -100,6 +97,6 @@ class Search extends React.Component {
 export default connect(
   // Map redux state to group prop
   (state) => {
-    return {state};
+    return {searchState: state.searchReducer};
   }
 )(Search);
