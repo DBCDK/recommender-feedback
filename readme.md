@@ -1,22 +1,10 @@
 # Recommender Feedback
 
+The purpose of this service is to collect feedback about the quality of DBC's book recommenders.
+
 For a bird eye's view of the system, see the [software architecture context & containers](doc/architecturet.pdf).
 
-## Development
-
-To run the system locally:
-
-    $ touch current.env     // Use default configuration.
-    $ docker-compose up -d  // Start local PostgreSQL database.
-    $ npm start             // Run both backend and frontend services in parallel.
-
-If you want to manually start up a PostgreSQL server, it needs to run on port 5432 and have a database called `feedback` owned by `feedback`.
-
-To run tests on local machine:
-
-    $ npm test
-
-See [developer instructions](src/readme.md) in the `src` directory for more information.
+For development of the system, see [`src`](src/readme.md).
 
 ## Deployment
 
@@ -50,7 +38,7 @@ The backend service controlled by environment variables.  Most scripts assume th
 | DB_NAME                 | feedback    | Name of the database             |
 | DB_USER                 | feedback    | Database user                    |
 | DB_USER_PASSWORD        |             | Database password                |
-| LOG_LEVEL               | DEBUG       | Verbosity of service log (OFF, ERROR, WARN, WARNING, INFO, DEBUG, TRACE) |
+| LOG_LEVEL               | INFO        | Verbosity of service log (OFF, ERROR, WARN, WARNING, INFO, DEBUG, TRACE) |
 | LOG_SERVICE_ERRORS      | 1           | Record all 5xx errors (1), or ignore 5xx errors (0) |
 | NODE_ENV                | development | Controls other service settings (development, ci, production) |
 | PORT                    | 3001        | TCP port for the service         |
@@ -63,7 +51,7 @@ The backend service has the following admistrative endpoints:
 
 | Endpoint  | Function |
 | --------- | -------- |
-| `/status` | Returns the service status as JSON. |
+| `/howru`  | Returns the service status as JSON. |
 | `/pid`    | Returns the process id of the service.   |
 
 ## Caveats
@@ -75,3 +63,4 @@ The backend service has the following admistrative endpoints:
 
 [![Build Status](https://travis-ci.org/DBCDK/recommender-feedback.svg?branch=master)](https://travis-ci.org/DBCDK/recommender-feedback)
 [![bitHound Overall Score](https://www.bithound.io/github/DBCDK/recommender-feedback/badges/score.svg)](https://www.bithound.io/github/DBCDK/recommender-feedback)
+[![Coverage Status](https://coveralls.io/repos/github/DBCDK/recommender-feedback/badge.svg?branch=master)](https://coveralls.io/github/DBCDK/recommender-feedback?branch=master)

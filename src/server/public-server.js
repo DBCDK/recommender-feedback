@@ -4,24 +4,18 @@
  * Configuration
  */
 const config = require('server/config');
+const constants = require('server/constants')();
 
 /*
- * Logging.
+ * Logging & stuff.
  */
 const logger = require('__/logging')(config.logger);
+const _ = require('lodash');
 
-/*
- * Make sure database is at most recent schema.
+/**
+ * Database wrapper.
  */
-const knex = require('knex')(config.db);
-knex.migrate.latest()
-  .then(() => {
-    logger.log.debug('Database is now at latest version.');
-  })
-  .catch(error => {
-    logger.log.error(`Could not update database to latest version, terminating: ${error}`);
-    process.exit(1);
-  });
+const database = require('server/database');
 
 /*
  * Web server.
@@ -49,14 +43,28 @@ app.use(parser.json({
 /*
  * Administrative API.
  */
-app.get('/status', (req, res) => {
+app.get('/howru', async(req, res) => {
+  const ok = await database.testingConnection();
+  const configWithouSecrets = _.omit(config, ['db.connection.user', 'db.connection.password']);
+  if (ok) {
+    return res.json({
+      ok: true,
+      version: require('../../package').version,
+      'api-version': constants.apiversion,
+      hostname: req.hostname,
+      address: req.ip,
+      config: configWithouSecrets
+    });
+  }
   res.json({
-    siteversion: require('../../package').version,
-    apiversion: '1',
+    ok: false,
+    errorText: database.getCurrentError(),
+    errorLog: database.getErrorLog(),
+    version: require('../../package').version,
+    'api-version': constants.apiversion,
     hostname: req.hostname,
     address: req.ip,
-    protocol: req.protocol,
-    config
+    config: configWithouSecrets
   });
 });
 

@@ -1,5 +1,5 @@
 const reducer = (state = [], action) => {
-  console.log('Processing action', action);
+  // console.log('Processing action', action);
   switch (action.type) {
     case 'hey':
       return {hey: 'heystatechanged'};

@@ -7,6 +7,9 @@ addons:
   postgresql: "9.6"
 services:
   - postgresql
+cache:
+  directories:
+    - $HOME/node_modules
 before_install:
   - psql --version
   - cp env/travis.env current.env
@@ -14,3 +17,5 @@ before_install:
 script:
   - npm test --silent
   - npm run full-test --silent
+after_script:
+  - npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage

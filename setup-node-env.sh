@@ -1,10 +1,12 @@
 #!/bin/sh -e
 
-log_() { echo "[setup-node-env] $@"; }
+ME=$(basename $0)
+
+log_() { echo "[$ME] $@"; }
 
 log_ "--> Setting up symbolic links"
 cd node_modules
 [ -L __ ] || ln -s ../src/lib __
 [ -L server ] || ln -s ../src/server server
-# cd ../src/server
-# [ -L config.js ] || ln -s ../config.js config.js
+[ -L client ] || ln -s ../src/client client
+[ -L fixtures ] || ln -s ../src/fixtures fixtures

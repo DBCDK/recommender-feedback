@@ -1,6 +1,7 @@
+.nyc_output/
 build/
+coverage/
 current.env
 node_modules/
+npm-debug.log
 package-lock.json
-src/current.env
-src/server/config.js

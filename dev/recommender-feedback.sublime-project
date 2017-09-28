@@ -4,14 +4,14 @@
     , "file_regex": "^([^\n:]+):([0-9]+):([0-9]+): (.*)$"
     , "working_dir": "${project_path}"
     , "variants":
-      [ { "name": "integration-test"
-        , "cmd": ["npm","run","integration-test","--silent"]
+      [ { "name": "test-integration"
+        , "cmd": ["npm","run","test-integration","--silent"]
         }
-      , { "name": "unit-test"
-        , "cmd": ["npm","run","unit-test","--silent"]
+      , { "name": "test-units"
+        , "cmd": ["npm","run","test-units","--silent"]
         }
-      , { "name": "lint"
-        , "cmd": ["npm","run","lint","--silent"]
+      , { "name": "lint-js"
+        , "cmd": ["npm","run","lint-js","--silent","--","--format","unix"]
         , "file_regex": "^([^\n:]+):([0-9]+):([0-9]+): (.*) \\[.*\\]$"
         }
       ]

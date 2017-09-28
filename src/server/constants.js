@@ -1,6 +1,7 @@
 'use strict';
 
 const constants = {
+  apiversion: '1',
   table: 'test'
 };
 
