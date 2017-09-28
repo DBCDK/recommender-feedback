@@ -17,7 +17,7 @@ const WorkRow = (props) => {
       }
     }>
       <div className='col-xs-3 col-sm-2'>
-        <img src={props.work.cover}/>
+        <img alt='' src={props.work.cover}/>
       </div>
       <div className='col-xs-9 col-sm-10'>
         <div className='title'>{props.work.title}</div>
@@ -30,7 +30,7 @@ const WorkRow = (props) => {
 const SearchForm = (props) => {
   return (
     <div className='row search-form'>
-      <div className='col-md-10'>
+      <div className='col-sm-10'>
         <input
           type="text"
           className="form-control"
@@ -44,7 +44,7 @@ const SearchForm = (props) => {
           value={props.value}
         />
       </div>
-      <div className='col-md-2'>
+      <div className='col-sm-2'>
         <button type="submit" className="btn btn-primary btn-block"
           onClick={props.onSearch}>
           Søg

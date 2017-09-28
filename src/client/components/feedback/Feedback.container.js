@@ -5,7 +5,7 @@ const SelectedWork = (props) => {
   return (
     <div className='row selected-work text-left'>
       <div className='col-xs-2 col-sm-1'>
-        <img src={props.work.cover}/>
+        <img alt='' src={props.work.cover}/>
       </div>
       <div className='col-xs-10 col-sm-11'>
         <div className='title'>{props.work.title}</div>
@@ -25,7 +25,7 @@ const RecommenderRow = (props) => {
   return (
     <div className='row recommender-row text-left'>
       <div className='col-xs-3 col-sm-2'>
-        <img src={props.work.cover}/>
+        <img alt='' src={props.work.cover}/>
       </div>
       <div className='col-xs-9 col-sm-7'>
         <div className='title'>{props.work.title}</div>
