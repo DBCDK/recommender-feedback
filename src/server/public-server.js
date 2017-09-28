@@ -150,7 +150,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
       returnedError.stack = err.stack;
     }
   }
-  if (returnedError.status >= 500 && config.server.logServiceErrors === '1') {
+  if (returnedError.status >= 500 && config.server.logServiceErrors === 1) {
     logger.log.error(returnedError);
   }
   res.json({errors: [returnedError]});

@@ -11,11 +11,12 @@ const formats = require('server/schemas/formats');
 const nicifyJsonValidationErrors = require('__/json').nicifyJsonValidationErrors;
 
 function expectSuccess(document, next) {
-  const validate = validator('schemas/success-out.json');
+  const schema = 'schemas/success-out.json';
+  const validate = validator(schema);
   validate(document);
   const problems = nicifyJsonValidationErrors(validate);
   if (problems.length > 0) {
-    expect(problems).to.deep.equal([], `Got ${JSON.stringify(document)}`);
+    assert(false, `Validating against ${schema}, got JSON ${JSON.stringify(document)} with the following problems: ${problems}`);
   }
   const links = document.links;
   expect(document).to.have.property('data');
@@ -25,11 +26,12 @@ function expectSuccess(document, next) {
 exports.expectSuccess = expectSuccess;
 
 function expectFailure(document, next) {
-  const validate = validator('schemas/failure-out.json');
+  const schema = 'schemas/failure-out.json';
+  const validate = validator(schema);
   validate(document);
   const problems = nicifyJsonValidationErrors(validate);
   if (problems.length > 0) {
-    expect(problems).to.deep.equal([], `Got ${JSON.stringify(document)}`);
+    assert(false, `Validating against ${schema}, got JSON ${JSON.stringify(document)} with the following problems: ${problems}`);
   }
   expect(document).to.have.property('errors');
   const errors = document.errors;
@@ -43,7 +45,7 @@ function expectValidate(document, schema) {
   validate(document);
   const problems = nicifyJsonValidationErrors(validate);
   if (problems.length > 0) {
-    assert(false, `Got JSON ${JSON.stringify(document)} with the following problems: ${problems}`);
+    assert(false, `Validating against ${schema}, got JSON ${JSON.stringify(document)} with the following problems: ${problems}`);
   }
   expect(problems).to.deep.equal([]);
 }
