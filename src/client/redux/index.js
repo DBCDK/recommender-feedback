@@ -12,6 +12,7 @@ export const ON_SEARCH_RESPONSE = 'ON_SEARCH_RESPONSE';
 
 export const ON_RECOMMEND_REQUEST = 'ON_RECOMMEND_REQUEST';
 export const ON_RECOMMEND_RESPONSE = 'ON_RECOMMEND_RESPONSE';
+export const ON_RATING = 'ON_RATING';
 
 export const HISTORY_PUSH = 'HISTORY_PUSH';
 export const HISTORY_REPLACE = 'HISTORY_REPLACE';
@@ -92,6 +93,15 @@ const feedbackReducer = (state = defaultFeedbackState, action) => {
       return Object.assign({}, defaultFeedbackState, {isFetching: true, work: action.work});
     case ON_RECOMMEND_RESPONSE:
       return Object.assign({}, state, {isFetching: false, recommendations: action.works});
+    case ON_RATING: {
+      const recommendations = state.recommendations.map(work => {
+        if (work.pid === action.pid) {
+          return Object.assign({}, work, {rating: action.rating});
+        }
+        return work;
+      });
+      return Object.assign({}, state, {recommendations});
+    }
     default:
       return state;
   }

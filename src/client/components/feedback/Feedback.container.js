@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Rating from './Rating.component';
+import {ON_RATING} from '../../redux';
 
 const SelectedWork = (props) => {
   return (
@@ -17,7 +19,12 @@ const SelectedWork = (props) => {
 const RecommenderList = (props) => {
   return (
     <div className='row recommender-list'>
-      {props.works.map(work => <RecommenderRow key={work.pid} work={work}/>)}
+      {props.works.map(work => <RecommenderRow
+        key={work.pid}
+        work={work}
+        onRating={(rating) => {
+          props.onRating(work.pid, rating);
+        }}/>)}
     </div>
   );
 };
@@ -48,6 +55,9 @@ class RecommenderRow extends React.Component {
           <button className='btn btn-default mt-1' onClick={() => {
             this.setState({collapsed: !this.state.collapsed});
           }}>{this.state.collapsed ? 'Mere' : 'Mindre'}</button>
+        </div>
+        <div className='col-xs-12 col-sm-3 text-right'>
+          <Rating rating={this.props.work.rating} onRating={this.props.onRating}/>
         </div>
       </div>
     );
@@ -89,10 +99,18 @@ class Feedback extends React.Component {
               <button className='btn btn-success' onClick={this.onFeedbackSave}>Gem feedback</button>
             </div>
           </div>
-          <br/>
-          <hr/>
+          <div className="row">
+            <div className='col-xs-12 text-right mt-1'>
+              Som anbefaling er denne bog:
+            </div>
+          </div>
+          <hr className='mt-0'/>
           {this.props.feedbackState.isFetching && <h3>Indlæser anbefalinger</h3>}
-          {recommendations && <RecommenderList works={recommendations}/>}
+          {recommendations && <RecommenderList
+            works={recommendations}
+            onRating={(pid, rating) => {
+              this.props.dispatch({type: ON_RATING, pid, rating});
+            }}/>}
         </div>
       </div>
     );
