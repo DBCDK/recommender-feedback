@@ -13,16 +13,17 @@ class CreateProfile extends React.Component {
         <div className='row'>
           <div className="login--description">
             <p>
-              Vi vil bede dig om at give feedback på vores anbefalingsalgoritmer.
-              Det betyder, at du skal give os respons på, hvad du mener er en god anbefaling, i stedet for hvad du mener er en god bog.
+              Vi vil bede dig om at give feedback på vores anbefalinger.
+              Det gør du ved at give os respons på, hvad du mener er en god anbefaling, i stedet for hvad du mener er en god bog.
               Med andre ord: giver anbefalingen mening i forhold til den bog, de er lavet på baggrund af?
             </p>
             <p>
-              Du skal gøre følgende:
+              Gør følgende:
             </p>
             <ol>
-              <li>Tilmeld dig med din email-adresse</li>
-              <li>Vi sender en mail med et link. Benyt dette link fremover, når du vil give feedback på recommender</li>
+              <li>Opret profil ved at indtaste din email i nedenstående formular.</li>
+              <li>Vi sender et link til din email, som du skal benytte fremover, når du vil give feedback på anbefalinger.</li>
+              <li>Søg et værk frem, som skal danne udgangspunkt for anbefalingerne.</li>
               <li>Gennemgå listerne med anbefalinger fra tre forskellige systemer og giv os feedback både på listerne som helhed og på de enkelte værker.</li>
             </ol>
           </div>
