@@ -99,11 +99,6 @@ class Feedback extends React.Component {
               <button className='btn btn-success' onClick={this.onFeedbackSave}>Gem feedback</button>
             </div>
           </div>
-          <div className="row">
-            <div className='col-xs-2 col-xs-offset-10 text-left mt-2'>
-              Som anbefaling er denne bog:
-            </div>
-          </div>
           <hr className='mt-1 mb-0'/>
           {this.props.feedbackState.isFetching && <h3>Indlæser anbefalinger</h3>}
           {recommendations && <RecommenderList

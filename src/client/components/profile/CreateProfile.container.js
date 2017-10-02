@@ -24,8 +24,9 @@ class CreateProfile extends React.Component {
               <li>Opret profil ved at indtaste din email i nedenstående formular.</li>
               <li>Vi sender et link til din email, som du skal benytte fremover, når du vil give feedback på anbefalinger.</li>
               <li>Søg et værk frem, som skal danne udgangspunkt for anbefalingerne.</li>
-              <li>Gennemgå listerne med anbefalinger fra tre forskellige systemer og giv os feedback både på listerne som helhed og på de enkelte værker.</li>
+              <li>Gennemgå anbefalingerne og giv os feedback på hvor gode de enkelte anbefalinger er.</li>
             </ol>
+            <p className='mt-4'>Gennemgå processen med så mange værker, du har lyst til, men jo flere des bedre.</p>
           </div>
         </div>
         {!this.props.profileState.isCreated && <CreateProfileForm
