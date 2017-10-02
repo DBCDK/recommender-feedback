@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Rating from './Rating.component';
-import {ON_RATING} from '../../redux';
+import {ON_RATING, HISTORY_PUSH} from '../../redux';
 
 const SelectedWork = (props) => {
   return (
@@ -67,7 +67,7 @@ class RecommenderRow extends React.Component {
 class Feedback extends React.Component {
 
   onFeedbackSave = () => {
-    this.props.dispatch({type: 'ON_FEEDBACK_SAVE'});
+    this.props.dispatch({type: HISTORY_PUSH, path: '/tak'});
   }
 
   render() {
@@ -100,17 +100,22 @@ class Feedback extends React.Component {
             </div>
           </div>
           <div className="row">
-            <div className='col-xs-12 text-right mt-1'>
+            <div className='col-xs-2 col-xs-offset-10 text-left mt-2'>
               Som anbefaling er denne bog:
             </div>
           </div>
-          <hr className='mt-0'/>
+          <hr className='mt-1 mb-0'/>
           {this.props.feedbackState.isFetching && <h3>Indlæser anbefalinger</h3>}
           {recommendations && <RecommenderList
             works={recommendations}
             onRating={(pid, rating) => {
               this.props.dispatch({type: ON_RATING, pid, rating});
             }}/>}
+          <div className="row">
+            <div className='col-xs-12 text-right'>
+              <button className='btn btn-success' onClick={this.onFeedbackSave}>Gem feedback</button>
+            </div>
+          </div>
         </div>
       </div>
     );

@@ -1,18 +1,30 @@
 import React from 'react';
+import {HISTORY_PUSH, ON_LOGOUT_REQUEST} from '../../redux';
 
-export default function ThankYou() {
+export default function ThankYou(props) {
   return (
-    <div className="thankyou container text-center">
-      <h2>Mange tak for din indsats</h2>
-      <p className="thankyou--p">
-        Vil du prøve igen?{' '}
-        <a className="btn btn-success" href="/søg">
-          Start Forfra her <span className="glyphicon glyphicon-arrow-right"/>
-        </a>
+    <div className="thankyou container col-md-6 col-centered">
+
+      <h2 className='text-center'>Tak for hjælpen</h2>
+      <p>
+        Vi arbejder på at gøre vores anbefalinger bedre for at kunne give bedre inspiration til brugerne på biblioteket eller online. Du har lige hjulpet os - mange tak!
       </p>
-      <div className="thankyou--team">
-        <b>Læsekompas-teamet</b>
-        <p>Sarah, Christian, Jacob og Anders</p>
+      <p className='mb-0'>
+        Med venlig hilsen
+      </p>
+      <p>
+        Læsekompasset / DBC
+      </p>
+      <p className='mt-4'>
+        Vil du prøve igen eller logge ud?
+      </p>
+      <div className='mt-4'>
+        <button className='btn btn-primary' onClick={() => {
+          props.dispatch({type: ON_LOGOUT_REQUEST});
+        }}>Log ud</button>
+        <button className='btn btn-primary ml-2' onClick={() => {
+          props.dispatch({type: HISTORY_PUSH, path: '/søg'});
+        }}>Prøv igen</button>
       </div>
     </div>
   );

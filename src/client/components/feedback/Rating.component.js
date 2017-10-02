@@ -1,13 +1,13 @@
 import React from 'react';
 
 const labels = [
-  'Kan ikke vurdere',
-  'Hæslig',
-  'Dårlig',
-  'OK',
-  'God',
-  'Super-duper',
-  'Perfekt'
+  'Kan ikke vurdere anbefaling',
+  'Hæslig anbefaling',
+  'Dårlig anbefaling',
+  'OK anbefaling',
+  'God anbefaling',
+  'Super-duper anbefaling',
+  'Perfekt anbefaling'
 ];
 export default class Rating extends React.Component {
   constructor(props) {
