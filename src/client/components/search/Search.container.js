@@ -34,26 +34,30 @@ const WorkRow = (props) => {
 const SearchForm = (props) => {
   return (
     <div className='row search-form'>
-      <div className='col-sm-10'>
-        <input
-          type="text"
-          className="form-control"
-          id="search-input"
-          placeholder="Søg"
-          onChange={
-            (e) => {
-              props.onQueryChange(e.target.value);
+      <form onSubmit={event => {
+        props.onSearch();
+        event.preventDefault();
+      }}>
+        <div className='col-sm-10'>
+          <input
+            type="text"
+            className="form-control"
+            id="search-input"
+            placeholder="Søg"
+            onChange={
+              (e) => {
+                props.onQueryChange(e.target.value);
+              }
             }
-          }
-          value={props.value}
-        />
-      </div>
-      <div className='col-sm-2'>
-        <button type="submit" className="btn btn-primary btn-block"
-          onClick={props.onSearch}>
-          Søg
-        </button>
-      </div>
+            value={props.value}
+          />
+        </div>
+        <div className='col-sm-2'>
+          <button type="submit" className="btn btn-primary btn-block">
+            Søg
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
