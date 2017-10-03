@@ -144,7 +144,7 @@ export const requestMiddleware = store => next => action => {
       // here we want to actually call endpoint
       window.setTimeout(() => {
         store.dispatch({type: ON_LOGIN_RESPONSE,
-          email: 'some@dbc.dk',
+          email: 'test@dbc.dk',
           profileId: '234fgh45'});
       }, 500);
       return next(action);
@@ -154,9 +154,9 @@ export const requestMiddleware = store => next => action => {
       window.setTimeout(() => {
         store.dispatch({type: ON_SEARCH_RESPONSE,
           works: [
-            {pid: 'somepid1', title: 'hest', creator: 'Ole Z.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'},
-            {pid: 'somepid2', title: 'Hestehans indtager Rom', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'},
-            {pid: 'somepid3', title: 'hest3', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'}
+            {pid: 'pid1', title: 'Værk 1', creator: 'Jens Jensen', cover: '/default-book-cover.png'},
+            {pid: 'pid2', title: 'Værk 2', creator: 'Jens Jensen', cover: '/default-book-cover.png'},
+            {pid: 'pid3', title: 'Værk 3', creator: 'Jens Jensen', cover: '/default-book-cover.png'}
           ]
         });
       }, 500);
@@ -168,15 +168,20 @@ export const requestMiddleware = store => next => action => {
         store.dispatch({type: ON_RECOMMEND_RESPONSE,
           works: [
             {
-              pid: 'somepid1',
-              title: 'hestehans',
-              creator: 'Ole Z.',
-              cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg',
-              description: 'Det er en bog om kærlighed og heste og blabel bla b la bla b lba lbal b al bal oh bla bla',
+              pid: 'pid1',
+              title: 'Værk 1',
+              creator: 'Jens Jensen',
+              cover: '/default-book-cover.png',
+              description: 'Det er en bogbeskrivelse',
               subjects: 'Kærlighed, krig, fred, heste',
               details: '138 sider. Udgivet af Blah.'
             },
-            {pid: 'somepid2', title: 'hest2', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'}
+            {
+              pid: 'pid2',
+              title: 'Værk 2',
+              creator: 'Jens Jensen',
+              cover: '/default-book-cover.png'
+            }
           ]
         });
       }, 500);
