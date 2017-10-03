@@ -1,15 +1,19 @@
 .top-bar {
   margin: 0px;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background: #5a5a5a;
   color: white;
   font-size: 14px;
-  padding-left: 40px;
+  /*padding-left: 40px;*/
 }
 .top-bar .logout-btn {
   margin-left: 10px;
   cursor: pointer;
   text-decoration: underline;
+}
+.top-bar .back-btn {
+  cursor: pointer;
 }
 .top-bar .description {
   font-size: 14px;
