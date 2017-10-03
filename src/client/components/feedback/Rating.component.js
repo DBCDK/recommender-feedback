@@ -2,11 +2,11 @@ import React from 'react';
 
 const labels = [
   'Kan ikke vurdere anbefaling',
-  'Hæslig anbefaling',
   'Dårlig anbefaling',
+  'Ikke god anbefaling',
   'OK anbefaling',
   'God anbefaling',
-  'Super-duper anbefaling'
+  'Rigtig god anbefaling'
 ];
 export default class Rating extends React.Component {
   constructor(props) {
@@ -21,6 +21,7 @@ export default class Rating extends React.Component {
         <div
           key={i}
           className={rating >= i ? 'star-active' : 'star-passive'}
+          style={{color: rating === 1 && rating === i ? 'red' : null}}
           onMouseOver={() => {
             this.setState({hoverRating: i});
           }}
