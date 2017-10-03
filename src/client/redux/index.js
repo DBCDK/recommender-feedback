@@ -12,6 +12,7 @@ export const ON_SEARCH_RESPONSE = 'ON_SEARCH_RESPONSE';
 
 export const ON_RECOMMEND_REQUEST = 'ON_RECOMMEND_REQUEST';
 export const ON_RECOMMEND_RESPONSE = 'ON_RECOMMEND_RESPONSE';
+export const ON_RATING = 'ON_RATING';
 
 export const HISTORY_PUSH = 'HISTORY_PUSH';
 export const HISTORY_REPLACE = 'HISTORY_REPLACE';
@@ -92,11 +93,28 @@ const feedbackReducer = (state = defaultFeedbackState, action) => {
       return Object.assign({}, defaultFeedbackState, {isFetching: true, work: action.work});
     case ON_RECOMMEND_RESPONSE:
       return Object.assign({}, state, {isFetching: false, recommendations: action.works});
+    case ON_RATING: {
+      const recommendations = state.recommendations.map(work => {
+        if (work.pid === action.pid) {
+          return Object.assign({}, work, {rating: action.rating});
+        }
+        return work;
+      });
+      return Object.assign({}, state, {recommendations});
+    }
     default:
       return state;
   }
 };
+const LOCAL_STORAGE_KEY = 'recommender-feedback';
+const getLocalStorage = () => {
+  const storageString = sessionStorage.getItem(LOCAL_STORAGE_KEY);
+  return (storageString && JSON.parse(storageString)) || {};
+};
 
+const setLocalStorage = (state) => {
+  sessionStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+};
 const combined = combineReducers({
   profileReducer,
   routerReducer,
@@ -104,8 +122,10 @@ const combined = combineReducers({
   feedbackReducer
 });
 
-export const rootReducer = (state = {}, action) => {
-  return combined(state, action);
+export const rootReducer = (state = getLocalStorage(), action) => {
+  const newState = combined(state, action);
+  setLocalStorage(newState);
+  return newState;
 };
 
 // middleware
@@ -135,7 +155,7 @@ export const requestMiddleware = store => next => action => {
         store.dispatch({type: ON_SEARCH_RESPONSE,
           works: [
             {pid: 'somepid1', title: 'hest', creator: 'Ole Z.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'},
-            {pid: 'somepid2', title: 'hest2', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'},
+            {pid: 'somepid2', title: 'Hestehans indtager Rom', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'},
             {pid: 'somepid3', title: 'hest3', creator: 'Ole B.', cover: 'https://images.gr-assets.com/books/1447303603l/2767052.jpg'}
           ]
         });

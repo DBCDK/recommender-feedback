@@ -51,3 +51,37 @@ hr {
 .extra {
   margin-top: 10px;
 }
+.question {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.rating {
+  font-size: 22px;
+  cursor : pointer;
+}
+.rating .star-passive {
+  display: inline-block;
+  color: black;
+  vertical-align: top;
+  margin-top: 2px;
+}
+.rating .star-active {
+  display: inline-block;
+  color: #ffcf22;
+  vertical-align: top;
+  margin-top: 2px;
+}
+.rating .no-rate {
+  display: inline-block;
+  color: white;
+  margin-left: 10px;
+  border-radius: 50%;
+  padding-left: 6px;
+  padding-right: 6px;
+  background: black;
+  font-size: 14px;
+}
+.rating-label {
+  font-size: 14px;
+  margin-left: 3px;
+}

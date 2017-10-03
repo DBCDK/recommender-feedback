@@ -31,7 +31,7 @@ class App extends Component {
       this.setState({page: <Feedback/>});
     }
     else if (path === '/tak' && isLoggedIn) {
-      this.setState({page: <ThankYou/>});
+      this.setState({page: <ThankYou dispatch={this.props.dispatch}/>});
     }
     else {
       this.props.dispatch({type: HISTORY_REPLACE, path: '/tilmeld'});
