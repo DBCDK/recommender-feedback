@@ -6,8 +6,7 @@ const labels = [
   'Dårlig anbefaling',
   'OK anbefaling',
   'God anbefaling',
-  'Super-duper anbefaling',
-  'Perfekt anbefaling'
+  'Super-duper anbefaling'
 ];
 export default class Rating extends React.Component {
   constructor(props) {
@@ -17,7 +16,7 @@ export default class Rating extends React.Component {
 
   renderStars(rating) {
     const stars = [];
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 5; i++) {
       const label = (
         <div
           key={i}
