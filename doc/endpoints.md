@@ -11,20 +11,11 @@ The body must be [of the form](../src/server/schemas/login-in.json)
     { "email": "me@mail.dk"
     }
 
-The results is a 202 and a body [status structure](../src/integration/schemas/success-out.json), like
+The results is a 204.  The server sends an email to the user with a one-time link that logs in the user, like
 
-    { "data":
-      { "email": "me@mail.dk"
-      }
-    , "links":
-      { "self": "/v1/user/e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
-      , "progress": "/v1/progress/e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
-      }
-    }
-
-The `progress` link can be requested to see how far the backend is with sending an email to the user.
-
-The `self` (and `Location`) link will not succeed until the user has logged in.
+    Tak fordi du vil hjælpe med at lave rigtig gode boganbefalinger.
+    Du kan logge ind ved at bruge dette link:
+        https://recommender-feedback.dbc.dk/login/258c43f0-bf42-47dd-a062-77e9a367cea7
 
 ### `GET /v1/user/`*uuid*
 
@@ -38,7 +29,7 @@ Returns [user information](../src/integration/schemas/user-data-out.json), provi
       }
     }
 
-If the user is not logged in, the result is an [error](../src/integration/schemas/failure-out.json) like
+If the user is not logged in, the result is an [error](../src/integration/schemas/failure-out.json), like
 
     { "errors":
       [ { "status": 401
@@ -83,17 +74,3 @@ Or, if the temporary login UUID is *not* known by the server, an [error](../src/
       , "new-login": "/v1/user"
       }
     }
-
-### `GET /v1/progress/`*uuid*
-
-Returns the [state of sending](../src/integration/schemas/progress-data-out.json) login email to the user, like
-
-    { "data":
-      { "progress": 0.5
-      , "status": "Sending email"
-      }
-    , "links":
-      { "self": "/v1/progress/e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
-      }
-    }
-
