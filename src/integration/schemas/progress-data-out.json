@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "progress": {
+      "required": true,
+      "type": "number"
+    },
+    "status": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
