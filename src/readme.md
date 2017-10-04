@@ -2,7 +2,7 @@
 
 To setup the system locally, in the root directory:
 
-    $ touch current.env     // Use default configuration.
+    $ cp env/developer.env current.env
     $ npm install           // Install dependencies.
 
 To run the system locally:

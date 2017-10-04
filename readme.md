@@ -15,20 +15,21 @@ To run the database tests against the server (requires postgresql):
     $ . /nvm.sh
     $ nvm install
     $ npm install
-    $ cp integration.env current.env
-    $ npm run integration-test --silent
+    $ cp env/integration.env current.env
+    $ npm run test-full --silent
 
 To start the server in staging or production mode:
 
     $ . /nvm.sh
     $ nvm install
-    $ npm install --production
-    $ cp envproduction.env current.env
-    $ npm run serve
+    $ npm install
+    $ cp env/production.env current.env
+    $ npm run build
+    $ npm run start-backend
 
 ## Environments
 
-The backend service controlled by environment variables.  Most scripts assume that such variables are set in your local file `current.env`.  If you are just running the system on your own machine during development, you can most likely just use an empty `current.env`, but it has to exist.  The [`env`](env/) directory holds templates for other used configurations.  If you need to tweak settings, the application obeys the following environment variables.
+The backend service controlled by environment variables.  Most scripts assume that such variables are set in your local file `current.env`.  The [`env`](env/) directory holds templates for other used configurations.  If you need to tweak settings, the application obeys the following environment variables.
 
 | Environment variable    | Default     | Effect                           |
 | ----------------------- | ----------- | -------------------------------- |
