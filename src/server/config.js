@@ -19,6 +19,13 @@ const knexfile = require('./knexfile');
 //     const port = require('server/config').server.port
 //     mymodule(port)
 
+function failIfEmpty(key) {
+  if (typeof process.env[key] === 'undefined' || process.env[key] === null || process.env[key] === '') {
+    throw `Missing environment variable: '${key}'`;
+  }
+  return process.env[key];
+}
+
 function Defaults () {
   return {
     environment: process.env.NODE_ENV || 'development',
@@ -48,6 +55,17 @@ exports.logger = {
   level: defaults.logLevel,
   pretty: defaults.prettyLog,
   hostname: defaults.hostname
+};
+
+exports.openPlatform = {
+  serviceProvider: {
+    uri: failIfEmpty('SERVICE_PROVIDER_URI')
+  },
+  smaug: {
+    uri: failIfEmpty('SMAUG_URI'),
+    clientId: failIfEmpty('SMAUG_CLIENT_ID'),
+    clientSecret: failIfEmpty('SMAUG_CLIENT_SECRET')
+  }
 };
 
 exports.db = knexfile[defaults.environment];

@@ -18,10 +18,10 @@ const WorkRow = (props) => {
       }
     }>
       <div className='col-xs-3 col-sm-2'>
-        <img alt='' src={props.work.cover}/>
+        <img alt='' src={props.work.coverUrlThumbnail || '/default-book-cover.png'}/>
       </div>
       <div className='col-xs-8 col-sm-9'>
-        <div className='title'>{props.work.title}</div>
+        <div className='title'>{props.work.dcTitle}</div>
         <div className='creator'>{props.work.creator}</div>
       </div>
       <div className='col-xs-1 arrow'>

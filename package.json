@@ -61,7 +61,7 @@
     "test-frontend": "react-scripts test --env=jsdom",
     "test-full": "run-s test-nodb test-integration",
     "test-integration": ". ./current.env && mocha src/integration/**/*_test.js",
-    "test-nodb": "mocha src/integration/**/*_no-db.js",
+    "test-nodb": ". ./current.env && mocha src/integration/**/*_no-db.js",
     "test-units": "mocha src/lib/**/*_test.js src/server/**/*_test.js"
   }
 }

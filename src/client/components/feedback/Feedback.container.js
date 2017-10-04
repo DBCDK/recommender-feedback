@@ -7,10 +7,10 @@ const SelectedWork = (props) => {
   return (
     <div className='row selected-work text-left'>
       <div className='col-xs-2 col-sm-1'>
-        <img alt='' src={props.work.cover}/>
+        <img alt='' src={props.work.coverUrlThumbnail || '/default-book-cover.png'}/>
       </div>
       <div className='col-xs-10 col-sm-11'>
-        <div className='title'>{props.work.title}</div>
+        <div className='title'>{props.work.dcTitle}</div>
         <div className='creator'>{props.work.creator}</div>
       </div>
     </div>
@@ -84,7 +84,7 @@ class Feedback extends React.Component {
               <div className='row'>
                 <div className='col-xs-12 col-sm-6 question'>
                   <span>{'En af dine venner spørger dig: "Jeg har læst '}</span>
-                  <span><em>{selected.title}</em></span>
+                  <span><em>{selected.dcTitle}</em></span>
                   <span>{', hvad vil du anbefale mig at læse nu?"'}</span>
                 </div>
               </div>
