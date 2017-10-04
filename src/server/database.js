@@ -36,7 +36,7 @@ class Database {
   testingConnection () {
     // Make a dummy query.
     return knex.raw('select 1+1 as result')
-      .then(function () {
+      .then(() => {
         logger.log.trace('There is a valid connection in the pool');
         database.setOk();
         return database.isOk();

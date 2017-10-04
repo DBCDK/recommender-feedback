@@ -21,7 +21,7 @@ To run fast tests on local machine:
 To run full integration test:
 
     $ docker-compose up -d  // Start local PostgreSQL database.
-    $ npm run test-full     // Run all test, including database integration.
+    $ npm run test-full     // Run all acceptance & integration tests.
 
 Read [more about integration testing](integration/readme.md).
 

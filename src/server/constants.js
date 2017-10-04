@@ -4,6 +4,9 @@ const constants = {
   apiversion: '1',
   users: {
     table: 'users'
+  },
+  login: {
+    table: 'login'
   }
 };
 

@@ -11,7 +11,8 @@ const expectSuccess = require('./output-verifiers').expectSuccess;
 const expectValidate = require('./output-verifiers').expectValidate;
 
 describe('User data', () => {
-  const webapp = request(`http://localhost:${config.server.port}`);
+  const server = require('server/public-server');
+  const webapp = request(server);
   before(async () => {
     await dbUtil.dropAll();
     await knex.migrate.latest();
@@ -111,6 +112,11 @@ describe('User data', () => {
         .end(done);
     });
     it('should create user and send login link');
-    // expect(uuid).to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+    it('should overwrite existing user and send login link');
+  });
+  describe('POST /v1/login', () => {
+    it('should reject non-existing login token');
+    it('should log in user for valid login token');
+    it('should reject already-used login token');
   });
 });

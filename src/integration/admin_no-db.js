@@ -10,8 +10,8 @@ describe('Admin API', () => {
     const port = 5640;
     process.env.PORT = port;
     process.env.DB_HOST = 'bd.exists.not';
-    const external = require('server/public-server');
-    const webapp = request(external);
+    const server = require('server/public-server');
+    const webapp = request(server);
     describe('/howru', () => {
       it('should say that database is unreachable', done => {
         webapp.get('/howru')

@@ -30,7 +30,10 @@
       , "node_modules"
       ]
     , "file_exclude_patterns":
-      [ "npm-debug.log"
+      [ ".eslint*"
+      , ".nvm*"
+      , "license*"
+      , "npm-debug.log"
       , "nvm.sh"
       , "package-lock.json"
       ]
