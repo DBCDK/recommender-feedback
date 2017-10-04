@@ -43,7 +43,10 @@ The backend service controlled by environment variables.  Most scripts assume th
 | NODE_ENV                | development | Controls other service settings (development, ci, production) |
 | PORT                    | 3001        | TCP port for the service         |
 | PRETTY_LOG              | 1           | Pretty printed log statements (1), or one-line log statements (0) |
-
+| SERVICE_PROVIDER_URI    |             |
+| SMAUG_CLIENT_ID         |             |
+| SMAUG_CLIENT_SECRET     |             |
+| SMAUG_URI               |             |  
 
 ## Endpoints
 

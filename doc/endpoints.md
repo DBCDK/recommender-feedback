@@ -74,3 +74,43 @@ Or, if the temporary login UUID is *not* known by the server, an [error](../src/
       , "new-login": "/v1/user"
       }
     }
+
+## Search
+
+### `GET /v1/search?query=`*cql-query*
+
+The query must be [of the form](../src/server/schemas/search-in.json)
+
+Returns list of works, like
+
+    { "data": [
+        {
+          "dcTitle": [
+            "Økologisk ost som i gamle dage"
+          ],
+          "abstract": [
+            "Smagstest af økologisk ost"
+          ],
+          "pid": [
+            "somepid"
+          ],
+          "type": [
+            "Avisartikel"
+          ]
+        },
+        {
+          "dcTitle": [
+          "Mælk & ost"
+          ],
+          "pid": [
+            "somepid"
+          ],
+          "type": [
+            "Tidsskrift"
+          ]
+        }
+      ]
+    , "links":
+      { "self": "/v1/search?query=ost"
+      }
+    }
