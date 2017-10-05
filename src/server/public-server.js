@@ -51,7 +51,12 @@ app.use(parser.json({
  */
 app.get('/howru', async(req, res) => {
   const ok = await database.testingConnection();
-  const configWithouSecrets = _.omit(config, ['db.connection.user', 'db.connection.password']);
+  const configWithouSecrets = _.omit(config, [
+    'db.connection.user',
+    'db.connection.password',
+    'openPlatform.smaug.clientId',
+    'openPlatform.smaug.clientSecret'
+  ]);
   if (ok) {
     return res.json({
       ok: true,

@@ -33,6 +33,8 @@ describe('Admin API on running database', () => {
             expect(res.body.version).to.equal('0.1.0');
             expect(res.body).to.not.have.nested.property('config.db.connection.user');
             expect(res.body).to.not.have.nested.property('config.db.connection.password');
+            expect(res.body).to.not.have.nested.property('config.openPlatform.smaug.clientId');
+            expect(res.body).to.not.have.nested.property('config.openPlatform.smaug.clientSecret');
           })
           .end(done);
       });
