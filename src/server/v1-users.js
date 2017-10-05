@@ -6,9 +6,17 @@ const asyncMiddleware = require('__/async-express').asyncMiddleware;
 const config = require('server/config');
 const knex = require('knex')(config.db);
 const constants = require('server/constants')();
-const table = constants.users.table;
+const userTable = constants.users.table;
+const loginTable = constants.login.table;
 const validatingInput = require('server/json-verifiers').validatingInput;
 const isEmail = require('isemail');
+const mailer = require('nodemailer');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const {promisify} = require('util');
+const readFileAsync = promisify(fs.readFile);
+const resolve = require('resolve');
+const uuidv4 = require('uuid/v4');
 
 router.route('/')
   .post(asyncMiddleware(async (req, res, next) => {
@@ -20,8 +28,7 @@ router.route('/')
         detail: `Content type ${contentType} is not supported`
       });
     }
-    const schema = 'schemas/login-in.json';
-    let email;
+    const schema = 'schemas/user-in.json';
     try {
       await validatingInput(req.body, schema);
     }
@@ -33,14 +40,74 @@ router.route('/')
         meta: error.meta || error
       });
     }
-    email = req.body.email;
-    if (!isEmail.validate(email)) {
+    let address = req.body.email;
+    if (!isEmail.validate(address)) {
       return next({
         status: 400,
         title: 'Malformed email address',
-        detail: `${email} is not considered a proper email address`
+        detail: `${address} is not considered a proper email address`
       });
     }
+    // Create user and login token.
+    const uuid = uuidv4();
+    const token = uuidv4();
+    try {
+      await knex(userTable).insert({uuid, email: address});
+      await knex(loginTable).insert({uuid: token, user: uuid});
+    }
+    catch (error) {
+      return next({
+        status: 500,
+        title: 'Database operation failed',
+        detail: error
+      });
+    }
+    // Send email.
+    const mailhost = config.email.mailserver;
+    const transporter = mailer.createTransport({
+      host: mailhost,
+      port: 25,
+      secure: false
+    });
+    let template;
+    const templateFile = 'server/login-email.handlebars';
+    try {
+      // It is probably OK to load the template each time a user requests a
+      // new login, because it will throttle attacks a bit.
+      template = await readFileAsync(resolve.sync(templateFile));
+    }
+    catch (error) {
+      return next({
+        status: 500,
+        title: 'File not found',
+        detail: `Template file ${templateFile}`
+      });
+    }
+    const compiler = handlebars.compile(template.toString());
+    const email = {
+      to: address,
+      from: config.email.from,
+      subject: config.email.subject,
+      text: compiler({host: config.email.hostname, token})
+    };
+    transporter.sendMail(email, (error, info) => {
+      if (error) {
+        return next({
+          status: 502,
+          title: 'Cannot send email',
+          detail: `Problems with ${mailhost}`,
+          meta: {error}
+        });
+      }
+      let location = `/v1/users/${uuid}`;
+      res.status(201).location(location).json({
+        data: `Login token sent via email to ${address}`,
+        links: {
+          self: location,
+          'message-id': info.messageId
+        }
+      });
+    });
   }))
 ;
 
@@ -50,7 +117,7 @@ router.route('/:uuid')
     const location = `${req.baseUrl}/${uuid}`;
     let existing;
     try {
-      existing = await knex(table).where({uuid}).select('email');
+      existing = await knex(userTable).where({uuid}).select('email');
     }
     catch (error) {
       return next({

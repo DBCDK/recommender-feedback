@@ -41,6 +41,9 @@ The backend service controlled by environment variables.  Most scripts assume th
 | DB_USER_PASSWORD        |             | Database password                |
 | LOG_LEVEL               | INFO        | Verbosity of service log (OFF, ERROR, WARN, WARNING, INFO, DEBUG, TRACE) |
 | LOG_SERVICE_ERRORS      | 1           | Record all 5xx errors (1), or ignore 5xx errors (0) |
+| LOGIN_MAIL_FROM         | xxx@dbc.dk  | Login email appear to be sent from this address |
+| LOGIN_MAIL_SERVER       | mailhost.dbc.dk | Login email will be sent through this |
+| LOGIN_MAIL_SUBJECT      | Velkommen til ... | Login email will have this subject |
 | NODE_ENV                | development | Controls other service settings (development, ci, production) |
 | PORT                    | 3001        | TCP port for the service         |
 | PRETTY_LOG              | 1           | Pretty printed log statements (1), or one-line log statements (0) |
@@ -48,6 +51,8 @@ The backend service controlled by environment variables.  Most scripts assume th
 | SMAUG_CLIENT_ID         |             |
 | SMAUG_CLIENT_SECRET     |             |
 | SMAUG_URI               |             |  
+
+The template for the login email body must be changed directly in the [source code](src/server/login-email.handlebars). 
 
 ## Endpoints
 

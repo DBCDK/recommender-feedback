@@ -4,7 +4,7 @@
 'use strict';
 const validator = require('is-my-json-valid/require');
 const formats = require('server/schemas/formats');
-const nicifyJsonValidationErrors = require('__/json').nicifyJsonValidationErrors;
+const {nicifyJsonValidationErrors} = require('__/json');
 
 function validatingInput (document, schema) {
   return new Promise((resolve, reject) => {

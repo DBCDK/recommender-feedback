@@ -1,7 +1,11 @@
 {
   "type": "object",
   "properties": {
-    "token": {
+    "self": {
+      "required": true,
+      "type": "string"
+    },
+    "message-id": {
       "required": true,
       "type": "string"
     }

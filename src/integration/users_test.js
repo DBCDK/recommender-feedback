@@ -1,27 +1,25 @@
 'use strict';
 
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const request = require('supertest');
 const config = require('server/config');
-const logger = require('__/logging')(config.logger);
+// const logger = require('__/logging')(config.logger);
 const knex = require('knex')(config.db);
 const dbUtil = require('./cleanup-db')(knex);
-const expectFailure = require('./output-verifiers').expectFailure;
-const expectSuccess = require('./output-verifiers').expectSuccess;
-const expectValidate = require('./output-verifiers').expectValidate;
+const {expectFailure, expectSuccess, expectValidate} = require('./output-verifiers');
+const mock = require('./mock-server');
 
 describe('User data', () => {
-  const server = require('server/public-server');
-  const webapp = request(server);
+  const webapp = request(mock.server);
   before(async () => {
-    await dbUtil.dropAll();
     await knex.migrate.latest();
   });
   beforeEach(async () => {
     await dbUtil.clear();
     await knex.seed.run();
-    logger.log.debug('Database is now seeded.');
   });
+  afterEach(mock.afterEach);
+  after(mock.afterEach);
   describe('GET /v1/users/:uuid', () => {
     it('should detect non-existent user', done => {
       const uuid = 'e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9';
@@ -111,12 +109,64 @@ describe('User data', () => {
         .expect(400)
         .end(done);
     });
-    it('should create user and send login link');
-    it('should overwrite existing user and send login link');
-  });
-  describe('POST /v1/login', () => {
-    it('should reject non-existing login token');
-    it('should log in user for valid login token');
-    it('should reject already-used login token');
+    it('should handle failure to send email', done => {
+      mock.mailer.mock.shouldFailOnce();
+      webapp.post('/v1/users')
+        .type('application/json')
+        .send({email: 'another.one@open-mail.dk'})
+        .expect(res => {
+          expectFailure(res.body, errors => {
+            expect(errors).to.have.length(1);
+            const error = errors[0];
+            expect(error.title).to.match(/cannot send email/i);
+            expect(error.detail).to.match(/problems with mailhost\.dbc\.dk/i);
+          });
+        })
+        .expect(502)
+        .end(done);
+    });
+    it('should create user, send a login link, and allow login', done => {
+      const address = 'some+one@open.mail.dk';
+      let location;
+      webapp.post('/v1/users')
+        .type('application/json')
+        .send({email: address})
+        .expect(res => {
+          expect(res.headers).to.have.property('location');
+          location = res.headers.location;
+          expectSuccess(res.body, (links, data) => {
+            expectValidate(links, 'schemas/user-create-links-out.json');
+            expect(links.self).to.equal(location);
+            expectValidate(data, 'schemas/user-create-data-out.json');
+            expect(data).to.include(address);
+          });
+        })
+        .expect(201)
+        .then(() => {
+          const emails = mock.mailer.mock.sentMail();
+          expect(emails).to.have.length(1);
+          const email = emails[0];
+          expect(email.from).to.include(config.email.from);
+          expect(email.subject).to.equal(config.email.subject);
+          expect(email.text).to.include('://' + config.email.hostname + '/login?id=');
+          const link = /https?:\/\/[^/]+\/login\?id=([-a-z0-9]+)/i;
+          const found = email.text.match(link);
+          assert(found, `Email body does not contain a link matching ${link}`);
+          const token = found[1];
+          webapp.post('/v1/login')
+            .type('application/json')
+            .send({token})
+            .expect(res => {
+              expectSuccess(res.body, (links, data) => {
+                expectValidate(links, 'schemas/user-links-out.json');
+                expectValidate(data, 'schemas/user-data-out.json');
+                expect(data.email).to.equal(address);
+              });
+            })
+            .expect(200)
+            .end(done);
+        })
+        .catch(done);
+    });
   });
 });

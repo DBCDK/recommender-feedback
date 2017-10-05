@@ -1,0 +1,14 @@
+{{!--
+
+This Handlebars template generates the body of the login email that users receive when they try to log in to the Reccomender Feedback webpage.  The following template keys are supported:
+
+  host : The server part of the URL to the login page.
+  token : The one-time login token.
+  email: The email address of the user.
+
+--}}
+Tak fordi du vil hjælpe med at lave rigtig gode boganbefalinger!
+
+Du kan logge ind ved at bruge dette link:
+
+    https://{{host}}/login?id={{token}}

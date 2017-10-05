@@ -6,12 +6,22 @@ The responses from the backend are either raw images or JSON loosely based on th
 
 ### `POST /v1/user`
 
-The body must be [of the form](../src/server/schemas/login-in.json)
+The body must be [of the form](../src/server/schemas/user-in.json)
 
     { "email": "me@mail.dk"
     }
 
-The results is a 204.  The server sends an email to the user with a one-time link that logs in the user, like
+The results is a 202 with a `Location` pointing to where the user data can be found after the user has logged in, and a [result](../src/integration/schemas/user-data-out.json) like
+
+    { "data": "Login token sent via email to some+one@open.mail.dk"
+    , "links":
+      { "self": "/v1/user/e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
+      , "message-id": "d3316133eaaeceb25f728748f127e898f6d0d9724a275e89"
+      }
+    }
+
+
+The server sends an email to the user with a one-time link that logs in the user, like
 
     Tak fordi du vil hjælpe med at lave rigtig gode boganbefalinger.
     Du kan logge ind ved at bruge dette link:
@@ -48,7 +58,12 @@ If the user is unknown, the result is a 404.
 
 ## Login
 
-### `POST /v1/login/`*temp-uuid*
+### `POST /v1/login/`
+
+The body must be [of the form](../src/server/schemas/login-in.json)
+
+    { "token": "cfb16df1-1eea-42b8-a21c-d91650c9aec6"
+    }
 
 Returns [user data](../src/integration/schemas/user-data-out.json) if the temporary login UUID is known by the server, like
 
@@ -65,13 +80,12 @@ Or, if the temporary login UUID is *not* known by the server, an [error](../src/
     { "errors":
       [ { "status": 404
         , "code": "404"
-        , "title": "Unknown login UUID"
-        , "detail": "UUID 258c43f0-bf42-47dd-a062-77e9a367cea7 is not a pending login"
+        , "title": "Unknown login token"
+        , "detail": "Token 258c43f0-bf42-47dd-a062-77e9a367cea7 is not a pending login"
         }
       ]
     , "links":
-      { "resource": "/v1/login/258c43f0-bf42-47dd-a062-77e9a367cea7"
-      , "new-login": "/v1/user"
+      { "new-login": "/v1/user"
       }
     }
 

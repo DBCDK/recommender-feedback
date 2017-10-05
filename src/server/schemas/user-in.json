@@ -1,7 +1,7 @@
 {
   "type": "object",
   "properties": {
-    "token": {
+    "email": {
       "required": true,
       "type": "string"
     }

@@ -1,14 +1,14 @@
 /* eslint-env mocha */
 'use strict';
 
-const expect = require('chai').expect;
+const {expect} = require('chai');
 const request = require('supertest');
-const expectValidate = require('./output-verifiers').expectValidate;
+const {expectValidate} = require('./output-verifiers');
 
 describe('Admin API on running database', () => {
   describe('Public endpoint', () => {
-    const server = require('server/public-server');
-    const webapp = request(server);
+    const mock = require('./mock-server');
+    const webapp = request(mock.server);
     describe('/pid', () => {
       it('should return the process id', done => {
         webapp.get('/pid')

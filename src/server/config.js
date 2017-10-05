@@ -33,7 +33,8 @@ function Defaults () {
     prettyLog: parseInt(process.env.PRETTY_LOG || 1, 10),
     logLevel: process.env.LOG_LEVEL || 'INFO',
     logServiceErrors: parseInt(process.env.LOG_SERVICE_ERRORS || 1, 10),
-    hostname: hostname().replace('.domain_not_set.invalid', '')
+    hostname: hostname().replace('.domain_not_set.invalid', ''),
+    externalHostname: 'recommender-feedback.dbc.dk'
   };
 }
 
@@ -47,7 +48,7 @@ exports.server = {
   environment: defaults.environment,
   logServiceErrors: defaults.logServiceErrors,
   port: defaults.port,
-  hostname: 'recommender-feedback.dbc.dk'
+  hostname: defaults.externalHostname
 };
 
 exports.logger = {
@@ -55,6 +56,13 @@ exports.logger = {
   level: defaults.logLevel,
   pretty: defaults.prettyLog,
   hostname: defaults.hostname
+};
+
+exports.email = {
+  from: process.env.LOGIN_MAIL_FROM || 'Læsekompasset <afb@dbc.dk>',
+  subject: process.env.LOGIN_MAIL_SUBJECT || 'Velkommen til Læsekompasset',
+  mailserver: process.env.LOGIN_MAIL_SERVER || 'mailhost.dbc.dk',
+  hostname: defaults.externalHostname
 };
 
 exports.openPlatform = {
