@@ -18,7 +18,7 @@ class App extends Component {
   route(props) {
     const path = props.routerState.path;
     const isLoggedIn = props.profileState.isLoggedIn;
-    if (path === '/tilmeld') {
+    if (path === '/velkommen') {
       this.setState({page: <CreateProfile/>});
     }
     else if (path === '/login') {
@@ -33,8 +33,11 @@ class App extends Component {
     else if (path === '/tak' && isLoggedIn) {
       this.setState({page: <ThankYou dispatch={this.props.dispatch}/>});
     }
+    else if (isLoggedIn) {
+      this.props.dispatch({type: HISTORY_REPLACE, path: '/søg'});
+    }
     else {
-      this.props.dispatch({type: HISTORY_REPLACE, path: '/tilmeld'});
+      this.props.dispatch({type: HISTORY_REPLACE, path: '/velkommen'});
     }
   }
 

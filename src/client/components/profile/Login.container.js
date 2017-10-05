@@ -10,7 +10,7 @@ class Login extends React.Component {
       this.props.dispatch({type: ON_LOGIN_REQUEST, profileId: urlParams.id[0]});
     }
     else {
-      this.props.dispatch({type: HISTORY_REPLACE, path: '/tilmeld'});
+      this.props.dispatch({type: HISTORY_REPLACE, path: '/velkommen'});
     }
   }
 

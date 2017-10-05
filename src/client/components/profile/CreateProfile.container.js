@@ -21,8 +21,7 @@ class CreateProfile extends React.Component {
               Gør følgende:
             </p>
             <ol>
-              <li>Opret profil ved at indtaste din email i nedenstående formular.</li>
-              <li>Vi sender et link til din email, som du skal benytte fremover, når du vil give feedback på anbefalinger.</li>
+              <li>Log ind ved at indtaste email i nedenstående form, og følg det tilsendte link.</li>
               <li>Søg et værk frem, som skal danne udgangspunkt for anbefalingerne.</li>
               <li>Gennemgå anbefalingerne og giv os feedback på hvor gode de enkelte anbefalinger er.</li>
             </ol>

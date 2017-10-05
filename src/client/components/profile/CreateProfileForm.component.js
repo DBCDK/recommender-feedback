@@ -12,7 +12,7 @@ export default class CreateProfileForm extends React.Component {
   render() {
     return (
       <div className='row well create-profile--form text-left'>
-        <h4>Opret profil</h4>
+        <h4>Log ind med email</h4>
         <form onSubmit={event => {
           if (this.state.email) {
             this.props.onSubmitEmail(this.state.email);
@@ -34,7 +34,7 @@ export default class CreateProfileForm extends React.Component {
           </div>
           <div className="col-xs-12 col-sm-4">
             <button type="submit" className="btn btn-primary btn-block">
-              Opret
+              Send engangs-login
             </button>
           </div>
         </form>
