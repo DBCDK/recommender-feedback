@@ -38,18 +38,24 @@ class RecommenderRow extends React.Component {
     return (
       <div className='row recommender-row text-left'>
         <div className='col-xs-3 col-sm-2'>
-          <img alt='' src={this.props.work.cover}/>
+          <img alt='' src={this.props.work.coverUrlThumbnail || '/default-book-cover.png'}/>
         </div>
         <div className='col-xs-9 col-sm-7'>
-          <div className='title'>{this.props.work.title}</div>
+          <div className='title'>{this.props.work.dcTitle}</div>
           <div className='creator'>{this.props.work.creator}</div>
-          <div className='description extra'>{this.props.work.description}</div>
+          <div className='description extra'>{this.props.work.abstract}</div>
           {!this.state.collapsed &&
             <div>
-              <div className='subjects extra'>{this.props.work.subjects}</div>
+              {this.props.work.subjectDBCS && <div className='subjects extra'>{this.props.work.subjectDBCS.join(', ')}</div>}
+              <div>
+                {this.props.work.extent && <span>{this.props.work.extent}</span>}
+                {this.props.work.publisher && <span>, {this.props.work.publisher}</span>}
+                {this.props.work.date && <span> {this.props.work.date}</span>}
+              </div>
               <div className='details extra'>{this.props.work.details}</div>
+
               <div className='extra'>
-                <a href=''>Se mere på bibliotek.dk</a>
+                <a target='_blank' href={`https://bibliotek.dk/da/search/work/?search_block_form=rec.id%3D${encodeURIComponent(this.props.work.pid)}`}>Se mere på bibliotek.dk</a>
               </div>
             </div>}
           <button className='btn btn-default mt-1' onClick={() => {
@@ -101,6 +107,7 @@ class Feedback extends React.Component {
           </div>
           <hr className='mt-1 mb-0'/>
           {this.props.feedbackState.isFetching && <h3>Indlæser anbefalinger</h3>}
+          {recommendations && recommendations.length === 0 && <h3>Der kunne ikke findes anbefalinger</h3>}
           {recommendations && <RecommenderList
             works={recommendations}
             onRating={(pid, rating) => {

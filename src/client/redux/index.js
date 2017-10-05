@@ -151,7 +151,6 @@ export const requestMiddleware = store => next => action => {
       return next(action);
 
     case ON_SEARCH_REQUEST:
-      // here we want to actually call endpoint
       request.get('/v1/search')
         .query({query: `'${action.query}'`})
         .then(res => {
@@ -167,28 +166,18 @@ export const requestMiddleware = store => next => action => {
       return next(action);
 
     case ON_RECOMMEND_REQUEST:
-      // here we want to actually call endpoint
-      window.setTimeout(() => {
-        store.dispatch({type: ON_RECOMMEND_RESPONSE,
-          works: [
-            {
-              pid: 'pid1',
-              title: 'Værk 1',
-              creator: 'Jens Jensen',
-              cover: '/default-book-cover.png',
-              description: 'Det er en bogbeskrivelse',
-              subjects: 'Kærlighed, krig, fred, heste',
-              details: '138 sider. Udgivet af Blah.'
-            },
-            {
-              pid: 'pid2',
-              title: 'Værk 2',
-              creator: 'Jens Jensen',
-              cover: '/default-book-cover.png'
-            }
-          ]
+      request.get('/v1/recommend')
+        .query({pid: action.work.pid[0]})
+        .then(res => {
+          store.dispatch({type: ON_RECOMMEND_RESPONSE,
+            works: res.body.data
+          });
+        })
+        .catch(() => {
+          store.dispatch({type: ON_RECOMMEND_RESPONSE,
+            works: []
+          });
         });
-      }, 500);
       return next(action);
 
     default:

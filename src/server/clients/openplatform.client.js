@@ -16,7 +16,8 @@ const defaultFields = [
   'subject',
   'pid',
   'type',
-  'coverUrlThumbnail'
+  'coverUrlThumbnail',
+  'subjectDBCS'
 ];
 
 const search = async ({query, fields=defaultFields}, agencyId='') => {
@@ -26,6 +27,10 @@ const recommend = async ({like, fields=defaultFields, limit=10}, agencyId='') =>
 
   // first, fetch the recommended pids
   const response = await makeRequestToServiceProvider({like, limit}, agencyId, 'recommend');
+
+  if (response.data && response.data.length === 0) {
+    return response;
+  }
 
   // create pid to score mapping
   const pidToScore = {};
