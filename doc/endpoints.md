@@ -114,3 +114,45 @@ Returns list of works, like
       { "self": "/v1/search?query=ost"
       }
     }
+
+## Recommend
+
+### `GET /v1/recommend?pid=`*pid*
+
+The query must be [of the form](../src/server/schemas/recommend-in.json)
+
+Returns list of works, like
+
+    { "data": [
+        {
+          "dcTitle": [
+            "Økologisk ost som i gamle dage"
+          ],
+          "abstract": [
+            "Smagstest af økologisk ost"
+          ],
+          "pid": [
+            "somepid"
+          ],
+          "type": [
+            "Avisartikel"
+          ],
+          score: 0.5
+        },
+        {
+          "dcTitle": [
+          "Mælk & ost"
+          ],
+          "pid": [
+            "somepid"
+          ],
+          "type": [
+            "Tidsskrift"
+          ],
+          score: 0.3
+        }
+      ]
+    , "links":
+      { "self": "/v1/recommend?pid=somepid"
+      }
+    }
