@@ -19,7 +19,7 @@ describe('Login', () => {
     await knex.seed.run();
   });
   afterEach(mock.afterEach);
-  after(mock.afterEach);
+  after(mock.after);
   describe('POST /v1/login', () => {
     it('should reject wrong content type', done => {
       webapp.post('/v1/login')

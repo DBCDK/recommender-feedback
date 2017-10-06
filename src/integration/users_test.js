@@ -19,7 +19,7 @@ describe('User data', () => {
     await knex.seed.run();
   });
   afterEach(mock.afterEach);
-  after(mock.afterEach);
+  after(mock.after);
   describe('GET /v1/users/:uuid', () => {
     it('should detect non-existent user', done => {
       const uuid = 'e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9';
