@@ -1,10 +1,6 @@
 {
   "type": "object",
   "properties": {
-    "self": {
-      "required": true,
-      "type": "string"
-    },
     "message-id": {
       "required": true,
       "type": "string"

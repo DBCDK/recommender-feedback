@@ -63,7 +63,7 @@ router.route('/')
       });
     }
     try {
-      existing = await knex(userTable).where({uuid}).select('email');
+      existing = await knex(userTable).where({uuid}).select('uuid', 'email');
     }
     catch (error) {
       return next({
@@ -80,9 +80,7 @@ router.route('/')
       });
     }
     res.status(200).json({
-      data: {
-        email: existing[0].email
-      },
+      data: existing[0],
       links: {
         self: `/v1/users/${uuid}`
       }

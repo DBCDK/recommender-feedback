@@ -50,6 +50,7 @@ describe('User data', () => {
             expect(links.self).to.equal(location);
             expectValidate(data, 'schemas/user-data-out.json');
             expect(data.email).to.equal('me@mail.dk');
+            expect(data.uuid).to.equal(uuid);
           });
         })
         .expect(200)
@@ -127,16 +128,12 @@ describe('User data', () => {
     });
     it('should create user, send a login link, and allow login', done => {
       const address = 'some+one@open.mail.dk';
-      let location;
       webapp.post('/v1/users')
         .type('application/json')
         .send({email: address})
         .expect(res => {
-          expect(res.headers).to.have.property('location');
-          location = res.headers.location;
           expectSuccess(res.body, (links, data) => {
             expectValidate(links, 'schemas/user-create-links-out.json');
-            expect(links.self).to.equal(location);
             expectValidate(data, 'schemas/user-create-data-out.json');
             expect(data).to.include(address);
           });

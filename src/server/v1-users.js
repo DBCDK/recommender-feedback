@@ -99,11 +99,9 @@ router.route('/')
           meta: {error}
         });
       }
-      let location = `/v1/users/${uuid}`;
-      res.status(201).location(location).json({
+      res.status(201).json({
         data: `Login token sent via email to ${address}`,
         links: {
-          self: location,
           'message-id': info.messageId
         }
       });
@@ -117,7 +115,7 @@ router.route('/:uuid')
     const location = `${req.baseUrl}/${uuid}`;
     let existing;
     try {
-      existing = await knex(userTable).where({uuid}).select('email');
+      existing = await knex(userTable).where({uuid}).select('uuid', 'email');
     }
     catch (error) {
       return next({

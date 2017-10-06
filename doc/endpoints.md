@@ -29,28 +29,14 @@ The server sends an email to the user with a one-time link that logs in the user
 
 ### `GET /v1/user/`*uuid*
 
-Returns [user information](../src/integration/schemas/user-data-out.json), provided that the user has logged in, like
+Returns [user information](../src/integration/schemas/user-data-out.json), like
 
     { "data":
-      { "email": "me@mail.dk"
+      { "uuid": "e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
+      , "email": "me@mail.dk"
       }
     , "links":
       { "self": "/v1/user/e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
-      }
-    }
-
-If the user is not logged in, the result is an [error](../src/integration/schemas/failure-out.json), like
-
-    { "errors":
-      [ { "status": 401
-        , "code": "401"
-        , "title": "User is not loged in"
-        , "detail": "Login for UUID e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9 is pending"
-        }
-      ]
-    , "links":
-      { "resource": "/v1/user/e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
-      , "new-login": "/v1/user"
       }
     }
 
@@ -68,7 +54,8 @@ The body must be [of the form](../src/server/schemas/login-in.json)
 Returns [user data](../src/integration/schemas/user-data-out.json) if the temporary login UUID is known by the server, like
 
     { "data":
-      { "email": "me@mail.dk"
+      { "uuid": "e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
+      , "email": "me@mail.dk"
       }
     , "links":
       { "self": "/v1/user/e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
