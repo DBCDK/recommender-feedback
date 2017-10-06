@@ -21,10 +21,8 @@ export const ON_LOCATION_CHANGE = 'ON_LOCATION_CHANGE';
 
 // default states
 const defaultProfileState = {
-  isFetching: false,
-  isLoggedIn: false,
-  isCreated: false,
-  profileId: null,
+  status: 'IS_NOT_LOGGED_IN',
+  uuid: null,
   email: null
 };
 const defaultSearchState = {
@@ -41,15 +39,14 @@ const defaultFeedbackState = {
 const profileReducer = (state = defaultProfileState, action) => {
   switch (action.type) {
     case ON_PROFILE_CREATE_RESPONSE:
-      return Object.assign({}, defaultProfileState, {isCreated: true, email: action.email});
+      return Object.assign({}, defaultProfileState, {status: 'CREATED', email: action.email});
     case ON_LOGIN_REQUEST:
-      return Object.assign({}, defaultProfileState, {isFetching: true});
+      return Object.assign({}, defaultProfileState, {status: 'FETCHING'});
     case ON_LOGIN_RESPONSE:
       return {
-        isFetching: false,
-        isLoggedIn: action.email !== '',
-        profileId: action.profileId,
-        email: null
+        status: action.email ? 'IS_LOGGED_IN' : 'LOGIN_FAILED',
+        uuid: action.uuid,
+        email: action.email
       };
     case ON_LOGOUT_REQUEST:
       return defaultProfileState;
@@ -57,7 +54,7 @@ const profileReducer = (state = defaultProfileState, action) => {
       return state;
   }
 };
-const PARAMS_REGEX = /[?&](\w*)=(\w*)/g;
+const PARAMS_REGEX = /[?&](\w*)=([\w-]*)/g;
 const routerReducer = (state = {}, action) => {
   switch (action.type) {
     case ON_LOCATION_CHANGE: {
@@ -133,21 +130,28 @@ export const rootReducer = (state = getLocalStorage(), action) => {
 export const requestMiddleware = store => next => action => {
   switch (action.type) {
     case ON_PROFILE_CREATE_REQUEST:
-      // here we want to actually call endpoint
-      window.setTimeout(() => {
-        store.dispatch({type: ON_PROFILE_CREATE_RESPONSE,
-          email: action.email,
-          profileId: '234fgh45'});
-      }, 500);
+      request.post('/v1/users')
+        .send({email: action.email})
+        .then(() => {
+          store.dispatch({type: ON_PROFILE_CREATE_RESPONSE,
+            email: action.email});
+        })
+        .catch(() => {
+
+        });
       return next(action);
 
     case ON_LOGIN_REQUEST:
-      // here we want to actually call endpoint
-      window.setTimeout(() => {
-        store.dispatch({type: ON_LOGIN_RESPONSE,
-          email: 'test@dbc.dk',
-          profileId: '234fgh45'});
-      }, 500);
+      request.post('/v1/login')
+        .send({token: action.token})
+        .then(res => {
+          store.dispatch({type: ON_LOGIN_RESPONSE,
+            email: res.body.data.email,
+            uuid: res.body.data.uuid});
+        })
+        .catch(() => {
+          store.dispatch({type: ON_LOGIN_RESPONSE});
+        });
       return next(action);
 
     case ON_SEARCH_REQUEST:

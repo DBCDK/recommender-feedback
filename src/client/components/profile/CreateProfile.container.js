@@ -28,11 +28,11 @@ class CreateProfile extends React.Component {
             <p className='mt-4'>Gennemgå processen med så mange værker, du har lyst til, men jo flere des bedre.</p>
           </div>
         </div>
-        {!this.props.profileState.isCreated && <CreateProfileForm
+        {this.props.profileState.status !== 'CREATED' && <CreateProfileForm
           onSubmitEmail={email => {
             this.props.dispatch({type: ON_PROFILE_CREATE_REQUEST, email});
           }}/>}
-        {this.props.profileState.isCreated &&
+        {this.props.profileState.status === 'CREATED' &&
           <div className='text-center'>
             <h3>Et link er sendt til {this.props.profileState.email}</h3>
           </div>}

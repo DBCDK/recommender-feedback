@@ -9,7 +9,7 @@ class TopBar extends React.Component {
   }
 
   render() {
-    const user = this.props.profileState.user || 'some@email.dk';
+    const user = this.props.profileState.email;
     let backBtn = null;
     if (this.props.routerState.path === '/feedback') {
       backBtn = <span className='back-btn' onClick={() => {
@@ -20,7 +20,7 @@ class TopBar extends React.Component {
       </span>;
     }
     return (
-      this.props.profileState.isLoggedIn &&
+      this.props.profileState.status === 'IS_LOGGED_IN' &&
       <div className='top-bar row'>
         <div className="text-left col-xs-4">
           {backBtn}

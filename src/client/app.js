@@ -17,7 +17,7 @@ class App extends Component {
 
   route(props) {
     const path = props.routerState.path;
-    const isLoggedIn = props.profileState.isLoggedIn;
+    const isLoggedIn = props.profileState.status === 'IS_LOGGED_IN';
     if (path === '/velkommen') {
       this.setState({page: <CreateProfile/>});
     }
