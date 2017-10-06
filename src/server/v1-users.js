@@ -19,7 +19,11 @@ const resolve = require('resolve');
 const uuidv4 = require('uuid/v4');
 
 router.route('/')
+  //
+  // POST /v1/users
+  //
   .post(asyncMiddleware(async (req, res, next) => {
+    // Validate input.
     const contentType = req.get('content-type');
     if (contentType !== 'application/json') {
       return next({
@@ -62,7 +66,7 @@ router.route('/')
         detail: error
       });
     }
-    // Send email.
+    // Generate email from template.
     const mailhost = config.email.mailserver;
     const transporter = mailer.createTransport({
       host: mailhost,
@@ -90,26 +94,33 @@ router.route('/')
       subject: config.email.subject,
       text: compiler({host: config.email.hostname, token})
     };
-    transporter.sendMail(email, (error, info) => {
-      if (error) {
-        return next({
-          status: 502,
-          title: 'Cannot send email',
-          detail: `Problems with ${mailhost}`,
-          meta: {error}
+    // Send email.
+    transporter.sendMail(email)
+      .then(info => {
+        res.status(201).json({
+          data: `Login token sent via email to ${address}`,
+          links: {
+            'message-id': info.messageId
+          }
         });
-      }
-      res.status(201).json({
-        data: `Login token sent via email to ${address}`,
-        links: {
-          'message-id': info.messageId
+      })
+      .catch(error => {
+        if (error) {
+          return next({
+            status: 502,
+            title: 'Cannot send email',
+            detail: `Problems with ${mailhost}`,
+            meta: {error}
+          });
         }
       });
-    });
   }))
 ;
 
 router.route('/:uuid')
+  //
+  // GET /v1/users/:uuid
+  //
   .get(asyncMiddleware(async (req, res, next) => {
     const uuid = req.params.uuid;
     const location = `${req.baseUrl}/${uuid}`;

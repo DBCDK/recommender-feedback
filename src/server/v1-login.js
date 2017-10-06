@@ -11,7 +11,11 @@ const userTable = constants.users.table;
 const {validatingInput} = require('server/json-verifiers');
 
 router.route('/')
+  //
+  // POST /v1/login
+  //
   .post(asyncMiddleware(async (req, res, next) => {
+    // Validate input.
     const contentType = req.get('content-type');
     if (contentType !== 'application/json') {
       return next({
@@ -32,6 +36,7 @@ router.route('/')
         meta: error.meta || error
       });
     }
+    // Find pending login.
     const token = req.body.token;
     let existing;
     try {
@@ -51,18 +56,10 @@ router.route('/')
         detail: `Token ${token} is not a pending login`
       });
     }
+    // Delete pending login and find user.
     const uuid = existing[0].user;
     try {
       await knex(loginTable).where({uuid: token}).del();
-    }
-    catch (error) {
-      return next({
-        status: 500,
-        title: 'Database operation failed',
-        detail: error
-      });
-    }
-    try {
       existing = await knex(userTable).where({uuid}).select('uuid', 'email');
     }
     catch (error) {
@@ -79,6 +76,7 @@ router.route('/')
         detail: `User ${uuid} is gone`
       });
     }
+    // Return user data.
     res.status(200).json({
       data: existing[0],
       links: {
