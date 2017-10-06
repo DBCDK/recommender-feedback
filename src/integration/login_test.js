@@ -11,9 +11,6 @@ const mock = require('./mock-server');
 
 describe('Login', () => {
   const webapp = request(mock.server);
-  before(async () => {
-    await knex.migrate.latest();
-  });
   beforeEach(async () => {
     await dbUtil.clear();
     await knex.seed.run();

@@ -53,6 +53,7 @@
   "scripts": {
     "build": "react-scripts build",
     "coverage": ". ./current.env && nyc --reporter=lcov _mocha -- src/lib/**/*_test.js src/**/*_test.js",
+    "db-migrate": ". ./current.env && knex --knexfile src/server/knexfile.js --cwd . migrate:latest",
     "lint-js": "eslint src",
     "postinstall": "./setup-node-env.sh",
     "start": "run-p start-backend start-frontend",

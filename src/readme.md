@@ -2,26 +2,26 @@
 
 To setup the system locally, in the root directory:
 
-    $ cp env/developer.env current.env
-    $ npm install           // Install dependencies.
+    $ cp env/developer.env current.env  // Default environment.
+    $ npm install                       // Install dependencies.
 
 To run the system locally:
 
-    $ docker-compose up -d  // Start local PostgreSQL database.
-    $ npm start             // Run both backend and frontend services in parallel.
+    $ docker-compose up -d              // Start local PostgreSQL database.
+    $ npm start                         // Run both backend and frontend services in parallel.
 
 If you want to manually start up a PostgreSQL server, it needs to run on port 5432 and have a database called `feedback` owned by `feedback`; see the following section about environments.
 
 To run fast tests on local machine:
 
-    $ npm run lint-js       // Run ESLint on Javascript.
-    $ npm run test-units    // Run unit tests.
-    $ npm test              // Run both lint & unit tests.
+    $ npm run lint-js                   // Run ESLint on Javascript.
+    $ npm run test-units                // Run unit tests.
+    $ npm test                          // Run both lint & unit tests.
 
 To run full integration test:
 
-    $ docker-compose up -d  // Start local PostgreSQL database.
-    $ npm run test-full     // Run all acceptance & integration tests.
+    $ docker-compose up -d              // Start local PostgreSQL database.
+    $ npm run test-full                 // Run all acceptance & integration tests.
 
 Read [more about integration testing](integration/readme.md).
 
@@ -31,13 +31,17 @@ See also [service endpoints](../doc/endpoints.md).
 
 To start up a local database:
 
-    $ docker-compose up -d  // Start local PostgreSQL database.
+    $ docker-compose up -d              // Start local PostgreSQL database.
 
 To connect to the database:
 
     $ docker exec -it -u postgres recommenderfeedback_database_1 psql
 
 To add a new table in the database, add a new table name to [`constants.js`](server/constants.js), add file to [`migrations/`](migrations/) where the new table is created/destroyed, and incorporate the new table table in [`cleanup-db.js`](integration/cleanup-db.js) so that the test will know how to clear the database.
+
+To manually migrate the database:
+
+    $ npm run db-migrate
 
 ## Node setup
 
