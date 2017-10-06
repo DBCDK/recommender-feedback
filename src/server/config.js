@@ -34,7 +34,7 @@ function Defaults () {
     logLevel: process.env.LOG_LEVEL || 'INFO',
     logServiceErrors: parseInt(process.env.LOG_SERVICE_ERRORS || 1, 10),
     hostname: hostname().replace('.domain_not_set.invalid', ''),
-    externalHostname: 'recommender-feedback.dbc.dk'
+    externalHostname: process.env.EXTERNAL_HOST_NAME || 'bedre-forslag.dbc.dk'
   };
 }
 
