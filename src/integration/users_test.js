@@ -145,8 +145,8 @@ describe('User data', () => {
           const email = emails[0];
           expect(email.from).to.include(config.email.from);
           expect(email.subject).to.equal(config.email.subject);
-          expect(email.text).to.include('://' + config.email.hostname + '/login?id=');
-          const link = /https?:\/\/[^/]+\/login\?id=([-a-z0-9]+)/i;
+          expect(email.text).to.include('://' + config.email.hostname + '/login?token=');
+          const link = /https?:\/\/[^/]+\/login\?token=([-a-z0-9]+)/i;
           const found = email.text.match(link);
           assert(found, `Email body does not contain a link matching ${link}`);
           const token = found[1];
