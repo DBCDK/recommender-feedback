@@ -94,6 +94,7 @@ class Search extends React.Component {
             onQueryChange={this.onQueryChange}
             value={this.state.query}/>
           {this.props.searchState.isFetching && <h3>Søger</h3>}
+          {this.props.searchState.works && this.props.searchState.works.length === 0 && <h3>Søgning gav tomt resultat</h3>}
           {this.props.searchState.works && <WorkList works={this.props.searchState.works} onWorkSelect={this.onWorkSelect}/>}
         </div>
       </div>

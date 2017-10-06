@@ -3,13 +3,13 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 const asyncMiddleware = require('__/async-express').asyncMiddleware;
-const {search} = require('./clients/openplatform.client');
+const {recommend} = require('./clients/openplatform.client');
 const validatingInput = require('server/json-verifiers').validatingInput;
 
 router.route('/')
   .get(asyncMiddleware(async (req, res, next) => {
     const location = req.originalUrl;
-    const schema = 'schemas/search-in.json';
+    const schema = 'schemas/recommend-in.json';
     let response;
 
     try {
@@ -24,12 +24,12 @@ router.route('/')
       });
     }
     try {
-      response = await search({query: req.query.query});
+      response = await recommend({like: [req.query.pid], limit: 10});
     }
     catch (error) {
       return next({
         status: 500,
-        title: 'Search request failed',
+        title: 'Recommend request failed',
         detail: error.response.text
       });
     }

@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "pid": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
