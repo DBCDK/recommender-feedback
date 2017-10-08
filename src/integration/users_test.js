@@ -3,7 +3,6 @@
 const {expect, assert} = require('chai');
 const request = require('supertest');
 const config = require('server/config');
-// const logger = require('__/logging')(config.logger);
 const knex = require('knex')(config.db);
 const dbUtil = require('./cleanup-db')(knex);
 const {expectFailure, expectSuccess, expectValidate} = require('./output-verifiers');

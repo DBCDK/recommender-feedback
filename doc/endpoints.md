@@ -2,6 +2,50 @@
 
 The responses from the backend are either raw images or JSON loosely based on the [JSON-API](http://jsonapi.org/) specification, see [schemas used when testing](../src/integration/schemas/).
 
+## Feedback
+
+### `POST /v1/feedback`
+
+The body must be [of the form](../src/server/schemas/feedback-in.json):
+
+    { "user": "/v1/users/e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
+    , "work": "870970-basis:53188931"
+    , "recommendation": "870970-basis:22629344"
+    , "rating": 5
+    , "recommender": "recommend01"
+    }
+
+The result is 201 with `Location` pointing to the inserted [feedback](../src/integration/schemas/feedback-data-out.json):
+
+    { "data":
+      { "work": "870970-basis:53188931"
+      , "recommendation": "870970-basis:22629344"
+      , "rating": 5
+      }
+    , "links": 
+      { "self": "/v1/feedback/6688F462-3257-4327-9292-87FC8E9CB227"
+      }
+    }
+
+If the user does not exist, a 404 is returned.
+
+### `GET /v1/feedback/`*uuid*
+
+The result is [feedback data](../src/integration/schemas/feedback-data-out.json):
+
+    { "data":
+      { "email": "me@mail.dk"
+      , "book": "870970-basis:53188931"
+      , "recommendation": "870970-basis:22629344"
+      , "rating": 5
+      }
+    , "links": 
+      { "self": "/v1/feedback/6688F462-3257-4327-9292-87FC8E9CB227"
+      }
+    }
+
+If the feedback does not exist, a 404 is returned.
+
 ## Users
 
 ### `POST /v1/user`

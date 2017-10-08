@@ -2,13 +2,13 @@
 
 const express = require('express');
 const router = express.Router({mergeParams: true});
-const asyncMiddleware = require('__/async-express').asyncMiddleware;
+const {asyncMiddleware} = require('__/async-express');
 const config = require('server/config');
 const knex = require('knex')(config.db);
 const constants = require('server/constants')();
 const userTable = constants.users.table;
 const loginTable = constants.login.table;
-const validatingInput = require('server/json-verifiers').validatingInput;
+const {validatingInput} = require('server/json-verifiers');
 const isEmail = require('isemail');
 const mailer = require('nodemailer');
 const handlebars = require('handlebars');

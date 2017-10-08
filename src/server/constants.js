@@ -7,7 +7,11 @@ const constants = {
   },
   login: {
     table: 'login'
+  },
+  feedback: {
+    table: 'feedback'
   }
+
 };
 
 module.exports = () => {
