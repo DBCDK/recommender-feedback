@@ -6,6 +6,7 @@ const config = require('server/config');
 const knex = require('knex')(config.db);
 const constants = require('server/constants')();
 const userTable = constants.users.table;
+const feedbackTable = constants.feedback.table;
 const {asyncMiddleware} = require('__/async-express');
 const {validatingInput} = require('server/json-verifiers');
 const restApi = require('__/rest-api');
@@ -71,6 +72,24 @@ router.route('/')
     // const email = existing.email;
     const feedbackUuid = uuidv4();
     const location = `/v1/feedback/${feedbackUuid}`;
+    try {
+      await knex(feedbackTable).insert({
+        uuid: feedbackUuid,
+        email: existing[0].email,
+        work_pid: req.body.work,
+        recommendation_pid: req.body.recommendation,
+        rating: req.body.rating,
+        recommender: req.body.recommender
+      });
+    }
+    catch (error) {
+      return next({
+        status: 500,
+        title: 'Database operation failed',
+        detail: error,
+        meta: {resource: location}
+      });
+    }
     res.status(201).location(location).json({
       data: {
         work: req.body.work,
@@ -81,6 +100,46 @@ router.route('/')
       links: {
         self: location
       }
+    });
+  }))
+;
+
+router.route('/:uuid')
+  //
+  // GET /v1/feedback/:uuid
+  //
+  .get(asyncMiddleware(async (req, res, next) => {
+    const uuid = req.params.uuid;
+    const location = `${req.baseUrl}/${uuid}`;
+    let existing;
+    try {
+      existing = await knex(feedbackTable).where({uuid})
+        .select('work_pid', 'recommendation_pid', 'rating', 'recommender');
+    }
+    catch (error) {
+      return next({
+        status: 500,
+        title: 'Database operation failed',
+        detail: error,
+        meta: {resource: location}
+      });
+    }
+    if (existing.length === 0) {
+      return next({
+        status: 404,
+        title: 'Unknown feedback',
+        detail: `Feedback ${location} does not exist`,
+        meta: {resource: location}
+      });
+    }
+    res.status(200).json({
+      data: {
+        work: existing[0].work_pid,
+        recommendation: existing[0].recommendation_pid,
+        rating: existing[0].rating,
+        recommender: existing[0].recommender
+      },
+      links: {self: location}
     });
   }))
 ;

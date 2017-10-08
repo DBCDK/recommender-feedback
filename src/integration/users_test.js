@@ -27,7 +27,7 @@ describe('User data', () => {
             const error = errors[0];
             expect(error.title).to.match(/unknown user/i);
             expect(error).to.have.property('detail');
-            expect(error.detail).to.equal(`User ${uuid} does not exist`);
+            expect(error.detail).to.equal(`User ${location} does not exist`);
             expect(error).to.have.property('meta');
             expect(error.meta).to.have.property('resource');
             expect(error.meta.resource).to.equal(location);

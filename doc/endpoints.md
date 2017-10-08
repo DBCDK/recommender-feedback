@@ -21,6 +21,7 @@ The result is 201 with `Location` pointing to the inserted [feedback](../src/int
       { "work": "870970-basis:53188931"
       , "recommendation": "870970-basis:22629344"
       , "rating": 5
+      , "recommender": "recommend01"
       }
     , "links": 
       { "self": "/v1/feedback/6688F462-3257-4327-9292-87FC8E9CB227"
@@ -34,10 +35,10 @@ If the user does not exist, a 404 is returned.
 The result is [feedback data](../src/integration/schemas/feedback-data-out.json):
 
     { "data":
-      { "email": "me@mail.dk"
-      , "book": "870970-basis:53188931"
+      { "book": "870970-basis:53188931"
       , "recommendation": "870970-basis:22629344"
       , "rating": 5
+      , "recommender": "recommend01"
       }
     , "links": 
       { "self": "/v1/feedback/6688F462-3257-4327-9292-87FC8E9CB227"

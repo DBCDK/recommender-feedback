@@ -20,8 +20,42 @@ describe('Feedback', () => {
     it('should return all existing feedback');
   });
   describe('GET /v1/feedback/:uuid', () => {
-    it('should detect non-existent feedback');
-    it('should return existing feedback');
+    it('should detect non-existent feedback', done => {
+      const location = '/v1/feedback/ost';
+      webapp.get(location)
+        .expect(res => {
+          expectFailure(res.body, errors => {
+            expect(errors).to.have.length(1);
+            const error = errors[0];
+            expect(error.title).to.match(/unknown feedback/i);
+            expect(error.detail).to.equal(`Feedback ${location} does not exist`);
+            expect(error).to.have.property('meta');
+            expect(error.meta).to.have.property('resource');
+            expect(error.meta.resource).to.equal(location);
+          });
+        })
+        .expect(404)
+        .end(done);
+    });
+    it('should return existing feedback', done => {
+      const location = '/v1/feedback/4c798fd7-66c5-4eec-a223-3337445e5bdf';
+      webapp.get(location)
+        .expect(res => {
+          expectSuccess(res.body, (links, data) => {
+            expectValidate(links, 'schemas/feedback-links-out.json');
+            expect(links.self).to.equal(location);
+            expectValidate(data, 'schemas/feedback-data-out.json');
+            expect(data).to.deep.equal({
+              work: '123456-basis:53188931',
+              recommendation: '123456-basis:22629344',
+              rating: 5,
+              recommender: 'recommender_01'
+            });
+          });
+        })
+        .expect(200)
+        .end(done);
+    });
   });
   describe('POST /v1/feedback', () => {
     it('should reject wrong content type', done => {
@@ -133,6 +167,41 @@ describe('Feedback', () => {
         .expect('location', /\/v1\/feedback/)
         .end(done);
     });
-    it('should store & retrieve feedback');
+    it('should store & retrieve feedback', done => {
+      let location;
+      webapp.post('/v1/feedback')
+        .type('application/json')
+        .send({
+          user: '/v1/users/258C43F0-BF42-47DD-A062-77E9A367CEA7',
+          work: '870970-basis:53188931',
+          recommendation: '870970-basis:22629344',
+          rating: 3,
+          recommender: 'recommender01'
+        })
+        .expect(res => {
+          expectSuccess(res.body, (links) => {
+            location = links.self;
+          });
+        })
+        .expect(201)
+        .then(() => {
+          console.log(location);
+          webapp.get(location)
+            .expect(res => {
+              expectSuccess(res.body, (links, data) => {
+                expectValidate(links, 'schemas/feedback-links-out.json');
+                expectValidate(data, 'schemas/feedback-data-out.json');
+                expect(data).to.deep.equal({
+                  work: '870970-basis:53188931',
+                  recommendation: '870970-basis:22629344',
+                  rating: 3,
+                  recommender: 'recommender01'
+                });
+              });
+            })
+            .end(done);
+        })
+        .catch(done);
+    });
   });
 });

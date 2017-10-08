@@ -140,7 +140,7 @@ router.route('/:uuid')
       return next({
         status: 404,
         title: 'Unknown user',
-        detail: `User ${uuid} does not exist`,
+        detail: `User ${location} does not exist`,
         meta: {resource: location}
       });
     }
