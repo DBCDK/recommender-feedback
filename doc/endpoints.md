@@ -11,12 +11,11 @@ The body must be [of the form](../src/server/schemas/user-in.json)
     { "email": "me@mail.dk"
     }
 
-The results is a 202 with a `Location` pointing to where the user data can be found after the user has logged in, and a [result](../src/integration/schemas/user-data-out.json) like
+The results is a 202 with a `Location` pointing to where the user data can be found after the user has logged in, and a [result](../src/integration/schemas/user-create-data-out.json) like
 
     { "data": "Login token sent via email to some+one@open.mail.dk"
     , "links":
-      { "self": "/v1/user/e3f779c9-ac73-4e90-81fd-5e2e5b8be9d9"
-      , "message-id": "d3316133eaaeceb25f728748f127e898f6d0d9724a275e89"
+      { "message-id": "d3316133eaaeceb25f728748f127e898f6d0d9724a275e89"
       }
     }
 
