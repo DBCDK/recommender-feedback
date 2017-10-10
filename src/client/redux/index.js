@@ -91,8 +91,13 @@ const feedbackReducer = (state = defaultFeedbackState, action) => {
   switch (action.type) {
     case ON_RECOMMEND_REQUEST:
       return Object.assign({}, defaultFeedbackState, {isFetching: true, work: action.work});
-    case ON_RECOMMEND_RESPONSE:
-      return Object.assign({}, state, {isFetching: false, recommendations: action.works});
+    case ON_RECOMMEND_RESPONSE: {
+      const works = action.works.map(work => {
+        work.rating = 0;
+        return work;
+      });
+      return Object.assign({}, state, {isFetching: false, recommendations: works});
+    }
     case ON_RATING: {
       const recommendations = state.recommendations.map(work => {
         if (work.pid === action.pid) {
