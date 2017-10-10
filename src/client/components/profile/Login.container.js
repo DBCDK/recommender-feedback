@@ -6,9 +6,14 @@ import {ON_LOGIN_REQUEST, ON_PROFILE_CREATE_REQUEST, HISTORY_REPLACE} from '../.
 class Login extends React.Component {
 
   componentDidMount() {
-    const urlParams = this.props.routerState.params;
-    if (urlParams.token && urlParams.token.length > 0) {
-      this.props.dispatch({type: ON_LOGIN_REQUEST, token: urlParams.token[0]});
+    if (this.props.profileState.status === 'IS_LOGGED_IN') {
+      this.props.dispatch({type: HISTORY_REPLACE, path: '/søg'});
+    }
+    else {
+      const urlParams = this.props.routerState.params;
+      if (urlParams.token && urlParams.token.length > 0) {
+        this.props.dispatch({type: ON_LOGIN_REQUEST, token: urlParams.token[0]});
+      }
     }
   }
 
