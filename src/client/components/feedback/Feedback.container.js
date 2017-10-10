@@ -55,7 +55,7 @@ class RecommenderRow extends React.Component {
               <div className='details extra'>{this.props.work.details}</div>
 
               <div className='extra'>
-                <a target='_blank' href={`https://bibliotek.dk/da/search/work/?search_block_form=rec.id%3D${encodeURIComponent(this.props.work.pid)}`}>Se mere på bibliotek.dk</a>
+                <a target='_blank' href={`https://bibliotek.dk/linkme.php?rec.id=${encodeURIComponent(this.props.work.pid)}`}>Se mere på bibliotek.dk</a>
               </div>
             </div>}
           <button className='btn btn-default mt-1' onClick={() => {
