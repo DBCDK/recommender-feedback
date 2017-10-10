@@ -23,7 +23,8 @@ export const ON_LOCATION_CHANGE = 'ON_LOCATION_CHANGE';
 const defaultProfileState = {
   status: 'IS_NOT_LOGGED_IN',
   uuid: null,
-  email: null
+  email: null,
+  time: 0
 };
 const defaultSearchState = {
   isFetching: false,
@@ -39,17 +40,18 @@ const defaultFeedbackState = {
 const profileReducer = (state = defaultProfileState, action) => {
   switch (action.type) {
     case ON_PROFILE_CREATE_RESPONSE:
-      return Object.assign({}, defaultProfileState, {status: 'CREATED', email: action.email});
+      return Object.assign({}, defaultProfileState, {status: 'CREATED', email: action.email, time: new Date().getTime()});
     case ON_LOGIN_REQUEST:
-      return Object.assign({}, defaultProfileState, {status: 'FETCHING'});
+      return Object.assign({}, defaultProfileState, {status: 'FETCHING', time: new Date().getTime()});
     case ON_LOGIN_RESPONSE:
       return {
         status: action.email ? 'IS_LOGGED_IN' : 'LOGIN_FAILED',
         uuid: action.uuid,
-        email: action.email
+        email: action.email,
+        time: new Date().getTime()
       };
     case ON_LOGOUT_REQUEST:
-      return defaultProfileState;
+      return Object.assign({}, defaultProfileState, {time: new Date().getTime()});
     default:
       return state;
   }
@@ -105,13 +107,13 @@ const feedbackReducer = (state = defaultFeedbackState, action) => {
   }
 };
 const LOCAL_STORAGE_KEY = 'recommender-feedback';
-const getLocalStorage = () => {
-  const storageString = sessionStorage.getItem(LOCAL_STORAGE_KEY);
+const getLocalStorage = (storage) => {
+  const storageString = storage.getItem(LOCAL_STORAGE_KEY);
   return (storageString && JSON.parse(storageString)) || {};
 };
 
-const setLocalStorage = (state) => {
-  sessionStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+const setLocalStorage = (state, storage) => {
+  storage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
 };
 const combined = combineReducers({
   profileReducer,
@@ -120,9 +122,9 @@ const combined = combineReducers({
   feedbackReducer
 });
 
-export const rootReducer = (state = getLocalStorage(), action) => {
-  const newState = combined(state, action);
-  setLocalStorage(newState);
+export const rootReducer = (state = Object.assign(getLocalStorage(sessionStorage), getLocalStorage(localStorage)), action) => {
+  let newState = combined(state, action);
+  setLocalStorage(newState, sessionStorage);
   return newState;
 };
 
@@ -200,6 +202,27 @@ export const loggerMiddleware = store => next => action => {
     console.log('Action failed', {action, error});
   }
 };
+
+/** Handle profile state across browser tabs.
+ * For instance if profile is logged out in one tab
+ * we want the other tabs to log out as well
+ */
+export const profileMiddleware = store => next => action => {
+  const res = next(action);
+  const nextState = store.getState();
+  const localStorageState = getLocalStorage(localStorage);
+
+  // Check if we have been logged out in another tab
+  if (localStorageState && localStorageState.profileReducer
+      && localStorageState.profileReducer.time > nextState.profileReducer.time
+      && localStorageState.profileReducer.status === 'IS_NOT_LOGGED_IN') {
+    store.dispatch({type: ON_LOGOUT_REQUEST});
+  }
+
+  setLocalStorage({profileReducer: nextState.profileReducer}, localStorage);
+  return res;
+};
+
 const paramsToString = (params) => {
   let res = '';
   Object.keys(params).forEach(key => {

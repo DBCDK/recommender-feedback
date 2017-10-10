@@ -4,7 +4,7 @@ import App from './client/app';
 import {createBrowserHistory} from 'history';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
-import {rootReducer, loggerMiddleware, historyMiddleware, requestMiddleware, ON_LOCATION_CHANGE} from './client/redux';
+import {rootReducer, loggerMiddleware, historyMiddleware, requestMiddleware, profileMiddleware, ON_LOCATION_CHANGE} from './client/redux';
 import registerServiceWorker from './client/registerServiceWorker';
 
 import './client/styles/index.css';
@@ -14,7 +14,7 @@ import './client/styles/topbar.css';
 import './client/styles/feedback.css';
 
 const history = createBrowserHistory();
-const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, historyMiddleware(history), requestMiddleware));
+const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, historyMiddleware(history), requestMiddleware, profileMiddleware));
 
 // Redux-first routing is used as described:
 // https://medium.freecodecamp.org/an-introduction-to-the-redux-first-routing-model-98926ebf53cb
