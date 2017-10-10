@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "work": {
+      "required": true,
+      "type": "string"
+    },
+    "recommendation": {
+      "required": true,
+      "type": "string"
+    },
+    "rating": {
+      "required": true,
+      "type": "integer"
+    },
+    "recommender": {
+      "required": true,
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

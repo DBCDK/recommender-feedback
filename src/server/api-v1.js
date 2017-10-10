@@ -11,5 +11,6 @@ router.use('/login', require('server/v1-login'));
 router.use('/users', require('server/v1-users'));
 router.use('/search', require('server/v1-search'));
 router.use('/recommend', require('server/v1-recommend'));
+router.use('/feedback', require('server/v1-feedback'));
 
 module.exports = router;

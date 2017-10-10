@@ -3,7 +3,6 @@
 const {expect, assert} = require('chai');
 const request = require('supertest');
 const config = require('server/config');
-// const logger = require('__/logging')(config.logger);
 const knex = require('knex')(config.db);
 const dbUtil = require('./cleanup-db')(knex);
 const {expectFailure, expectSuccess, expectValidate} = require('./output-verifiers');
@@ -28,7 +27,7 @@ describe('User data', () => {
             const error = errors[0];
             expect(error.title).to.match(/unknown user/i);
             expect(error).to.have.property('detail');
-            expect(error.detail).to.equal(`User ${uuid} does not exist`);
+            expect(error.detail).to.equal(`User ${location} does not exist`);
             expect(error).to.have.property('meta');
             expect(error.meta).to.have.property('resource');
             expect(error.meta.resource).to.equal(location);

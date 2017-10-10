@@ -3,6 +3,7 @@
 Each part of the integration test is in a `_test.js` file.  Each such file creates a connection to the webapp, which is supposed to be up and running together with a test database.  You can start a local, ephemeral database by
 
     $ docker-compose up -d
+    $ npm run db-migrate --silent
 
 and run the server and integration test against it by
 
@@ -22,7 +23,6 @@ Of course, such changes should be removed before any commits.
 
 To only run a subset of tests that go together, pass the `--grep` option to mocha, like
 
-    $ docker-compose up -d
     $ npm run test-integration --silent -- --grep /v1/users
 
 ## Mocking parts of the server
