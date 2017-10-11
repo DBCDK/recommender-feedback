@@ -30,6 +30,10 @@ The result is 201 with `Location` pointing to the inserted [feedback](../src/int
 
 If the user does not exist, a 404 is returned.
 
+### `PUT /v1/feedback/`*uuid*
+
+Overwrite existing feedback.  The body must be of the same form as for a `POST`.
+
 ### `GET /v1/feedback/`*uuid*
 
 The result is [feedback data](../src/integration/schemas/feedback-data-out.json):
