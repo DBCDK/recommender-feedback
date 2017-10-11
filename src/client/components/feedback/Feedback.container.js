@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Rating from './Rating.component';
-import {ON_RATING, HISTORY_PUSH} from '../../redux';
+import {ON_RATING, HISTORY_PUSH, STORE_FEEDBACK_REQUEST, REQUEST_SUCCES, REQUEST_FETCHING} from '../../redux';
 
 const SelectedWork = (props) => {
   return (
@@ -72,13 +72,21 @@ class RecommenderRow extends React.Component {
 
 class Feedback extends React.Component {
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.feedbackState.storedStatus === REQUEST_SUCCES) {
+      this.props.dispatch({type: HISTORY_PUSH, path: '/tak'});
+    }
+  }
+
   onFeedbackSave = () => {
-    this.props.dispatch({type: HISTORY_PUSH, path: '/tak'});
+    this.props.dispatch({
+      type: STORE_FEEDBACK_REQUEST,
+      work: this.props.feedbackState.work,
+      recommendations: this.props.feedbackState.recommendations});
   }
 
   render() {
-    const selected = this.props.feedbackState.work;
-    const recommendations = this.props.feedbackState.recommendations;
+    const {selected, recommendations, storedStatus, isFetching} = this.props.feedbackState;
 
     return (
       <div className='row feedback--container'>
@@ -102,11 +110,11 @@ class Feedback extends React.Component {
             </div>}
           <div className="row">
             <div className='col-xs-12 text-right'>
-              <button className='btn btn-success' onClick={this.onFeedbackSave}>Gem feedback</button>
+              <button className='btn btn-success' onClick={this.onFeedbackSave} disabled={storedStatus === REQUEST_FETCHING}>Gem feedback</button>
             </div>
           </div>
           <hr className='mt-1 mb-0'/>
-          {this.props.feedbackState.isFetching && <h3>Indlæser anbefalinger</h3>}
+          {isFetching && <h3>Indlæser anbefalinger</h3>}
           {recommendations && recommendations.length === 0 && <h3>Der kunne ikke findes anbefalinger</h3>}
           {recommendations && <RecommenderList
             works={recommendations}
@@ -115,7 +123,7 @@ class Feedback extends React.Component {
             }}/>}
           <div className="row">
             <div className='col-xs-12 text-right'>
-              <button className='btn btn-success' onClick={this.onFeedbackSave}>Gem feedback</button>
+              <button className='btn btn-success' onClick={this.onFeedbackSave} disabled={storedStatus === REQUEST_FETCHING}>Gem feedback</button>
             </div>
           </div>
         </div>

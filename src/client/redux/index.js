@@ -14,10 +14,17 @@ export const ON_SEARCH_RESPONSE = 'ON_SEARCH_RESPONSE';
 export const ON_RECOMMEND_REQUEST = 'ON_RECOMMEND_REQUEST';
 export const ON_RECOMMEND_RESPONSE = 'ON_RECOMMEND_RESPONSE';
 export const ON_RATING = 'ON_RATING';
+export const STORE_FEEDBACK_REQUEST = 'STORE_FEEDBACK_REQUEST';
+export const STORE_FEEDBACK_RESPONSE = 'STORE_FEEDBACK_RESPONSE';
 
 export const HISTORY_PUSH = 'HISTORY_PUSH';
 export const HISTORY_REPLACE = 'HISTORY_REPLACE';
 export const ON_LOCATION_CHANGE = 'ON_LOCATION_CHANGE';
+
+export const REQUEST_FAILED = 'REQUEST_FAILED';
+export const REQUEST_SUCCES = 'REQUEST_SUCCES';
+export const REQUEST_FETCHING = 'REQUEST_FETCHING';
+export const REQUEST_PENDING = 'REQUEST_PENDING';
 
 // default states
 const defaultProfileState = {
@@ -32,6 +39,7 @@ const defaultSearchState = {
 };
 const defaultFeedbackState = {
   isFetching: false,
+  storedStatus: REQUEST_PENDING,
   work: null,
   recommendations: null
 };
@@ -107,6 +115,10 @@ const feedbackReducer = (state = defaultFeedbackState, action) => {
       });
       return Object.assign({}, state, {recommendations});
     }
+    case STORE_FEEDBACK_REQUEST:
+      return Object.assign({}, state, {storedStatus: REQUEST_FETCHING});
+    case STORE_FEEDBACK_RESPONSE:
+      return Object.assign({}, state, {storedStatus: action.status});
     default:
       return state;
   }
@@ -190,6 +202,27 @@ export const requestMiddleware = store => next => action => {
           });
         });
       return next(action);
+    case STORE_FEEDBACK_REQUEST: {
+      const state = store.getState();
+      const promises = action.recommendations.map(work => {
+        return request.post('/v1/feedback')
+          .send({
+            user: `/v1/users/${state.profileReducer.uuid}`,
+            work: action.work.pid[0],
+            recommendation: work.pid[0],
+            rating: work.rating,
+            recommender: 'default'
+          });
+      });
+      Promise.all(promises)
+        .then(() => {
+          store.dispatch({type: STORE_FEEDBACK_RESPONSE, status: REQUEST_SUCCES});
+        })
+        .catch(() => {
+          store.dispatch({type: STORE_FEEDBACK_RESPONSE, status: REQUEST_FAILED});
+        });
+      return next(action);
+    }
 
     default:
       return next(action);
