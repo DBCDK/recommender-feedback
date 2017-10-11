@@ -78,6 +78,15 @@ Returns in a [list of feedback](../src/integration/schemas/feedbacks-data-out.js
       }
     }
 
+To include only recommendations for a specific book, include a `work=`*pid* argument.
+
+To include only reccomendations from a specific user, include a `user=`*userURI* argument.
+
+Examples:
+
+    GET /v1/feedback?work=846904-basis:93857422
+    GET /v1/feedback?user=/v1/users/258c43f0-bf42-47dd-a062-77e9a367cea7
+    GET /v1/feedback?work=846904-basis:93857422&user=/v1/users/258c43f0-bf42-47dd-a062-77e9a367cea7
 
 ## Users
 

@@ -24,10 +24,18 @@ exports.seed = async knex => {
   });
   await knex(feedbackTable).insert({
     uuid: '83e29b0e-149e-48e3-99b5-e1c66acafff2',
-    email: 'one@two.three',
+    email: 'me@mail.dk',
     work_pid: '654321-basis:31539489',
     recommendation_pid: '123456-basis:22629344',
-    rating: 5,
+    rating: 4,
     recommender: 'recommender_01'
+  });
+  await knex(feedbackTable).insert({
+    uuid: 'd592293a-e11e-4c86-8c7e-ca1949009685',
+    email: 'me@mail.dk',
+    work_pid: '836352-basis:93636493',
+    recommendation_pid: '638473-basis:83776443',
+    rating: 5,
+    recommender: 'recommender_02'
   });
 };

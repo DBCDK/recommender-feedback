@@ -18,10 +18,59 @@ router.route('/')
   // GET /v1/feedback
   //
   .get(asyncMiddleware(async (req, res, next) => {
+    // Validate arguments.
     const location = req.originalUrl;
+    const knownArguments = ['work', 'user'];
+    const excess = _.omit(req.query, knownArguments);
+    if (!_.isEmpty(excess)) {
+      return next({
+        status: 400,
+        title: 'Unknown arguments',
+        detail: 'known arguments are "work" and "user"',
+        meta: {
+          problems: _.map(_.keys(excess), key => {
+            return `argument ${key} is invalid`;
+          })
+        }
+      });
+    }
+    // Collect constraints for the database query.
+    let constraints = {};
+    if (req.query.user) {
+      // Find user email.
+      const user = req.query.user;
+      let existing;
+      try {
+        const uuid = restApi.extractUuid('/v1/users/', user);
+        existing = await knex(userTable).where({uuid}).select('email');
+      }
+      catch (error) {
+        return next({
+          status: 500,
+          title: 'Database operation failed',
+          detail: error,
+          meta: {resource: location}
+        });
+      }
+      if (existing.length === 0) {
+        return next({
+          status: 404,
+          title: 'Unknown user',
+          detail: `User ${user} does not exist`
+        });
+      }
+      // Match on email.
+      constraints.email = existing[0].email;
+    }
+    if (req.query.work) {
+      // Match on work PID.
+      constraints.work_pid = req.query.work;
+    }
+    // Find feedback.
     let extract;
     try {
       extract = await knex(feedbackTable)
+        .where(constraints)
         .select('uuid', 'work_pid', 'recommendation_pid', 'rating', 'recommender');
     }
     catch (error) {
@@ -32,6 +81,7 @@ router.route('/')
         meta: {resource: location}
       });
     }
+    // Massage output.
     const result = _.map(extract, raw => {
       return {
         feedback: {
