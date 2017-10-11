@@ -23,8 +23,8 @@ The result is 201 with `Location` pointing to the inserted [feedback](../src/int
       , "rating": 5
       , "recommender": "recommend01"
       }
-    , "links": 
-      { "self": "/v1/feedback/6688F462-3257-4327-9292-87FC8E9CB227"
+    , "links":
+      { "self": "/v1/feedback/6688f462-3257-4327-9292-87fc8e9cb227"
       }
     }
 
@@ -35,17 +35,49 @@ If the user does not exist, a 404 is returned.
 The result is [feedback data](../src/integration/schemas/feedback-data-out.json):
 
     { "data":
-      { "book": "870970-basis:53188931"
+      { "work": "870970-basis:53188931"
       , "recommendation": "870970-basis:22629344"
       , "rating": 5
       , "recommender": "recommend01"
       }
-    , "links": 
-      { "self": "/v1/feedback/6688F462-3257-4327-9292-87FC8E9CB227"
+    , "links":
+      { "self": "/v1/feedback/6688f462-3257-4327-9292-87fc8e9cb227"
       }
     }
 
 If the feedback does not exist, a 404 is returned.
+
+### `GET /v1/feedback`
+
+Returns in a [list of feedback](../src/integration/schemas/feedbacks-data-out.json), each of the format as a single feedback entry, like
+
+    { "data":
+      [ { "feedback":
+          { "work": "870970-basis:53188931"
+          , "recommendation": "870970-basis:22629344"
+          , "rating": 5
+          , "recommender": "recommend01"
+          }
+        , "links":
+          { "self": "/v1/feedback/6688f462-3257-4327-9292-87fc8e9cb227"
+          }
+        }
+      , { "feedback":
+          { "work": "846904-basis:93857422"
+          , "recommendation": "870970-basis:00822341"
+          , "rating": 5
+          , "recommender": "recommend02"
+          }
+        , "links":
+          { "self": "/v1/feedback/0c378e6c-87b9-4ffa-92f3-3e4e44ef8807"
+          }
+        }
+      ]
+    , "links":
+      { "self": "/v1/feedback"
+      }
+    }
+
 
 ## Users
 

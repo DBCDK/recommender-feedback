@@ -22,4 +22,12 @@ exports.seed = async knex => {
     rating: 5,
     recommender: 'recommender_01'
   });
+  await knex(feedbackTable).insert({
+    uuid: '83e29b0e-149e-48e3-99b5-e1c66acafff2',
+    email: 'one@two.three',
+    work_pid: '654321-basis:31539489',
+    recommendation_pid: '123456-basis:22629344',
+    rating: 5,
+    recommender: 'recommender_01'
+  });
 };

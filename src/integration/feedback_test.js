@@ -17,7 +17,25 @@ describe('Feedback', () => {
   afterEach(mock.afterEach);
   after(mock.after);
   describe('GET /v1/feedback', () => {
-    it('should return all existing feedback');
+    it('should return all existing feedback', done => {
+      const location = '/v1/feedback';
+      webapp.get(location)
+        .expect(res => {
+          expectSuccess(res.body, (links, data) => {
+            expectValidate(links, 'schemas/feedbacks-links-out.json');
+            expect(links.self).to.equal(location);
+            expectValidate(data, 'schemas/feedbacks-data-out.json');
+            expect(data).to.have.length(2);
+            for (let item of data) {
+              expectValidate(item.feedback, 'schemas/feedback-data-out.json');
+              expectValidate(item.links, 'schemas/feedback-links-out.json');
+              expect(item.links.self).to.match(/\/v1\/feedback\//);
+            }
+          });
+        })
+        .expect(200)
+        .end(done);
+    });
   });
   describe('GET /v1/feedback/:uuid', () => {
     it('should detect non-existent feedback', done => {
@@ -185,7 +203,6 @@ describe('Feedback', () => {
         })
         .expect(201)
         .then(() => {
-          console.log(location);
           webapp.get(location)
             .expect(res => {
               expectSuccess(res.body, (links, data) => {

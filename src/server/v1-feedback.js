@@ -11,8 +11,45 @@ const {asyncMiddleware} = require('__/async-express');
 const {validatingInput} = require('server/json-verifiers');
 const restApi = require('__/rest-api');
 const uuidv4 = require('uuid/v4');
+const _ = require('lodash');
 
 router.route('/')
+  //
+  // GET /v1/feedback
+  //
+  .get(asyncMiddleware(async (req, res, next) => {
+    const location = req.originalUrl;
+    let extract;
+    try {
+      extract = await knex(feedbackTable)
+        .select('uuid', 'work_pid', 'recommendation_pid', 'rating', 'recommender');
+    }
+    catch (error) {
+      return next({
+        status: 500,
+        title: 'Database operation failed',
+        detail: error,
+        meta: {resource: location}
+      });
+    }
+    const result = _.map(extract, raw => {
+      return {
+        feedback: {
+          work: raw.work_pid,
+          recommendation: raw.recommendation_pid,
+          rating: raw.rating,
+          recommender: raw.recommender
+        },
+        links: {
+          self: '/v1/feedback/' + raw.uuid
+        }
+      };
+    });
+    res.status(200).json({
+      data: result,
+      links: {self: location}
+    });
+  }))
   //
   // POST /v1/feedback
   //
