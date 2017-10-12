@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ON_LOGOUT_REQUEST, HISTORY_REPLACE} from '../../redux';
+import {ON_LOGOUT_REQUEST, HISTORY_REPLACE, SEARCH_INIT} from '../../redux';
 
 class TopBar extends React.Component {
 
@@ -13,6 +13,7 @@ class TopBar extends React.Component {
     let backBtn = null;
     if (this.props.routerState.path === '/feedback') {
       backBtn = <span className='back-btn' onClick={() => {
+        this.props.dispatch({type: SEARCH_INIT});
         this.props.dispatch({type: HISTORY_REPLACE, path: '/søg'});
       }}>
         <span className='glyphicon glyphicon-chevron-left'/>

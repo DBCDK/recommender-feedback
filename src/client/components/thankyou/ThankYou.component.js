@@ -1,5 +1,5 @@
 import React from 'react';
-import {HISTORY_PUSH, ON_LOGOUT_REQUEST} from '../../redux';
+import {HISTORY_PUSH, ON_LOGOUT_REQUEST, SEARCH_INIT} from '../../redux';
 
 export default function ThankYou(props) {
   return (
@@ -23,6 +23,7 @@ export default function ThankYou(props) {
           props.dispatch({type: ON_LOGOUT_REQUEST});
         }}>Log ud</button>
         <button className='btn btn-primary ml-2' onClick={() => {
+          props.dispatch({type: SEARCH_INIT});
           props.dispatch({type: HISTORY_PUSH, path: '/søg'});
         }}>Prøv igen</button>
       </div>

@@ -11,6 +11,7 @@ export const ON_LOGOUT_REQUEST = 'ON_LOGOUT_REQUEST';
 
 export const ON_SEARCH_REQUEST = 'ON_SEARCH_REQUEST';
 export const ON_SEARCH_RESPONSE = 'ON_SEARCH_RESPONSE';
+export const SEARCH_INIT = 'SEARCH_INIT';
 
 export const ON_RECOMMEND_REQUEST = 'ON_RECOMMEND_REQUEST';
 export const ON_RECOMMEND_RESPONSE = 'ON_RECOMMEND_RESPONSE';
@@ -88,6 +89,8 @@ const routerReducer = (state = {}, action) => {
 };
 const searchReducer = (state = defaultSearchState, action) => {
   switch (action.type) {
+    case SEARCH_INIT:
+      return defaultSearchState;
     case ON_SEARCH_REQUEST:
       return Object.assign({}, defaultSearchState, {isFetching: true});
     case ON_SEARCH_RESPONSE:
