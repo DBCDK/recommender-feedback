@@ -26,7 +26,7 @@ const WorkRow = (props) => {
         <div className='creator'>{props.work.creator}</div>
       </div>
       <div className='col-xs-1 arrow'>
-        <span style={{float: 'right'}}>></span>
+        <span className='glyphicon glyphicon-chevron-right' style={{float: 'right'}}></span>
       </div>
     </div>
   );
