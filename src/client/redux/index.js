@@ -208,8 +208,8 @@ export const requestMiddleware = store => next => action => {
             });
 
           works.forEach(w => {
-            const feedback = pidToFeedback[w.pid[0]].feedback;
-            w.rating = feedback ? feedback.rating : 0;
+            const feedback = pidToFeedback[w.pid[0]];
+            w.rating = feedback ? feedback.feedback.rating : 0;
           });
           store.dispatch({type: ON_RECOMMEND_RESPONSE, works});
         })
