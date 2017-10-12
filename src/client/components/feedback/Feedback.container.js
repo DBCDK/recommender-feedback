@@ -86,19 +86,19 @@ class Feedback extends React.Component {
   }
 
   render() {
-    const {selected, recommendations, storedStatus, isFetching} = this.props.feedbackState;
+    const {work, recommendations, storedStatus, isFetching} = this.props.feedbackState;
 
     return (
       <div className='row feedback--container'>
         <div className='col-md-8 col-centered'>
           <h2 className='title--thin text-center'>Her er anbefalinger for</h2>
-          {selected &&
+          {work &&
             <div>
-              <SelectedWork work={selected}/>
+              <SelectedWork work={work}/>
               <div className='row'>
                 <div className='col-xs-12 col-sm-6 question'>
                   <span>{'En af dine venner spørger dig: "Jeg har læst '}</span>
-                  <span><em>{selected.dcTitle}</em></span>
+                  <span><em>{work.dcTitle}</em></span>
                   <span>{', hvad vil du anbefale mig at læse nu?"'}</span>
                 </div>
               </div>

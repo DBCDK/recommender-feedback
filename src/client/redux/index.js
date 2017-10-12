@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import request from 'superagent';
+import config from '../config';
 
 // constants
 export const ON_PROFILE_CREATE_REQUEST = 'ON_PROFILE_CREATE_REQUEST';
@@ -100,10 +101,7 @@ const feedbackReducer = (state = defaultFeedbackState, action) => {
     case ON_RECOMMEND_REQUEST:
       return Object.assign({}, defaultFeedbackState, {isFetching: true, work: action.work});
     case ON_RECOMMEND_RESPONSE: {
-      const works = action.works.map(work => {
-        work.rating = 0;
-        return work;
-      });
+      const works = action.works;
       return Object.assign({}, state, {isFetching: false, recommendations: works});
     }
     case ON_RATING: {
@@ -188,20 +186,39 @@ export const requestMiddleware = store => next => action => {
         });
       return next(action);
 
-    case ON_RECOMMEND_REQUEST:
-      request.get('/v1/recommend')
-        .query({pid: action.work.pid[0]})
-        .then(res => {
-          store.dispatch({type: ON_RECOMMEND_RESPONSE,
-            works: res.body.data
+    case ON_RECOMMEND_REQUEST: {
+      const state = store.getState();
+      const r1 = request.get('/v1/recommend')
+        .query({pid: action.work.pid[0]});
+      const r2 = request.get('/v1/feedback')
+        .query({
+          user: `/v1/users/${state.profileReducer.uuid}`,
+          work: action.work.pid[0]
+        });
+
+      Promise.all([r1, r2])
+        .then(response => {
+          const pidToFeedback = {};
+          const works = response[0].body.data;
+          const feedbacks = response[1].body.data;
+
+          feedbacks.filter(f => f.feedback.recommender === config.recommender)
+            .forEach(f => {
+              pidToFeedback[f.feedback.recommendation] = f;
+            });
+
+          works.forEach(w => {
+            const feedback = pidToFeedback[w.pid[0]].feedback;
+            w.rating = feedback ? feedback.rating : 0;
           });
+          store.dispatch({type: ON_RECOMMEND_RESPONSE, works});
         })
         .catch(() => {
-          store.dispatch({type: ON_RECOMMEND_RESPONSE,
-            works: []
-          });
+          store.dispatch({type: ON_RECOMMEND_RESPONSE, works: []});
         });
+
       return next(action);
+    }
     case STORE_FEEDBACK_REQUEST: {
       const state = store.getState();
       const promises = action.recommendations.map(work => {
@@ -211,7 +228,7 @@ export const requestMiddleware = store => next => action => {
             work: action.work.pid[0],
             recommendation: work.pid[0],
             rating: work.rating,
-            recommender: 'default'
+            recommender: config.recommender
           });
       });
       Promise.all(promises)
