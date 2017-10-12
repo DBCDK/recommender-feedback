@@ -173,7 +173,7 @@ export const requestMiddleware = store => next => action => {
 
     case ON_SEARCH_REQUEST:
       request.get('/v1/search')
-        .query({query: `'${action.query}'`})
+        .query({query: `"${action.query}" and sp=dan and term.type=bog`})
         .then(res => {
           store.dispatch({type: ON_SEARCH_RESPONSE,
             works: res.body.data
