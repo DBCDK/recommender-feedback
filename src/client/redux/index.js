@@ -209,7 +209,7 @@ export const requestMiddleware = store => next => action => {
 
           works.forEach(w => {
             const feedback = pidToFeedback[w.pid[0]];
-            w.rating = feedback ? feedback.feedback.rating : 0;
+            w.rating = feedback ? feedback.feedback.rating : null;
           });
           store.dispatch({type: ON_RECOMMEND_RESPONSE, works});
         })
@@ -221,16 +221,17 @@ export const requestMiddleware = store => next => action => {
     }
     case STORE_FEEDBACK_REQUEST: {
       const state = store.getState();
-      const promises = action.recommendations.map(work => {
-        return request.post('/v1/feedback')
-          .send({
-            user: `/v1/users/${state.profileReducer.uuid}`,
-            work: action.work.pid[0],
-            recommendation: work.pid[0],
-            rating: work.rating,
-            recommender: config.recommender
-          });
-      });
+      const promises = action.recommendations.filter(work => work.rating !== null)
+        .map(work => {
+          return request.post('/v1/feedback')
+            .send({
+              user: `/v1/users/${state.profileReducer.uuid}`,
+              work: action.work.pid[0],
+              recommendation: work.pid[0],
+              rating: work.rating,
+              recommender: config.recommender
+            });
+        });
       Promise.all(promises)
         .then(() => {
           store.dispatch({type: STORE_FEEDBACK_RESPONSE, status: REQUEST_SUCCES});

@@ -45,7 +45,7 @@ export default class Rating extends React.Component {
       <div style={{display: 'inline-block'}}>
         <div className='rating' >
           {this.renderStars(rating)}
-          <div className='no-rate'
+          <div className='no-rate' style={{background: rating === 0 ? 'black' : 'grey'}}
             key='no-rate'
             onMouseOver={() => {
               this.setState({hoverRating: 0});

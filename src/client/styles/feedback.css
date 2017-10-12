@@ -61,7 +61,7 @@ hr {
 }
 .rating .star-passive {
   display: inline-block;
-  color: black;
+  color: grey;
   vertical-align: top;
   margin-top: 2px;
 }
