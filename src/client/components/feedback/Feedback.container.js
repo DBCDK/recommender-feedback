@@ -87,7 +87,7 @@ class Feedback extends React.Component {
 
   render() {
     const {work, recommendations, storedStatus, isFetching} = this.props.feedbackState;
-
+    const disableSave = storedStatus === REQUEST_FETCHING || !recommendations || recommendations.length === 0;
     return (
       <div className='row feedback--container'>
         <div className='col-md-8 col-centered'>
@@ -110,7 +110,7 @@ class Feedback extends React.Component {
             </div>}
           <div className="row">
             <div className='col-xs-12 text-right'>
-              <button className='btn btn-success' onClick={this.onFeedbackSave} disabled={storedStatus === REQUEST_FETCHING}>Gem feedback</button>
+              <button className='btn btn-success' onClick={this.onFeedbackSave} disabled={disableSave}>Gem feedback</button>
             </div>
           </div>
           <hr className='mt-1 mb-0'/>
@@ -123,7 +123,7 @@ class Feedback extends React.Component {
             }}/>}
           <div className="row">
             <div className='col-xs-12 text-right'>
-              <button className='btn btn-success' onClick={this.onFeedbackSave} disabled={storedStatus === REQUEST_FETCHING}>Gem feedback</button>
+              <button className='btn btn-success' onClick={this.onFeedbackSave} disabled={disableSave}>Gem feedback</button>
             </div>
           </div>
         </div>
