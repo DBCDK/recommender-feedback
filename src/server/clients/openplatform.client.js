@@ -23,6 +23,7 @@ const defaultFields = [
 const search = async ({query, fields=defaultFields}, agencyId='') => {
   return await makeRequestToServiceProvider({q: query, fields}, agencyId, 'search');
 };
+
 const recommend = async ({like, fields=defaultFields, limit=10}, agencyId='') => {
 
   // first, fetch the recommended pids

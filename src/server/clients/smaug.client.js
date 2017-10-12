@@ -1,8 +1,7 @@
 'use strict';
 
 /**
- * @file
- * Implementing Smaug
+ * Acquire OAuth2 access tokens from DBC SMAUG.
  */
 const config = require('server/config');
 const request = require('superagent');

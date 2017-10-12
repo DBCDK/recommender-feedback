@@ -2,7 +2,7 @@
 
 The purpose of this service is to collect feedback about the quality of DBC's book recommenders.
 
-For a bird eye's view of the system, see the [software architecture context & containers](doc/architecturet.pdf).
+For a bird eye's view of the system, see the [software architecture context & containers](doc/architecture.pdf).
 
 For development of the system, see [`src`](src/readme.md).
 
