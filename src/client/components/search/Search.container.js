@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ON_SEARCH_REQUEST, HISTORY_PUSH, ON_RECOMMEND_REQUEST} from '../../redux';
+import Spinner from '../spinner/Spinner.component';
 
 const WorkList = (props) => {
   return (
@@ -93,7 +94,7 @@ class Search extends React.Component {
             onSearch={this.onSearch}
             onQueryChange={this.onQueryChange}
             value={this.state.query}/>
-          {this.props.searchState.isFetching && <h3>Søger</h3>}
+          {this.props.searchState.isFetching && <Spinner/>}
           {this.props.searchState.works && this.props.searchState.works.length === 0 && <h3>Søgning gav tomt resultat</h3>}
           {this.props.searchState.works && <WorkList works={this.props.searchState.works} onWorkSelect={this.onWorkSelect}/>}
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Rating from './Rating.component';
+import Spinner from '../spinner/Spinner.component';
 import {ON_RATING, HISTORY_PUSH, STORE_FEEDBACK_REQUEST, REQUEST_SUCCES, REQUEST_FETCHING} from '../../redux';
 
 const SelectedWork = (props) => {
@@ -47,7 +48,7 @@ class RecommenderRow extends React.Component {
           {!this.state.collapsed &&
             <div>
               {this.props.work.subjectDBCS && <div className='subjects extra'>{this.props.work.subjectDBCS.join(', ')}</div>}
-              <div>
+              <div className='mt-1'>
                 {this.props.work.extent && <span>{this.props.work.extent}</span>}
                 {this.props.work.publisher && <span>, {this.props.work.publisher}</span>}
                 {this.props.work.date && <span> {this.props.work.date}</span>}
@@ -114,7 +115,7 @@ class Feedback extends React.Component {
             </div>
           </div>
           <hr className='mt-1 mb-0'/>
-          {isFetching && <h3>Indlæser anbefalinger</h3>}
+          {isFetching && <div className='mt-4'><Spinner/></div>}
           {recommendations && recommendations.length === 0 && <h3>Der kunne ikke findes anbefalinger</h3>}
           {recommendations && <RecommenderList
             works={recommendations}

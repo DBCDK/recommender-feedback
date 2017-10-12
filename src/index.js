@@ -12,6 +12,7 @@ import './client/styles/login.css';
 import './client/styles/search.css';
 import './client/styles/topbar.css';
 import './client/styles/feedback.css';
+import './client/styles/spinner.css';
 
 const history = createBrowserHistory();
 const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, historyMiddleware(history), requestMiddleware, profileMiddleware));
