@@ -4,11 +4,6 @@
     "query": {
       "required": true,
       "type": "string"
-    },
-    "type": {
-      "required": true,
-      "type": "string",
-      "enum": ["creator", "title"]
     }
   },
   "additionalProperties": false

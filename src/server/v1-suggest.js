@@ -10,7 +10,8 @@ router.route('/')
   .get(asyncMiddleware(async (req, res, next) => {
     const location = req.originalUrl;
     const schema = 'schemas/suggest-in.json';
-    let response;
+    let titleResponse;
+    let creatorResponse;
 
     try {
       await validatingInput(req.query, schema);
@@ -24,7 +25,11 @@ router.route('/')
       });
     }
     try {
-      response = await suggest({query: req.query.query, type: req.query.type});
+      const titleReq = suggest({query: req.query.query, type: 'title'});
+      const creatorReq = suggest({query: req.query.query, type: 'creator'});
+
+      titleResponse = await titleReq;
+      creatorResponse = await creatorReq;
     }
     catch (error) {
       return next({
@@ -34,16 +39,16 @@ router.route('/')
       });
     }
 
-    if (response.statusCode !== 200) {
+    if (titleResponse.statusCode !== 200 || creatorResponse.statusCode !== 200) {
       return next({
         status: 500,
         title: 'Suggest request failed',
-        detail: response.error
+        detail: titleResponse.error || creatorResponse.error || 'Unknown error'
       });
     }
 
     res.status(200).json({
-      data: response.data,
+      data: {titles: titleResponse.data, creators: creatorResponse.data},
       links: {self: location}
     });
   }
