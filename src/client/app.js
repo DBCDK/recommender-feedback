@@ -4,6 +4,7 @@ import Search from './components/search/Search.container';
 import Feedback from './components/feedback/Feedback.container';
 import ThankYou from './components/thankyou/ThankYou.component';
 import TopBar from './components/topbar/TopBar.container';
+import Footer from './components/footer/Footer.component';
 import Login from './components/profile/Login.container';
 import {connect} from 'react-redux';
 import {HISTORY_REPLACE} from './redux';
@@ -53,9 +54,10 @@ class App extends Component {
     return (
       <div className="app">
         <TopBar/>
-        <div className="container">
+        <div className="content container">
           {this.state.page}
         </div>
+        <Footer/>
       </div>
     );
   }
