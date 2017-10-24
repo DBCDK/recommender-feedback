@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import request from 'superagent';
 import config from '../config';
+import {uniqBy} from 'lodash';
 
 // constants
 export const ON_PROFILE_CREATE_REQUEST = 'ON_PROFILE_CREATE_REQUEST';
@@ -11,6 +12,8 @@ export const ON_LOGOUT_REQUEST = 'ON_LOGOUT_REQUEST';
 
 export const ON_SEARCH_REQUEST = 'ON_SEARCH_REQUEST';
 export const ON_SEARCH_RESPONSE = 'ON_SEARCH_RESPONSE';
+export const ON_SUGGEST_REQUEST = 'ON_SUGGEST_REQUEST';
+export const ON_SUGGEST_RESPONSE = 'ON_SUGGEST_RESPONSE';
 export const SEARCH_INIT = 'SEARCH_INIT';
 
 export const ON_RECOMMEND_REQUEST = 'ON_RECOMMEND_REQUEST';
@@ -37,7 +40,8 @@ const defaultProfileState = {
 };
 const defaultSearchState = {
   isFetching: false,
-  works: null
+  works: null,
+  suggestions: null
 };
 const defaultFeedbackState = {
   isFetching: false,
@@ -94,7 +98,11 @@ const searchReducer = (state = defaultSearchState, action) => {
     case ON_SEARCH_REQUEST:
       return Object.assign({}, defaultSearchState, {isFetching: true});
     case ON_SEARCH_RESPONSE:
-      return {isFetching: false, works: action.works};
+      return Object.assign({}, state, {isFetching: false, works: action.works});
+    case ON_SUGGEST_REQUEST:
+      return Object.assign({}, state, {suggestions: null});
+    case ON_SUGGEST_RESPONSE:
+      return Object.assign({}, state, {suggestions: action.suggestions});
     default:
       return state;
   }
@@ -147,6 +155,7 @@ export const rootReducer = (state = Object.assign(getLocalStorage(sessionStorage
 };
 
 // middleware
+let suggestRequest;
 export const requestMiddleware = store => next => action => {
   switch (action.type) {
     case ON_PROFILE_CREATE_REQUEST:
@@ -186,6 +195,28 @@ export const requestMiddleware = store => next => action => {
           store.dispatch({type: ON_SEARCH_RESPONSE,
             works: []
           });
+        });
+      return next(action);
+
+    case ON_SUGGEST_REQUEST:
+      if (suggestRequest && suggestRequest.abort) {
+        suggestRequest.abort();
+      }
+      suggestRequest = request.get('/v1/suggest')
+        .query({query: action.query})
+        .end((err, res) => {
+          if (err) {
+            store.dispatch({type: ON_SUGGEST_RESPONSE,
+              suggestions: null
+            });
+          }
+          else {
+            res.body.data.titles = uniqBy(res.body.data.titles, (o) => o.term.toLowerCase()).slice(0, 5);
+            res.body.data.creators = uniqBy(res.body.data.creators, (o) => o.term.toLowerCase()).slice(0, 5);
+            store.dispatch({type: ON_SUGGEST_RESPONSE,
+              suggestions: res.body.data
+            });
+          }
         });
       return next(action);
 

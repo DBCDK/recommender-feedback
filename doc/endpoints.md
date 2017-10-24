@@ -246,3 +246,34 @@ Returns list of works, like
       { "self": "/v1/recommend?pid=somepid"
       }
     }
+
+## Title and creator suggestions
+
+### `GET /v1/suggest?query=`*query*
+
+The query must be [of the form](../src/server/schemas/suggest-in.json)
+
+Returns list of works, like
+
+    { "data": {
+        "titles": [
+            {
+                "term": "Harry Nilsson"
+            },
+            {
+                "term": "Harry Belafonte"
+            }
+          ],
+        "creators": [
+           {
+               "term": "Harry Potter og De Vises Sten"
+           },
+           {
+               "term": "Harry Potter og Hemmelighedernes Kammer"
+           }
+         ]
+      }
+    , "links":
+      { "self": "/v1/suggest?query=harry"
+      }
+    }

@@ -20,6 +20,10 @@ const defaultFields = [
   'subjectDBCS'
 ];
 
+const suggest = async ({query, type}, agencyId='') => {
+  return await makeRequestToServiceProvider({q: query, type}, agencyId, 'suggest');
+};
+
 const search = async ({query, fields=defaultFields}, agencyId='') => {
   return await makeRequestToServiceProvider({q: query, fields}, agencyId, 'search');
 };
@@ -68,3 +72,4 @@ const makeRequestToServiceProvider = async function (params, agencyId, endpoint)
 exports.search = search;
 exports.recommend = recommend;
 exports.work = work;
+exports.suggest = suggest;

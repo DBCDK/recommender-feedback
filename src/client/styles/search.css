@@ -27,3 +27,30 @@
 .search-form {
   margin-bottom: 40px;
   margin-top: 80px; }
+
+.autocomplete {
+  cursor: default;
+  position: absolute;
+  z-index: 10;
+}
+.autocomplete {
+  padding: 0;
+}
+.autocomplete ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.autocomplete li {
+  margin: 0;
+  padding: 10px;
+  padding-left: 20px;
+}
+.autocomplete .hover {
+  background: lightgrey;
+}
+.autocomplete h4 {
+  font-size: 14px;
+  color: gray;
+  padding-left: 10px;
+}
