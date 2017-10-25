@@ -24,7 +24,7 @@ router.route('/')
       });
     }
     try {
-      response = await recommend({like: [req.query.pid], limit: 10});
+      response = await recommend({like: [req.query.pid], limit: 20});
     }
     catch (error) {
       return next({
