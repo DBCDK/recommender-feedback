@@ -37,6 +37,10 @@ const WorkRow = (props) => {
 const SearchForm = (props) => {
   const numSuggestions = props.suggestions ? props.suggestions.titles.length + props.suggestions.creators.length : 0;
   const showSuggestions = props.focusValue && numSuggestions > 0;
+  const handleSuggestPress = (suggestion) => {
+    props.onQueryChange(suggestion.term);
+    props.onSearch();
+  };
 
   return (
     <div className='row search-form'>
@@ -87,10 +91,10 @@ const SearchForm = (props) => {
                       onMouseOver={() => {
                         props.onHoverChange(idx);
                       }}
-                      onMouseDown={() => {
-                        props.onQueryChange(s.term);
-                        props.onSearch();
-                      }} className={className} key={s.term+idx}>{s.term}</li>;
+                      onMouseDown={() => handleSuggestPress(s)}
+                      onTouchEnd={() => handleSuggestPress(s)}
+                      className={className} key={s.term+idx}>{s.term}
+                    </li>;
                   })}
                 </ul>
               </div>}
@@ -104,10 +108,10 @@ const SearchForm = (props) => {
                       onMouseOver={() => {
                         props.onHoverChange(idx + props.suggestions.titles.length);
                       }}
-                      onMouseDown={() => {
-                        props.onQueryChange(s.term);
-                        props.onSearch();
-                      }} className={className} key={s.term+idx}>{s.term}</li>;
+                      onMouseDown={() => handleSuggestPress(s)}
+                      onTouchEnd={() => handleSuggestPress(s)}
+                      className={className} key={s.term+idx}>{s.term}
+                    </li>;
                   })}
                 </ul>
               </div>}
