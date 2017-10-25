@@ -91,8 +91,7 @@ const SearchForm = (props) => {
                       onMouseOver={() => {
                         props.onHoverChange(idx);
                       }}
-                      onMouseDown={() => handleSuggestPress(s)}
-                      onTouchEnd={() => handleSuggestPress(s)}
+                      onClick={() => handleSuggestPress(s)}
                       className={className} key={s.term+idx}>{s.term}
                     </li>;
                   })}
@@ -103,14 +102,14 @@ const SearchForm = (props) => {
                 <h4>Forfattere</h4>
                 <ul>
                   {props.suggestions.creators.map((s, idx) => {
-                    const className = props.hoverIndex === idx + props.suggestions.titles.length ? 'hover' : null;
+                    const id = idx + props.suggestions.titles.length;
+                    const className = props.hoverIndex === id ? 'hover' : null;
                     return <li
                       onMouseOver={() => {
-                        props.onHoverChange(idx + props.suggestions.titles.length);
+                        props.onHoverChange(id);
                       }}
-                      onMouseDown={() => handleSuggestPress(s)}
-                      onTouchEnd={() => handleSuggestPress(s)}
-                      className={className} key={s.term+idx}>{s.term}
+                      onClick={() => handleSuggestPress(s)}
+                      className={className} key={s.term+id}>{s.term}
                     </li>;
                   })}
                 </ul>
@@ -169,7 +168,11 @@ class Search extends React.Component {
               this.setState({searchFocus: true});
             }}
             onBlur={() => {
-              this.setState({searchFocus: false});
+              // Hack to get suggest onClick to work
+              // tried using onMouseDown/onTouchDown, but was not satisfactory
+              setTimeout(() => {
+                this.setState({searchFocus: false});
+              }, 200);
             }}
             focusValue={this.state.searchFocus}
             onHoverChange={hoverIndex => {
