@@ -75,12 +75,13 @@ const recommend = async ({like, fields=defaultFields, limit=10}, agencyId='') =>
     work.score = pidToScore[work.pid] || 0;
   });
 
+  // sort works - highest score first
+  works.data.sort((w1, w2) => w2.score-w1.score);
+
   // and we run a flood filtering after works are fetched from open platform
   // since creator might differ from recommender creators
   works.data = floodfilter(works.data, creator);
 
-  // sort works - highest score first
-  works.data.sort((w1, w2) => w2.score-w1.score);
   return works;
 };
 
