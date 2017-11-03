@@ -28,29 +28,56 @@ const search = async ({query, fields=defaultFields}, agencyId='') => {
   return await makeRequestToServiceProvider({q: query, fields}, agencyId, 'search');
 };
 
+const floodfilter = (works, creator) => {
+  const seenCreators = {};
+  seenCreators[creator] = true;
+  return works.filter(w => {
+    let c = w.creator ? w.creator : null;
+    c = c && Array.isArray(c) && c.length > 0 ? c[0] : c;
+    if (!c || seenCreators[c]) {
+      return false; // there is already a recommendatino by this creator
+    }
+    seenCreators[c] = true;
+    return true; // first recommendation by this creator
+  });
+};
+
 const recommend = async ({like, fields=defaultFields, limit=10}, agencyId='') => {
 
   // first, fetch the recommended pids
-  const response = await makeRequestToServiceProvider({like, limit}, agencyId, 'recommend');
+  const response = await makeRequestToServiceProvider({like, limit: limit*2}, agencyId, 'recommend');
+  let recommendations = response.data;
 
-  if (response.data && response.data.length === 0) {
+  if (recommendations && recommendations.length === 0) {
     return response;
   }
 
+  const creatorResponse = (await work({pids: like, fields: ['creator']}));
+  const creator = creatorResponse.data[0].creator ? creatorResponse.data[0].creator[0] : null;
+
+  // simple flood filtering
+  // Recommend no more than one book per creator
+  recommendations = floodfilter(recommendations, creator);
+  recommendations = recommendations.slice(0, limit);
+
   // create pid to score mapping
   const pidToScore = {};
-  response.data.forEach(work => {
+  recommendations.forEach(work => {
     pidToScore[work.pid] = work.val;
   });
 
   // we need to fetch works, to get the required fields
-  const pids = response.data.map(work => work.pid);
+  const pids = recommendations.map(work => work.pid);
   const works = await work({pids: pids, fields});
 
   // apply the scores
   works.data.forEach(work => {
     work.score = pidToScore[work.pid] || 0;
   });
+
+  // and we run a flood filtering after works are fetched from open platform
+  // since creator might differ from recommender creators
+  works.data = floodfilter(works.data, creator);
 
   // sort works - highest score first
   works.data.sort((w1, w2) => w2.score-w1.score);
