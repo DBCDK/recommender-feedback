@@ -45,7 +45,7 @@ const floodfilter = (works, creator) => {
 const recommend = async ({like, fields=defaultFields, limit=10}, agencyId='') => {
 
   // first, fetch the recommended pids
-  const response = await makeRequestToServiceProvider({like, limit: limit*2}, agencyId, 'recommend');
+  const response = await makeRequestToServiceProvider({like, limit: limit*20}, agencyId, 'recommend');
   let recommendations = response.data;
 
   if (recommendations && recommendations.length === 0) {
@@ -77,7 +77,6 @@ const recommend = async ({like, fields=defaultFields, limit=10}, agencyId='') =>
 
   // sort works - highest score first
   works.data.sort((w1, w2) => w2.score-w1.score);
-
   // and we run a flood filtering after works are fetched from open platform
   // since creator might differ from recommender creators
   works.data = floodfilter(works.data, creator);
