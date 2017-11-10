@@ -53,7 +53,7 @@ const SearchForm = (props) => {
             type="text"
             className="form-control"
             id="search-input"
-            placeholder="Søg"
+            placeholder="Søg på titel eller forfatter"
             onChange={
               (e) => {
                 props.onQueryChange(e.target.value);
@@ -157,7 +157,8 @@ class Search extends React.Component {
     return (
       <div className='row search--container'>
         <div className='col-md-8 col-centered'>
-          <h2 className='title--thin text-center'>Hvilken bog vil du se anbefalinger for?</h2>
+          <h2 className='title--thin text-center'>Hvilken bog vil du se forslag for?</h2>
+          <p className='mt-4'>Søg et værk frem, som skal danne udgangspunkt for forslagene.</p>
           <SearchForm
             onSearch={this.onSearch}
             onQueryChange={this.onQueryChange}

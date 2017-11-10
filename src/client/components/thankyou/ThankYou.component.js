@@ -7,7 +7,7 @@ export default function ThankYou(props) {
 
       <h2 className='text-center'>Tak for hjælpen</h2>
       <p>
-        Vi arbejder på at gøre vores anbefalinger bedre for at kunne give bedre inspiration til brugerne på biblioteket eller online. Du har lige hjulpet os - mange tak!
+        Vi arbejder på at gøre vores læseforslag bedre, så vi kan give bedre inspiration til brugerne online og på det fysiske bibliotek. Du har lige hjulpet os - mange tak!
       </p>
       <p className='mb-0'>
         Med venlig hilsen

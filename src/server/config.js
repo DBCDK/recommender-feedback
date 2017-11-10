@@ -60,7 +60,7 @@ exports.logger = {
 
 exports.email = {
   from: process.env.LOGIN_MAIL_FROM || 'Læsekompasset <afb@dbc.dk>',
-  subject: process.env.LOGIN_MAIL_SUBJECT || 'Velkommen til Læsekompasset',
+  subject: process.env.LOGIN_MAIL_SUBJECT || 'Velkommen til Bedre forslag',
   mailserver: process.env.LOGIN_MAIL_SERVER || 'mailhost.dbc.dk',
   hostname: defaults.externalHostname
 };

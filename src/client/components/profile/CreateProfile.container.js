@@ -8,24 +8,25 @@ class CreateProfile extends React.Component {
   render() {
     return (
       <div className="login--container container col-md-6 col-centered">
-        <h2 className="title--thin text-center">Test af anbefalinger</h2>
+        <h2 className="title--thin text-center">Giver vi gode forslag til læsning?</h2>
 
         <div className='row'>
           <div className="login--description">
             <p>
-              Vi vil bede dig om at give feedback på vores anbefalinger.
-              Det gør du ved at give os respons på, hvad du mener er en god anbefaling, i stedet for hvad du mener er en god bog.
-              Med andre ord: giver anbefalingen mening i forhold til den bog, de er lavet på baggrund af?
+              Vi vil bede dig om at give feedback på vores forslag til læsning.
+              Det gør du ved at svare på, om de forslag, du får om lidt, er gode.
+              Du skal ikke vurdere bøger, men forslag til læsning.
+              Med andre ord: giver forslaget mening i forhold til den bog, der har inspireret forslaget?
             </p>
             <p>
-              Gør følgende:
+              Sådan gør du:
             </p>
             <ol>
-              <li>Log ind ved at indtaste email i nedenstående form, og følg det tilsendte link.</li>
-              <li>Søg et værk frem, som skal danne udgangspunkt for anbefalingerne.</li>
-              <li>Gennemgå anbefalingerne og giv os feedback på hvor gode de enkelte anbefalinger er.</li>
+              <li>Log ind ved at indtaste din emailadresse i nedenstående felt, og følg det tilsendte link.</li>
+              <li>Søg et værk frem, som skal danne udgangspunkt for forslagene.</li>
+              <li>Gennemgå forslagene, og giv os feedback på, hvor gode de enkelte forslag er.</li>
             </ol>
-            <p className='mt-4'>Gennemgå processen med så mange værker, du har lyst til, men jo flere des bedre.</p>
+            <p className='mt-4'>Gennemgå processen med så mange værker, du har lyst til. Jo flere des bedre.</p>
           </div>
         </div>
         {this.props.profileState.status !== 'CREATED' && <CreateProfileForm

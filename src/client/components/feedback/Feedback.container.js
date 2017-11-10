@@ -92,7 +92,7 @@ class Feedback extends React.Component {
     return (
       <div className='row feedback--container'>
         <div className='col-md-8 col-centered'>
-          <h2 className='title--thin text-center'>Her er anbefalinger for</h2>
+          <h2 className='title--thin text-center'>Her er forslag, der tager afsæt i</h2>
           {work &&
             <div>
               <SelectedWork work={work}/>
@@ -100,12 +100,12 @@ class Feedback extends React.Component {
                 <div className='col-xs-12 col-sm-6 question'>
                   <span>{'En af dine venner spørger dig: "Jeg har læst '}</span>
                   <span><em>{work.dcTitle}</em></span>
-                  <span>{', hvad vil du anbefale mig at læse nu?"'}</span>
+                  <span>{', hvad vil du foreslå mig at læse nu?"'}</span>
                 </div>
               </div>
               <div className='row'>
                 <div className='col-xs-12 col-sm-6 mb-1'>
-                  Vil du anbefale bøgerne i denne liste?
+                  Giv hver enkelt bog i denne liste stjerner efter hvor godt et forslag, den er.
                 </div>
               </div>
             </div>}
