@@ -7,7 +7,7 @@ const mailer = require('nodemailer-mock');
 mockery.enable({warnOnUnregistered: false});
 mockery.registerMock('nodemailer', mailer);
 
-// And after that require the server so that it uses the mockes versions
+// And after that require the server so that it uses the mocked versions
 // instead of the real packages directly.
 module.exports = {
   server: require('server/public-server'),

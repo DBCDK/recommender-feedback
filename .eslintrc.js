@@ -107,7 +107,7 @@ module.exports = {
     "no-unused-vars": 2,
     "no-use-before-define": 0,
     // Stylistic Issues
-    "indent": [2, 2, {"SwitchCase": 1}],
+    "indent": ["error", 2, {"SwitchCase": 1, "MemberExpression": "off"}],
     "brace-style": [
       2,
       "stroustrup"
