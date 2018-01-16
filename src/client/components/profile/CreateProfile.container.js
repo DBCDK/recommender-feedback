@@ -23,7 +23,7 @@ class CreateProfile extends React.Component {
             </p>
             <ol>
               <li>Log ind ved at indtaste din emailadresse i nedenstående felt, og følg det tilsendte link.</li>
-              <li>Søg et værk frem, som skal danne udgangspunkt for forslagene.</li>
+              <li>Søg et værk frem (fra før 2016), som skal danne udgangspunkt for forslagene.</li>
               <li>Gennemgå forslagene, og giv os feedback på, hvor gode de enkelte forslag er.</li>
             </ol>
             <p className='mt-4'>Gennemgå processen med så mange værker, du har lyst til. Jo flere des bedre.</p>

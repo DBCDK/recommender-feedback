@@ -158,7 +158,7 @@ class Search extends React.Component {
       <div className='row search--container'>
         <div className='col-md-8 col-centered'>
           <h2 className='title--thin text-center'>Hvilken bog vil du se forslag for?</h2>
-          <p className='mt-4'>Søg et værk frem, som skal danne udgangspunkt for forslagene.</p>
+          <p className='mt-4'>Søg et værk frem (fra før 2016), som skal danne udgangspunkt for forslagene.</p>
           <SearchForm
             onSearch={this.onSearch}
             onQueryChange={this.onQueryChange}
