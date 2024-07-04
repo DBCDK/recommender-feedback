@@ -1,5 +1,7 @@
 # Recommender Feedback
 
+>  Archived since product no longer exists.
+
 The purpose of this service is to collect feedback about the quality of DBC's book recommenders.
 
 For a bird eye's view of the system, see the [software architecture context & containers](doc/architecture.pdf).
@@ -75,5 +77,4 @@ See also [service endpoints](doc/endpoints.md).
 ----
 
 [![Build Status](https://travis-ci.org/DBCDK/recommender-feedback.svg?branch=master)](https://travis-ci.org/DBCDK/recommender-feedback)
-[![bitHound Overall Score](https://www.bithound.io/github/DBCDK/recommender-feedback/badges/score.svg)](https://www.bithound.io/github/DBCDK/recommender-feedback)
 [![Coverage Status](https://coveralls.io/repos/github/DBCDK/recommender-feedback/badge.svg?branch=master)](https://coveralls.io/github/DBCDK/recommender-feedback?branch=master)
